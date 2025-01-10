@@ -1,4 +1,7 @@
+import { ConnectButton } from "@mysten/dapp-kit";
 import LoadingScreen from "./Screens/Loading/LoadingScreen";
+import '@mysten/dapp-kit/dist/index.css';
+
 
 function App() {
   return (
@@ -25,6 +28,7 @@ function App() {
                 <div className="w-6 h-6 rounded-md border"></div>
               </div>
             </div>
+            <ConnectButton className="bg-blue-500! hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
           </div>
         </div>
       </div>
