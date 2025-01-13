@@ -1,9 +1,11 @@
-import { ConnectButton } from "@mysten/dapp-kit";
+import { ConnectButton, useCurrentAccount } from "@mysten/dapp-kit";
 import LoadingScreen from "./Screens/Loading/LoadingScreen";
-import '@mysten/dapp-kit/dist/index.css';
-
+import "@mysten/dapp-kit/dist/index.css";
+import WalletTest from "./Components/WalletTest";
 
 function App() {
+  const account = useCurrentAccount();
+
   return (
     <>
       <LoadingScreen />
@@ -30,6 +32,7 @@ function App() {
             </div>
             <ConnectButton className="bg-blue-500! hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
           </div>
+          {account?.address && <WalletTest address={account.address} />}
         </div>
       </div>
     </>
