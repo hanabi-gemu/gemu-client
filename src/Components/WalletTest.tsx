@@ -15,7 +15,6 @@ function WalletTest({ address }: { address: string }) {
     <>
       <div className="flex flex-col">
         <div className="text-lg">{address}</div>
-        <div className="text-lg">{JSON.stringify(data)}</div>
       </div>
     </>
   );
