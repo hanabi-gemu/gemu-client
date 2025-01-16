@@ -5,8 +5,7 @@ import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
 const gemu_address =
   "0x6d3f210eb0081c4c93456f471ab122c113191b3083612b6ea0e4f49d57209562";
 
-const gemu =
-  "c218372fbdb2a41b7a501178c5582024ad8e6194aa3448d561655d91b916273c";
+const gemu = "c218372fbdb2a41b7a501178c5582024ad8e6194aa3448d561655d91b916273c";
 const rpcUrl = getFullnodeUrl("testnet");
 
 const client = new SuiClient({ url: rpcUrl });

@@ -14,13 +14,14 @@ const { networkConfig } = createNetworkConfig({
   localnet: { url: getFullnodeUrl("localnet") },
   mainnet: { url: getFullnodeUrl("mainnet") },
   devnet: { url: getFullnodeUrl("devnet") },
+  testnet: { url: getFullnodeUrl("testnet") },
 });
 
 const queryClient = new QueryClient();
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
     <QueryClientProvider client={queryClient}>
-      <SuiClientProvider networks={networkConfig} defaultNetwork="devnet">
+      <SuiClientProvider networks={networkConfig} defaultNetwork="testnet">
         <WalletProvider
           stashedWallet={{
             name: "Your dApp name",
