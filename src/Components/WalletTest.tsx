@@ -11,7 +11,11 @@ function WalletTest({ address }: { address: string }) {
 
   console.log(data, error);
 
-  return <pre>{JSON.stringify(data, null, 2)}</pre>;
+  return (
+    <>
+      <div className="text-lg">{address}</div>
+    </>
+  );
 }
 
 export default WalletTest;

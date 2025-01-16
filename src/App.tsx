@@ -2,6 +2,7 @@ import { ConnectButton, useCurrentAccount } from "@mysten/dapp-kit";
 import LoadingScreen from "./Screens/Loading/LoadingScreen";
 import "@mysten/dapp-kit/dist/index.css";
 import WalletTest from "./Components/WalletTest";
+import SignTest from "./Components/SignTest";
 
 function App() {
   const account = useCurrentAccount();
@@ -33,6 +34,7 @@ function App() {
             <ConnectButton className="bg-blue-500! hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" />
           </div>
           {account?.address && <WalletTest address={account.address} />}
+          {account?.address && <SignTest address={account.address} />}
         </div>
       </div>
     </>
