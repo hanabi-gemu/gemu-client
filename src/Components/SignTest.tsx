@@ -1,6 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import { useState } from "react";
 
 const gemu_address =
   "0x6d3f210eb0081c4c93456f471ab122c113191b3083612b6ea0e4f49d57209562";
@@ -10,7 +9,6 @@ const gemu =
 
 function SignTest({ address }: { address: string }) {
   const { mutateAsync: signTransaction, error } = useSignTransaction();
-  const [signature, setSignature] = useState("");
   const client = useSuiClient();
 
   return (
@@ -20,40 +18,45 @@ function SignTest({ address }: { address: string }) {
           <button
             className="border p-2 rounded"
             onClick={async () => {
-              const tx = new Transaction();
+              try {
+                const tx = new Transaction();
+                console.log("Initializing transaction...");
 
-              const [player] = tx.moveCall({
-                target: `${gemu_address}::gemu::register_player`,
-                arguments: [tx.object(gemu)],
-              });
-
-              tx.transferObjects([player], address);
-
-              const { bytes, signature, reportTransactionEffects } =
-                await signTransaction({
-                  transaction: tx,
-                  chain: "sui:testnet",
+                const [player] = tx.moveCall({
+                  target: `${gemu_address}::gemu::register_player`,
+                  arguments: [tx.object(gemu)],
                 });
 
-              const executeResult = await client.executeTransactionBlock({
-                transactionBlock: bytes,
-                signature,
-                options: {
-                  showRawEffects: true,
-                },
-              });
+                tx.transferObjects([player], address);
 
-              // Always report transaction effects to the wallet after execution
-              reportTransactionEffects(executeResult.rawEffects!);
-              setSignature(signature);
+                const { bytes, signature, reportTransactionEffects } =
+                  await signTransaction({
+                    transaction: tx,
+                    chain: "sui:testnet",
+                  });
 
-              console.log(executeResult);
+                console.log("Transaction signed:", { bytes, signature });
+
+                const executeResult = await client.executeTransactionBlock({
+                  transactionBlock: bytes,
+                  signature,
+                  options: {
+                    showRawEffects: true,
+                  },
+                });
+
+                console.log("Execution result:", executeResult);
+
+                // Always report transaction effects to the wallet after execution
+                reportTransactionEffects(executeResult.rawEffects!);
+              } catch (err) {
+                console.error("Error during transaction:", err);
+              }
             }}
           >
-            Sign empty transaction
+            Mint Player
           </button>
         </div>
-        <div>Signature: {signature}</div>
         <div>ERROR: {error?.message}</div>
       </>
     </div>

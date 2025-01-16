@@ -13,7 +13,10 @@ function WalletTest({ address }: { address: string }) {
 
   return (
     <>
-      <div className="text-lg">{address}</div>
+      <div className="flex flex-col">
+        <div className="text-lg">{address}</div>
+        <div className="text-lg">{JSON.stringify(data)}</div>
+      </div>
     </>
   );
 }
