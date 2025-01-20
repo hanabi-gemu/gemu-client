@@ -1,16 +1,11 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { useSignTransaction } from "@mysten/dapp-kit";
-import { getFullnodeUrl, SuiClient } from "@mysten/sui/client";
+import { useCurrentAccount, useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
+import { gemuObjectAddress, registerPlayerAdddress } from "&/smartContractInterface";
 
-const gemu_address =
-  "0x6d3f210eb0081c4c93456f471ab122c113191b3083612b6ea0e4f49d57209562";
 
-const gemu = "c218372fbdb2a41b7a501178c5582024ad8e6194aa3448d561655d91b916273c";
-const rpcUrl = getFullnodeUrl("testnet");
-
-const client = new SuiClient({ url: rpcUrl });
-
-function SignTest({ address }: { address: string }) {
+function RegisterPlayer() {
+  const client = useSuiClient();
+  const account = useCurrentAccount()!;
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -25,11 +20,11 @@ function SignTest({ address }: { address: string }) {
                 console.log("Initializing transaction...");
 
                 const [player] = tx.moveCall({
-                  target: `${gemu_address}::gemu::register_player`,
-                  arguments: [tx.object(gemu)],
+                  target: registerPlayerAdddress,
+                  arguments: [tx.object(gemuObjectAddress)],
                 });
 
-                tx.transferObjects([player], address);
+                tx.transferObjects([player], account.address);
 
                 const { bytes, signature, reportTransactionEffects } =
                   await signTransaction({
@@ -65,4 +60,4 @@ function SignTest({ address }: { address: string }) {
   );
 }
 
-export default SignTest;
+export default RegisterPlayer;
