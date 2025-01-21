@@ -1,6 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useCurrentAccount, useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import { gemuObjectAddress, registerPlayerAdddress } from "&/smartContractInterface";
+import { gemuObjectAddress, registerPlayerAdddress } from "@/smartContractInterface";
 
 
 function RegisterPlayer() {

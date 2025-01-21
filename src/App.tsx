@@ -1,7 +1,7 @@
 import React from 'react';
-import Login from '&/Screens/Login';
+import Login from '@/Screens/Login';
 import { useCurrentAccount } from '@mysten/dapp-kit';
-import Game from '&/Screens/Game';
+import Game from '@/Screens/Game';
 
 const App: React.FC = () => {
   const account = useCurrentAccount();

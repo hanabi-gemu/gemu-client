@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
-import NavBar from '&/Components/NavBar';
-import Wallet from '&/Screens/Wallet';
-import Player from '&/Screens/Player';
+import NavBar from '@/Components/NavBar';
+import Wallet from '@/Screens/Wallet';
+import Player from '@/Screens/Player';
 
 const App: React.FC = () => {
   return (
