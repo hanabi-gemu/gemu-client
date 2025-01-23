@@ -1,4 +1,6 @@
+import Player from "./Player";
+
 const Layout: React.FC = () => {
-  return <div />;
+  return <Player/>;
 };
 export default Layout;

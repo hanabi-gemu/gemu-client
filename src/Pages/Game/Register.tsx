@@ -1,6 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useCurrentAccount, useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import { gemuObjectAddress, registerPlayerAdddress } from "@/smartContractInterface";
+import { gemuObjectAddress, registerPlayerAddress } from "@/smartContractInterface";
 
 
 function RegisterPlayer() {
@@ -20,7 +20,7 @@ function RegisterPlayer() {
                 console.log("Initializing transaction...");
 
                 const [player] = tx.moveCall({
-                  target: registerPlayerAdddress,
+                  target: registerPlayerAddress,
                   arguments: [tx.object(gemuObjectAddress)],
                 });
 

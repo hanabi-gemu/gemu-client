@@ -1,4 +1,4 @@
-import { xpStruct } from "@/smartContractInterface";
+import { playerStruct } from "@/smartContractInterface";
 import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
 import {
   MoveStruct,
@@ -9,15 +9,28 @@ import { useQuery } from "@tanstack/react-query";
 
 type MoveObject = Extract<SuiParsedData, { dataType: "moveObject" }>;
 
+type PlayerObject = {
+  level: string;
+  id: {id: string};
+  last_hunt_time: string;
+  stats: string;
+}
+
 type PlayerState = {
+  id: string;
   level: number;
+  last_hunt_time: Date;
+  stats: number;
 };
 
 const invalidPlayerState: PlayerState = {
+  id: '',
   level: -1,
+  last_hunt_time: new Date(),
+  stats: -1
 };
 
-function isPlayerState(obj: unknown): obj is PlayerState {
+function isPlayerObject(obj: unknown): obj is PlayerObject {
   return typeof obj === "object" && obj !== null && "level" in obj;
 }
 function isMoveObject(
@@ -29,22 +42,32 @@ function isMoveObject(
 function createPlayerStateFromResponse(
   response: PaginatedObjectsResponse
 ): PlayerState {
-  let xpState = invalidPlayerState;
+  let playerState = invalidPlayerState;
   if (
     response.data.length !== 0 &&
     isMoveObject(response.data[0].data?.content)
   ) {
-    xpState = createPlayerStateFromData(response.data[0].data.content.fields);
+    playerState = createPlayerStateFromData(response.data[0].data.content.fields);
   }
-  return xpState;
+  return playerState;
 }
 
 function createPlayerStateFromData(value: MoveStruct): PlayerState {
-  if (isPlayerState(value)) {
-    return { level: value.level as number };
+  if (isPlayerObject(value)) {
+    return {
+      level: parseInt(value.level),
+      id: value.id.id as string,
+      last_hunt_time: new Date(parseInt(value.last_hunt_time)),
+      stats: parseInt(value.stats)
+    };
   }
-  if (!Array.isArray(value) && value.fields && isPlayerState(value.fields)) {
-    return { level: value.fields.level as number };
+  if (!Array.isArray(value) && value.fields && isPlayerObject(value.fields)) {
+    return {
+      level: parseInt(value.fields.level),
+      id: value.fields.id.id as string,
+      last_hunt_time: new Date(parseInt(value.fields.last_hunt_time)),
+      stats: parseInt(value.fields.stats)
+    };
   }
   return invalidPlayerState;
 }
@@ -53,13 +76,13 @@ function usePlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
-  const { data: xp, isLoading } = useQuery({
-    queryKey: ["xp", account.address],
+  const { data: player, isLoading } = useQuery({
+    queryKey: ["player", account.address],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
         owner: account.address,
         filter: {
-          MatchAll: [{ StructType: xpStruct }],
+          MatchAll: [{ StructType: playerStruct }],
         },
         options: {
           showContent: true,
@@ -71,7 +94,7 @@ function usePlayer() {
     gcTime: 10 * 60 * 1000,
   });
 
-  return { xp, isLoading };
+  return { player, isLoading };
 }
 
 export default usePlayer;

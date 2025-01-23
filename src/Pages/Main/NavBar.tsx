@@ -4,7 +4,7 @@ const NavBar: React.FC = () => {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white border-t-2 border-gray-200">
       <div className="flex justify-between">
-        <Link to="/player" className="flex-1 text-center py-2 text-gray-500 hover:text-blue-600">
+        <Link to="/game" className="flex-1 text-center py-2 text-gray-500 hover:text-blue-600">
           <div className="flex items-center justify-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"

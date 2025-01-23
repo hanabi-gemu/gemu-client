@@ -5,10 +5,14 @@ import {
   useSuiClient,
 } from "@mysten/dapp-kit";
 import { gemuObjectAddress, levelUpAddress } from "@/smartContractInterface.ts";
+import useXP from "@/Hooks/useXP";
+import usePlayer from "@/Hooks/usePlayer";
 
 function LevelUpPlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
+  const xp = useXP();
+  const player = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
