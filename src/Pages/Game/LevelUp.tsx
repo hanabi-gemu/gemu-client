@@ -10,9 +10,8 @@ import usePlayer from "@/Hooks/usePlayer";
 
 function LevelUpPlayer() {
   const client = useSuiClient();
-  const account = useCurrentAccount()!;
-  const xp = useXP();
-  const player = usePlayer();
+  const {xp} = useXP();
+  const {player} = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -26,14 +25,16 @@ function LevelUpPlayer() {
                 const tx = new Transaction();
                 console.log("Initializing transaction...");
 
-                const xpAddress = "";
-                const playerAddress = "";
+                const xpAddress = xp!.id;
+                const playerAddress = player!.id;
                 const gemuObject = tx.object(gemuObjectAddress);
-                const xp = tx.object(xpAddress);
-                const player = tx.object(playerAddress);
+                const xpObject = tx.object(xpAddress);
+                const playerObject = tx.object(playerAddress);
+                const required_xp_to_level_up = player!.required_xp_to_level_up;
+                const [xpPayment] = tx.splitCoins(xpObject, [required_xp_to_level_up]);
                 tx.moveCall({
                   target: levelUpAddress,
-                  arguments: [tx.object(gemuObjectAddress), player, xp],
+                  arguments: [gemuObject, playerObject, xpPayment],
                 });
 
                 const { bytes, signature, reportTransactionEffects } =

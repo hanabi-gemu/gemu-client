@@ -1,6 +1,6 @@
 import Register from "@/Pages/Game/Register";
 import GoHunting from "@/Pages/Game/GoHunting";
-//import LevelUp from "@/Pages/Game/LevelUp";
+import LevelUp from "@/Pages/Game/LevelUp";
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
@@ -41,6 +41,7 @@ function Player() {
             <strong>XP:</strong> {xp && xp.balance || 0}
           </div>
           <GoHunting />
+          <LevelUp />
         </>
       ) : (
         <Register />
