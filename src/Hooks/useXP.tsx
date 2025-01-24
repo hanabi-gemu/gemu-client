@@ -10,15 +10,17 @@ import { useQuery } from "@tanstack/react-query";
 type MoveObject = Extract<SuiParsedData, { dataType: "moveObject" }>;
 
 type XPState = {
+  id: string;
   balance: number;
 };
 
 type XPObject = {
+  id: {id: string};
   balance: string;
 };
 
 function isXPState(obj: unknown): obj is XPObject {
-  return typeof obj === "object" && obj !== null && "balance" in obj;
+  return typeof obj === "object" && obj !== null && "balance" in obj && "id" in obj;
 }
 function isMoveObject(
   data: SuiParsedData | null | undefined
@@ -42,10 +44,10 @@ function createXPStateFromResponse(
 // TODO: Check if we need to use big ints for balance
 function createXPStateFromData(value: MoveStruct): XPState | null {
   if (isXPState(value)) {
-    return { balance: parseInt(value.balance)};
+    return { balance: parseInt(value.balance), id: value.id.id };
   }
   if (!Array.isArray(value) && value.fields && isXPState(value.fields)) {
-    return { balance: parseInt(value.fields.balance)};
+    return { balance: parseInt(value.fields.balance), id: value.fields.id.id };
   }
   return null;
 }
