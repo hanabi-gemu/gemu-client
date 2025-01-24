@@ -56,7 +56,7 @@ function useXP() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
-  const { data: xp, isLoading } = useQuery({
+  const { data: xp, isLoading, refetch } = useQuery({
     queryKey: ["xp", account.address],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
@@ -74,7 +74,7 @@ function useXP() {
     gcTime: 10 * 60 * 1000,
   });
 
-  return { xp, isLoading };
+  return { xp, isLoading, refetch };
 }
 
 export default useXP;

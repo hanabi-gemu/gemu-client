@@ -11,8 +11,8 @@ import useXP from "@/Hooks/useXP";
 function GoHunting() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
-  const {player} = usePlayer();
-  const {xp: existingXP} = useXP();
+  const {player, refetch: refetchPlayer} = usePlayer();
+  const {xp: existingXP, refetch: refetchXP} = useXP();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -66,6 +66,8 @@ function GoHunting() {
 
                 // Always report transaction effects to the wallet after execution
                 reportTransactionEffects(executeResult.rawEffects!.toString());
+                refetchXP();
+                refetchPlayer();
               } catch (err) {
                 console.error("Error during transaction:", err);
               }

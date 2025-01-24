@@ -5,22 +5,27 @@ import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
 
-function percentageOfDayElapsed(seconds: number): number {
-  if (seconds === 0) {
+function percentageOfMinutesElapsed(milliseconds: number): number {
+  if (milliseconds === 0) {
     return 100;
   }
-  const totalSecondsInDay = 24 * 60 * 60; // 24 hours in seconds
-  const percentage = (seconds / totalSecondsInDay) * 100;
+  const totalMillisecondInAMinute = 60000;
+  const percentage = (milliseconds / totalMillisecondInAMinute) * 100;
   return Math.min(100, parseFloat(percentage.toFixed(2))); // Round to 2 decimal places
 }
 
 function Player() {
-  const { player, isLoading: isLoadingPlayer } = usePlayer();
+  const { player, isLoading: isLoadingPlayer, isRefetching: isRefetchingPlayer } = usePlayer();
   const { xp, isLoading: isLoadingXp } = useXP();
 
-  if (isLoadingPlayer || isLoadingXp) {
+  // Fix percentageOfMinutesElapsed, algo raro pasa con los timestamps
+  // habria que debuggear que onda las dos fechas
+  if (isLoadingPlayer || isLoadingXp || isRefetchingPlayer) {
     return <Spinner />;
   }
+  console.log("Last hunt time:", player?.last_hunt_time);
+  console.log("Current time:", Date.now());
+  console.log("Time difference:", Date.now() - (player && player.last_hunt_time|| 0));
   return (
     <>
       {player ? (
@@ -35,7 +40,7 @@ function Player() {
             <strong>Player stats:</strong> {player.stats}
           </div>
           <div>
-            <strong>Player energy:</strong> {percentageOfDayElapsed(player.last_hunt_time.getSeconds())}
+            <strong>Player energy:</strong> {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
           </div>
           <div>
             <strong>XP:</strong> {xp && xp.balance || 0}

@@ -1,6 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
 import {
-  useCurrentAccount,
   useSignTransaction,
   useSuiClient,
 } from "@mysten/dapp-kit";
@@ -11,7 +10,7 @@ import usePlayer from "@/Hooks/usePlayer";
 function LevelUpPlayer() {
   const client = useSuiClient();
   const {xp} = useXP();
-  const {player} = usePlayer();
+  const {player, refetch} = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -57,6 +56,7 @@ function LevelUpPlayer() {
 
                 // Always report transaction effects to the wallet after execution
                 reportTransactionEffects(executeResult.rawEffects!.toString());
+                refetch();
               } catch (err) {
                 console.error("Error during transaction:", err);
               }

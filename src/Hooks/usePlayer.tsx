@@ -14,13 +14,13 @@ type PlayerObject = {
   id: {id: string};
   last_hunt_time: string;
   stats: string;
-  required_xp_to_level_up: string;
+  required_xp_to_lvl_up: string;
 }
 
 type PlayerState = {
   id: string;
   level: number;
-  last_hunt_time: Date;
+  last_hunt_time: number;
   stats: number;
   required_xp_to_level_up: number;
 };
@@ -37,6 +37,7 @@ function isMoveObject(
 function createPlayerStateFromResponse(
   response: PaginatedObjectsResponse
 ): PlayerState | null{
+  console.log(response);
   let playerState = null;
   if (
     response.data.length !== 0 &&
@@ -49,21 +50,22 @@ function createPlayerStateFromResponse(
 
 function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
   if (isPlayerObject(value)) {
+    console.log(value.last_hunt_time);
     return {
       level: parseInt(value.level),
       id: value.id.id as string,
-      last_hunt_time: new Date(parseInt(value.last_hunt_time)),
+      last_hunt_time: parseInt(value.last_hunt_time),
       stats: parseInt(value.stats),
-      required_xp_to_level_up: parseInt(value.required_xp_to_level_up)
+      required_xp_to_level_up: parseInt(value.required_xp_to_lvl_up)
     };
   }
   if (!Array.isArray(value) && value.fields && isPlayerObject(value.fields)) {
     return {
       level: parseInt(value.fields.level),
       id: value.fields.id.id as string,
-      last_hunt_time: new Date(parseInt(value.fields.last_hunt_time)),
+      last_hunt_time: parseInt(value.fields.last_hunt_time),
       stats: parseInt(value.fields.stats),
-      required_xp_to_level_up: parseInt(value.fields.required_xp_to_level_up)
+      required_xp_to_level_up: parseInt(value.fields.required_xp_to_lvl_up)
     };
   }
   return null;
@@ -73,7 +75,7 @@ function usePlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
-  const { data: player, isLoading, refetch } = useQuery({
+  const { data: player, isLoading, refetch, isRefetching } = useQuery({
     queryKey: ["player", account.address],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
@@ -91,7 +93,7 @@ function usePlayer() {
     gcTime: 10 * 60 * 1000,
   });
 
-  return { player, isLoading, refetch };
+  return { player, isLoading, refetch, isRefetching };
 }
 
 export default usePlayer;
