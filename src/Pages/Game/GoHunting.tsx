@@ -1,13 +1,16 @@
 import { Transaction } from "@mysten/sui/transactions";
-import { useCurrentAccount, useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import { gemuObjectAddress, registerPlayerAddress } from "@/smartContractInterface";
+import {
+    useCurrentAccount,
+  useSignTransaction,
+  useSuiClient,
+} from "@mysten/dapp-kit";
+import { gemuObjectAddress, goHuntingAddress } from "@/smartContractInterface.ts";
 import usePlayer from "@/Hooks/usePlayer";
 
-
-function RegisterPlayer() {
+function GoHunting() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
-  const {refetch} = usePlayer();
+  const {player} = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -21,12 +24,23 @@ function RegisterPlayer() {
                 const tx = new Transaction();
                 console.log("Initializing transaction...");
 
-                const [player] = tx.moveCall({
-                  target: registerPlayerAddress,
-                  arguments: [tx.object(gemuObjectAddress)],
+                const gemuObject = tx.object(gemuObjectAddress);
+                console.log(gemuObjectAddress);
+                console.log("Gemu object:", gemuObject);
+                const playerObject = tx.object(player!.id);
+                console.log(player!.id);
+                console.log("Player object:", playerObject);
+                const clock = tx.object.clock();
+                const [xp] = tx.moveCall({
+                  target: goHuntingAddress,
+                  arguments: [gemuObject, playerObject, clock],
                 });
 
-                tx.transferObjects([player], account.address);
+                tx.transferObjects([xp], account.address);
+
+                // TODO: merge xp into existing xp object if exists
+
+                console.log("Transaction prepared:", tx);
 
                 const { bytes, signature, reportTransactionEffects } =
                   await signTransaction({
@@ -48,19 +62,19 @@ function RegisterPlayer() {
 
                 // Always report transaction effects to the wallet after execution
                 reportTransactionEffects(executeResult.rawEffects!.toString());
-                refetch();
               } catch (err) {
                 console.error("Error during transaction:", err);
               }
             }}
           >
-            Mint Player
+            Go Hunting
           </button>
         </div>
-        {error && (<div>ERROR: {error.message}</div>)}
+        {error && <div>ERROR: {error?.message}</div>}
       </>
     </div>
   );
 }
 
-export default RegisterPlayer;
+export default GoHunting;
+

@@ -23,13 +23,6 @@ type PlayerState = {
   stats: number;
 };
 
-const invalidPlayerState: PlayerState = {
-  id: '',
-  level: -1,
-  last_hunt_time: new Date(),
-  stats: -1
-};
-
 function isPlayerObject(obj: unknown): obj is PlayerObject {
   return typeof obj === "object" && obj !== null && "level" in obj;
 }
@@ -41,8 +34,8 @@ function isMoveObject(
 
 function createPlayerStateFromResponse(
   response: PaginatedObjectsResponse
-): PlayerState {
-  let playerState = invalidPlayerState;
+): PlayerState | null{
+  let playerState = null;
   if (
     response.data.length !== 0 &&
     isMoveObject(response.data[0].data?.content)
@@ -52,7 +45,7 @@ function createPlayerStateFromResponse(
   return playerState;
 }
 
-function createPlayerStateFromData(value: MoveStruct): PlayerState {
+function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
   if (isPlayerObject(value)) {
     return {
       level: parseInt(value.level),
@@ -69,14 +62,14 @@ function createPlayerStateFromData(value: MoveStruct): PlayerState {
       stats: parseInt(value.fields.stats)
     };
   }
-  return invalidPlayerState;
+  return null;
 }
 
 function usePlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
-  const { data: player, isLoading } = useQuery({
+  const { data: player, isLoading, refetch } = useQuery({
     queryKey: ["player", account.address],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
@@ -94,7 +87,7 @@ function usePlayer() {
     gcTime: 10 * 60 * 1000,
   });
 
-  return { player, isLoading };
+  return { player, isLoading, refetch };
 }
 
 export default usePlayer;
