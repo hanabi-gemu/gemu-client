@@ -30,7 +30,6 @@ function GoHunting() {
                 console.log(gemuObjectAddress);
                 console.log("Gemu object:", gemuObject);
                 const playerObject = tx.object(player!.id);
-                console.log(player!.id);
                 console.log("Player object:", playerObject);
                 const clock = tx.object.clock();
                 const [xp] = tx.moveCall({

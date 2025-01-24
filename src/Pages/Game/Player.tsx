@@ -21,8 +21,6 @@ function Player() {
   if (isLoadingPlayer || isLoadingXp) {
     return <Spinner />;
   }
-  console.log(xp);
-
   return (
     <>
       {player ? (

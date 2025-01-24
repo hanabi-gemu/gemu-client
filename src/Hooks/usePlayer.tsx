@@ -14,6 +14,7 @@ type PlayerObject = {
   id: {id: string};
   last_hunt_time: string;
   stats: string;
+  required_xp_to_level_up: string;
 }
 
 type PlayerState = {
@@ -21,6 +22,7 @@ type PlayerState = {
   level: number;
   last_hunt_time: Date;
   stats: number;
+  required_xp_to_level_up: number;
 };
 
 function isPlayerObject(obj: unknown): obj is PlayerObject {
@@ -51,7 +53,8 @@ function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
       level: parseInt(value.level),
       id: value.id.id as string,
       last_hunt_time: new Date(parseInt(value.last_hunt_time)),
-      stats: parseInt(value.stats)
+      stats: parseInt(value.stats),
+      required_xp_to_level_up: parseInt(value.required_xp_to_level_up)
     };
   }
   if (!Array.isArray(value) && value.fields && isPlayerObject(value.fields)) {
@@ -59,7 +62,8 @@ function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
       level: parseInt(value.fields.level),
       id: value.fields.id.id as string,
       last_hunt_time: new Date(parseInt(value.fields.last_hunt_time)),
-      stats: parseInt(value.fields.stats)
+      stats: parseInt(value.fields.stats),
+      required_xp_to_level_up: parseInt(value.fields.required_xp_to_level_up)
     };
   }
   return null;

@@ -1,5 +1,5 @@
-const packageId = import.meta.env.PACKAGE_ID;
-export const gemuObjectAddress = import.meta.env.GEMU_OBJECT_ADDRESS;
+const packageId = import.meta.env.VITE_PACKAGE_ID;
+export const gemuObjectAddress = import.meta.env.VITE_GEMU_OBJECT_ADDRESS;
 
 const gemuModule = "gemu"
 const registerPlayer = "register_player"
