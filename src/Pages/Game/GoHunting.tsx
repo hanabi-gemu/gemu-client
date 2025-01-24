@@ -6,11 +6,13 @@ import {
 } from "@mysten/dapp-kit";
 import { gemuObjectAddress, goHuntingAddress } from "@/smartContractInterface.ts";
 import usePlayer from "@/Hooks/usePlayer";
+import useXP from "@/Hooks/useXP";
 
 function GoHunting() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
   const {player} = usePlayer();
+  const {xp: existingXP} = useXP();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -36,9 +38,12 @@ function GoHunting() {
                   arguments: [gemuObject, playerObject, clock],
                 });
 
-                tx.transferObjects([xp], account.address);
-
-                // TODO: merge xp into existing xp object if exists
+                if (existingXP) {
+                  const existingXPObject = tx.object(existingXP.id);
+                  tx.mergeCoins(existingXPObject, [xp]);
+                } else {
+                  tx.transferObjects([xp], account.address);
+                }
 
                 console.log("Transaction prepared:", tx);
 
