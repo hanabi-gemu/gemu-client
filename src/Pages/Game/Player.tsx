@@ -4,6 +4,8 @@ import LevelUp from "@/Pages/Game/LevelUp";
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
+import useSuiClock from "@/Hooks/useSuiClock";
+import ProgressBar from "@/Components/ProgressBar";
 
 function percentageOfMinutesElapsed(milliseconds: number): number {
   if (milliseconds === 0) {
@@ -15,8 +17,16 @@ function percentageOfMinutesElapsed(milliseconds: number): number {
 }
 
 function Player() {
-  const { player, isLoading: isLoadingPlayer, isRefetching: isRefetchingPlayer } = usePlayer();
+  const {
+    player,
+    isLoading: isLoadingPlayer,
+    isRefetching: isRefetchingPlayer,
+  } = usePlayer();
   const { xp, isLoading: isLoadingXp } = useXP();
+
+  const { data } = useSuiClock();
+
+  console.log("CLOCk", data);
 
   // Fix percentageOfMinutesElapsed, algo raro pasa con los timestamps
   // habria que debuggear que onda las dos fechas
@@ -25,11 +35,21 @@ function Player() {
   }
   console.log("Last hunt time:", player?.last_hunt_time);
   console.log("Current time:", Date.now());
-  console.log("Time difference:", Date.now() - (player && player.last_hunt_time|| 0));
+  console.log(
+    "Time difference:",
+    Date.now() - ((player && player.last_hunt_time) || 0)
+  );
   return (
     <>
       {player ? (
         <>
+          <div className="flex">
+            <ProgressBar
+              currentTimeStamp={Number(data)}
+              lastActionTimeStamp={player.last_hunt_time}
+              period={60000}
+            />
+          </div>
           <div>
             <strong>Player id:</strong> {player.id}
           </div>
@@ -40,10 +60,8 @@ function Player() {
             <strong>Player stats:</strong> {player.stats}
           </div>
           <div>
-            <strong>Player energy:</strong> {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
-          </div>
-          <div>
-            <strong>XP:</strong> {xp && xp.balance || 0}
+            <strong>Player energy:</strong>{" "}
+            {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
           </div>
           <GoHunting />
           <LevelUp />

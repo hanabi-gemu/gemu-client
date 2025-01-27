@@ -11,11 +11,11 @@ type MoveObject = Extract<SuiParsedData, { dataType: "moveObject" }>;
 
 type PlayerObject = {
   level: string;
-  id: {id: string};
+  id: { id: string };
   last_hunt_time: string;
   stats: string;
   required_xp_to_lvl_up: string;
-}
+};
 
 type PlayerState = {
   id: string;
@@ -36,19 +36,21 @@ function isMoveObject(
 
 function createPlayerStateFromResponse(
   response: PaginatedObjectsResponse
-): PlayerState | null{
+): PlayerState | null {
   console.log(response);
   let playerState = null;
   if (
     response.data.length !== 0 &&
     isMoveObject(response.data[0].data?.content)
   ) {
-    playerState = createPlayerStateFromData(response.data[0].data.content.fields);
+    playerState = createPlayerStateFromData(
+      response.data[0].data.content.fields
+    );
   }
   return playerState;
 }
 
-function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
+function createPlayerStateFromData(value: MoveStruct): PlayerState | null {
   if (isPlayerObject(value)) {
     console.log(value.last_hunt_time);
     return {
@@ -56,7 +58,7 @@ function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
       id: value.id.id as string,
       last_hunt_time: parseInt(value.last_hunt_time),
       stats: parseInt(value.stats),
-      required_xp_to_level_up: parseInt(value.required_xp_to_lvl_up)
+      required_xp_to_level_up: parseInt(value.required_xp_to_lvl_up),
     };
   }
   if (!Array.isArray(value) && value.fields && isPlayerObject(value.fields)) {
@@ -65,7 +67,7 @@ function createPlayerStateFromData(value: MoveStruct): PlayerState | null{
       id: value.fields.id.id as string,
       last_hunt_time: parseInt(value.fields.last_hunt_time),
       stats: parseInt(value.fields.stats),
-      required_xp_to_level_up: parseInt(value.fields.required_xp_to_lvl_up)
+      required_xp_to_level_up: parseInt(value.fields.required_xp_to_lvl_up),
     };
   }
   return null;
@@ -75,7 +77,12 @@ function usePlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
-  const { data: player, isLoading, refetch, isRefetching } = useQuery({
+  const {
+    data: player,
+    isLoading,
+    refetch,
+    isRefetching,
+  } = useQuery({
     queryKey: ["player", account.address],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
@@ -87,6 +94,8 @@ function usePlayer() {
           showContent: true,
         },
       });
+      console.log(resp);
+
       return createPlayerStateFromResponse(resp);
     },
     staleTime: 5 * 60 * 1000, // todo: check cache revalidation
