@@ -1,4 +1,5 @@
 import { useSuiClient } from "@mysten/dapp-kit";
+import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 import { useQuery } from "@tanstack/react-query";
 
 function useSuiClock() {
@@ -8,7 +9,7 @@ function useSuiClock() {
     queryKey: ["clock"],
     queryFn: async () => {
       const response = await client.getObject({
-        id: "0x0000000000000000000000000000000000000000000000000000000000000006",
+        id: SUI_CLOCK_OBJECT_ID,
         options: {
           showContent: true,
         },
@@ -20,7 +21,7 @@ function useSuiClock() {
           timestamp_ms: string;
         };
 
-        return fields.timestamp_ms;
+        return Number(fields.timestamp_ms);
       }
     },
     refetchInterval: 1000,

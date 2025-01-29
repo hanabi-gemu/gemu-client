@@ -28,7 +28,7 @@ function ProgressBar({
       </div>
       <div className="flex mt-1 w-full h-[6px] bg-sky-700 rounded-3xl">
         <div
-          className="bg-sky-950 h-[6px] rounded-3xl"
+          className="bg-sky-950 h-[6px] rounded-3xl transition-all ease-in-out delay-400"
           style={{ width: `${progressPercentage}%` }}
         ></div>
       </div>

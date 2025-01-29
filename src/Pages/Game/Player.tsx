@@ -22,7 +22,7 @@ function Player() {
     isLoading: isLoadingPlayer,
     isRefetching: isRefetchingPlayer,
   } = usePlayer();
-  const { xp, isLoading: isLoadingXp } = useXP();
+  const { isLoading: isLoadingXp } = useXP();
 
   const { data } = useSuiClock();
 

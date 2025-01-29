@@ -1,18 +1,21 @@
 import { Transaction } from "@mysten/sui/transactions";
 import {
-    useCurrentAccount,
+  useCurrentAccount,
   useSignTransaction,
   useSuiClient,
 } from "@mysten/dapp-kit";
-import { gemuObjectAddress, goHuntingAddress } from "@/smartContractInterface.ts";
+import {
+  gemuObjectAddress,
+  goHuntingAddress,
+} from "@/smartContractInterface.ts";
 import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
 
 function GoHunting() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
-  const {player, refetch: refetchPlayer} = usePlayer();
-  const {xp: existingXP, refetch: refetchXP} = useXP();
+  const { player, refetch: refetchPlayer } = usePlayer();
+  const { xp: existingXP, refetch: refetchXP } = useXP();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -66,8 +69,8 @@ function GoHunting() {
 
                 // Always report transaction effects to the wallet after execution
                 reportTransactionEffects(executeResult.rawEffects!.toString());
-                refetchXP();
-                refetchPlayer();
+                await refetchXP();
+                await refetchPlayer();
               } catch (err) {
                 console.error("Error during transaction:", err);
               }
@@ -83,4 +86,3 @@ function GoHunting() {
 }
 
 export default GoHunting;
-
