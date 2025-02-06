@@ -6,6 +6,9 @@ import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
 import useSuiClock from "@/Hooks/useSuiClock";
 import ProgressBar from "@/Components/ProgressBar";
+import avatarImage from "./avatar-img.jpeg";
+import { useState } from "react";
+import { truncateAddress } from "@/Utils/format";
 
 function percentageOfMinutesElapsed(milliseconds: number): number {
   if (milliseconds === 0) {
@@ -24,21 +27,24 @@ function Player() {
   } = usePlayer();
   const { isLoading: isLoadingXp } = useXP();
 
+  const [copied, setCopied] = useState(false);
+
+  const handleCopy = async () => {
+    if (player)
+      try {
+        await navigator.clipboard.writeText(player?.id);
+        setCopied(true);
+        setTimeout(() => setCopied(false), 1500);
+      } catch (err) {
+        console.error("Failed to copy:", err);
+      }
+  };
+
   const { data } = useSuiClock();
 
-  console.log("CLOCk", data);
-
-  // Fix percentageOfMinutesElapsed, algo raro pasa con los timestamps
-  // habria que debuggear que onda las dos fechas
   if (isLoadingPlayer || isLoadingXp || isRefetchingPlayer) {
     return <Spinner />;
   }
-  console.log("Last hunt time:", player?.last_hunt_time);
-  console.log("Current time:", Date.now());
-  console.log(
-    "Time difference:",
-    Date.now() - ((player && player.last_hunt_time) || 0)
-  );
   return (
     <>
       {player ? (
@@ -50,21 +56,35 @@ function Player() {
               period={60000}
             />
           </div>
-          <div>
-            <strong>Player id:</strong> {player.id}
+          <div className="flex justify-between p-2 flex-col md:flex-row md:p-10">
+            <div className="flex flex-col">
+              <div className="h-[80px] flex-col">
+                <p className="font-semibold cursor-pointer">Player id:</p>
+                <p
+                  className="cursor-pointer hover:text-blue-400 flex transition-all ease-in-out duration-200"
+                  onClick={handleCopy}
+                >
+                  {truncateAddress(player.id)}
+                </p>
+                {copied && <span className="text-blue-400">Copied!</span>}
+              </div>
+              <div>
+                <p className="font-semibold">Player stats:</p> {player.level}
+              </div>
+              <div>
+                <p className="font-semibold">Player stats:</p> {player.stats}
+              </div>
+              <div>
+                <p className="font-semibold">Player energy:</p>{" "}
+                {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
+              </div>
+              <div className="flex">
+                <GoHunting />
+                <LevelUp />
+              </div>
+            </div>
+            <img src={avatarImage} />
           </div>
-          <div>
-            <strong>Player stats:</strong> {player.level}
-          </div>
-          <div>
-            <strong>Player stats:</strong> {player.stats}
-          </div>
-          <div>
-            <strong>Player energy:</strong>{" "}
-            {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
-          </div>
-          <GoHunting />
-          <LevelUp />
         </>
       ) : (
         <Register />

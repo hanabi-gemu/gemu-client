@@ -25,6 +25,7 @@ createRoot(document.getElementById("root")!).render(
         <WalletProvider
           stashedWallet={{
             name: "Your dApp name",
+            network: "testnet",
           }}
         >
           <App />
