@@ -1,9 +1,13 @@
+import Player from "@/Pages/Game/Player";
+import Leaderboard from "@/Pages/Leaderboard/Leaderboard";
+import Wallet from "@/Pages/Wallet";
 import { ReactNode } from "react";
 
 export type Route = {
   icon: ReactNode | null;
   label: string;
   route: string;
+  element: ReactNode;
 };
 
 export const routes = [
@@ -11,6 +15,7 @@ export const routes = [
     icon: null,
     label: "Leaderboard",
     route: "/leaderboard",
+    element: <Leaderboard />,
   },
   {
     icon: (
@@ -31,6 +36,7 @@ export const routes = [
     ),
     label: "Home",
     route: "/game",
+    element: <Player />,
   },
   {
     icon: (
@@ -51,5 +57,6 @@ export const routes = [
     ),
     label: "Wallet",
     route: "/wallet",
+    element: <Wallet />,
   },
 ];
