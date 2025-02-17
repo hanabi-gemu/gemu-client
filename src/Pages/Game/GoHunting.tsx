@@ -5,7 +5,7 @@ import {
   useSuiClient,
 } from "@mysten/dapp-kit";
 import {
-  gemuObjectAddress,
+  playerObjectAddress,
   goHuntingAddress,
 } from "@/smartContractInterface.ts";
 import usePlayer from "@/Hooks/usePlayer";
@@ -29,8 +29,8 @@ function GoHunting() {
                 const tx = new Transaction();
                 console.log("Initializing transaction...");
 
-                const gemuObject = tx.object(gemuObjectAddress);
-                console.log(gemuObjectAddress);
+                const gemuObject = tx.object(playerObjectAddress);
+                console.log(playerObjectAddress);
                 console.log("Gemu object:", gemuObject);
                 const playerObject = tx.object(player!.id);
                 console.log("Player object:", playerObject);
@@ -52,7 +52,7 @@ function GoHunting() {
                 const { bytes, signature, reportTransactionEffects } =
                   await signTransaction({
                     transaction: tx,
-                    chain: "sui:testnet",
+                    chain: "sui:devnet",
                   });
 
                 console.log("Transaction signed:", { bytes, signature });

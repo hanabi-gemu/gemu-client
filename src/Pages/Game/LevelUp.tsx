@@ -1,16 +1,16 @@
 import { Transaction } from "@mysten/sui/transactions";
+import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  useSignTransaction,
-  useSuiClient,
-} from "@mysten/dapp-kit";
-import { gemuObjectAddress, levelUpAddress } from "@/smartContractInterface.ts";
+  playerObjectAddress,
+  levelUpAddress,
+} from "@/smartContractInterface.ts";
 import useXP from "@/Hooks/useXP";
 import usePlayer from "@/Hooks/usePlayer";
 
 function LevelUpPlayer() {
   const client = useSuiClient();
-  const {xp} = useXP();
-  const {player, refetch} = usePlayer();
+  const { xp } = useXP();
+  const { player, refetch } = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
   return (
@@ -26,11 +26,13 @@ function LevelUpPlayer() {
 
                 const xpAddress = xp!.id;
                 const playerAddress = player!.id;
-                const gemuObject = tx.object(gemuObjectAddress);
+                const gemuObject = tx.object(playerObjectAddress);
                 const xpObject = tx.object(xpAddress);
                 const playerObject = tx.object(playerAddress);
                 const required_xp_to_level_up = player!.required_xp_to_level_up;
-                const [xpPayment] = tx.splitCoins(xpObject, [required_xp_to_level_up]);
+                const [xpPayment] = tx.splitCoins(xpObject, [
+                  required_xp_to_level_up,
+                ]);
                 tx.moveCall({
                   target: levelUpAddress,
                   arguments: [gemuObject, playerObject, xpPayment],
@@ -39,7 +41,7 @@ function LevelUpPlayer() {
                 const { bytes, signature, reportTransactionEffects } =
                   await signTransaction({
                     transaction: tx,
-                    chain: "sui:testnet",
+                    chain: "sui:devnet",
                   });
 
                 console.log("Transaction signed:", { bytes, signature });
