@@ -52,12 +52,12 @@ function Player() {
           <div className="flex">
             <ProgressBar
               currentTimeStamp={Number(data)}
-              lastActionTimeStamp={player.last_hunt_time}
+              lastActionTimeStamp={player.last_energy_update}
               period={60000}
             />
           </div>
           <div className="flex justify-between p-2 flex-col md:flex-row md:p-10">
-            <div className="flex flex-col">
+            <div className="flex flex-col gap-y-2">
               <div className="h-[80px] flex-col">
                 <p className="font-semibold cursor-pointer">Player id:</p>
                 <p
@@ -69,14 +69,25 @@ function Player() {
                 {copied && <span className="text-blue-400">Copied!</span>}
               </div>
               <div>
-                <p className="font-semibold">Player stats:</p> {player.level}
+                <p className="font-semibold">Player level:</p> {player.level}
               </div>
-              <div>
-                <p className="font-semibold">Player stats:</p> {player.stats}
+              <div className="flex flex-col">
+                <p className="font-semibold">Player stats:</p>
+                <div className="flex flex-col">
+                  {Object.entries(player.stats).map(([key, value]) => (
+                    <div className="p-1">
+                      {key}: {value}
+                    </div>
+                  ))}
+                </div>
               </div>
               <div>
                 <p className="font-semibold">Player energy:</p>{" "}
-                {percentageOfMinutesElapsed(Date.now() - player.last_hunt_time)}
+                {Number.isNaN(player.last_energy_update)
+                  ? 0
+                  : percentageOfMinutesElapsed(
+                      Date.now() - player.last_energy_update
+                    )}
               </div>
               <div className="flex">
                 <GoHunting />

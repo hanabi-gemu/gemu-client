@@ -1,9 +1,5 @@
 import { Transaction } from "@mysten/sui/transactions";
-import {
-  useCurrentAccount,
-  useSignTransaction,
-  useSuiClient,
-} from "@mysten/dapp-kit";
+import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
   playerObjectAddress,
   registerPlayerAddress,
@@ -12,7 +8,6 @@ import usePlayer from "@/Hooks/usePlayer";
 
 function RegisterPlayer() {
   const client = useSuiClient();
-  const account = useCurrentAccount()!;
   const { refetch } = usePlayer();
   const { mutateAsync: signTransaction, error } = useSignTransaction();
 
@@ -23,13 +18,10 @@ function RegisterPlayer() {
 
       console.log(registerPlayerAddress);
 
-      const [player] = tx.moveCall({
+      tx.moveCall({
         target: registerPlayerAddress,
         arguments: [tx.object(playerObjectAddress)],
       });
-
-      tx.transferObjects([player], account.address);
-      tx.setGasBudget(100000000);
 
       const { bytes, signature, reportTransactionEffects } =
         await signTransaction({
