@@ -4,11 +4,15 @@ export default {
 		"./index.html",
 		"./src/**/*.{js,ts,jsx,tsx}",
 	],
+
 	theme: {
 		extend: {
 			animation: {
 				'fade-out': 'fadeOut 1s ease-in-out forwards', // Matches duration
 				'scale-up': 'scaleUp 1s ease-in-out',
+			},
+			colors: {
+				'shadow': 'rgba(113, 113, 113, 0.2)'
 			},
 			keyframes: {
 				fadeOut: {

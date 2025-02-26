@@ -1,4 +1,4 @@
-import Player from "@/Pages/Game/Player";
+import HomeLayout from "@/Pages/Home/HomeLayout";
 import Leaderboard from "@/Pages/Leaderboard/Leaderboard";
 import Wallet from "@/Pages/Wallet";
 import { ReactNode } from "react";
@@ -35,8 +35,8 @@ export const routes = [
       </svg>
     ),
     label: "Home",
-    route: "/game",
-    element: <Player />,
+    route: "/home",
+    element: <HomeLayout />,
   },
   {
     icon: (

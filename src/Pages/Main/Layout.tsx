@@ -7,7 +7,7 @@ const Main: React.FC = () => {
     <div className="flex flex-col h-full p-4">
       <div className="flex-grow bg-white rounded-lg shadow-md p-6 overflow-auto w-max-[1980px] mx-auto md:min-w-[800px]">
         <Router>
-          <Routes>
+          <Routes location={"/Home"}>
             {routes.map(({ route, element }) => (
               <Route key={route} path={route} element={element} />
             ))}

@@ -1,3 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+:root {
+  --Med-Contrast: #3e3e3e;
+}
+
+.subtitle-book {
+  @apply text-[28px] leading-[125%] tracking-[-0.28px];
+
+  color: var(--Med-Contrast, #3e3e3e);
+  font-style: normal;
+  font-weight: 450;
+}
