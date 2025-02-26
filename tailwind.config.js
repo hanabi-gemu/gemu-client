@@ -12,7 +12,9 @@ export default {
 				'scale-up': 'scaleUp 1s ease-in-out',
 			},
 			colors: {
-				'shadow': 'rgba(113, 113, 113, 0.2)'
+				'shadow': 'rgba(113, 113, 113, 0.2)',
+				'low-contrast': '#6F6F6F',
+				'light-box': 'rgba(255, 255, 255, 0.6)',
 			},
 			keyframes: {
 				fadeOut: {
