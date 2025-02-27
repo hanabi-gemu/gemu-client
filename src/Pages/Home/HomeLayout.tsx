@@ -2,6 +2,7 @@ import Player from "./Player";
 import PlayerLevelWidget from "./PlayerLevelWidget";
 import usePlayer from "@/Hooks/usePlayer";
 import RegisterPlayer from "./Register";
+import QuestSlots from "./QuestSlots";
 
 const Layout = () => {
   const {
@@ -12,8 +13,15 @@ const Layout = () => {
 
   return (
     <>
-      <PlayerLevelWidget />
-      {player ? <Player /> : <RegisterPlayer />}
+      {player ? (
+        <>
+          <PlayerLevelWidget />
+          <Player />
+          <QuestSlots />
+        </>
+      ) : (
+        <RegisterPlayer />
+      )}
     </>
   );
 };

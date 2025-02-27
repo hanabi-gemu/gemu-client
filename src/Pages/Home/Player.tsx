@@ -1,20 +1,18 @@
-import Register from "@/Pages/Home/Register";
-import GoHunting from "@/Pages/Home/GoHunting";
-import LevelUp from "@/Pages/Home/LevelUp";
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import useXP from "@/Hooks/useXP";
-import avatarImage from "./avatar-img.jpeg";
+import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
+import { Fonts } from "@/TwClassnames/Fonts";
 
-function percentageOfMinutesElapsed(milliseconds: number): number {
-  if (milliseconds === 0) {
-    return 100;
-  }
-  const totalMillisecondInAMinute = 60000;
-  const percentage = (milliseconds / totalMillisecondInAMinute) * 100;
-  return Math.min(100, parseFloat(percentage.toFixed(2))); // Round to 2 decimal places
-}
+// function percentageOfMinutesElapsed(milliseconds: number): number {
+//   if (milliseconds === 0) {
+//     return 100;
+//   }
+//   const totalMillisecondInAMinute = 60000;
+//   const percentage = (milliseconds / totalMillisecondInAMinute) * 100;
+//   return Math.min(100, parseFloat(percentage.toFixed(2))); // Round to 2 decimal places
+// }
 
 function Player() {
   const {
@@ -27,38 +25,52 @@ function Player() {
   if (isLoadingPlayer || isLoadingXp || isRefetchingPlayer) {
     return <Spinner />;
   }
+
+  if (!player) return false;
+
   return (
     <>
-      {player ? (
-        <>
-          <div className="flex justify-between p-2 flex-col md:flex-row md:p-10">
-            <div className="flex flex-col gap-y-2">
-              <div className="flex flex-col">
-                <div className="flex flex-col">
-                  {Object.entries(player.stats).map(([key, value]) => (
-                    <StatBox stat={key} value={value} />
-                  ))}
-                </div>
-              </div>
-              <div>
+      <div className="flex justify-between p-2 flex-col md:flex-row md:pt-10 md:mx-0">
+        <div className="flex flex-col gap-y-2">
+          <div className="flex flex-col">
+            <div className="flex flex-col">
+              {Object.entries(player.stats).map(([key, value]) => (
+                <StatBox stat={key} value={value} />
+              ))}
+            </div>
+          </div>
+          {/* <div>
                 <p className="font-semibold">Player energy:</p>{" "}
                 {Number.isNaN(player.last_energy_update)
                   ? 0
                   : percentageOfMinutesElapsed(
                       Date.now() - player.last_energy_update
                     )}
-              </div>
-              <div className="flex">
-                <GoHunting />
-                <LevelUp />
-              </div>
-            </div>
-            <img src={avatarImage} />
+              </div> */}
+        </div>
+        <div className="w-[379px] h-[438.5px]">
+          <img
+            src={avatarImage}
+            width={379}
+            height={438.5}
+            className="object-cover"
+          />
+        </div>
+        <div className="flex flex-col gap-y-4">
+          <div className="flex items-center gap-1">
+            <p className={Fonts.Headings.Title.Bold}>Energy:</p>
+            <p className={Fonts.Headings.Title.Book}>{player.energy}</p>
           </div>
-        </>
-      ) : (
-        <Register />
-      )}
+          <div className="flex items-center gap-1">
+            <p className={Fonts.Headings.Title.Bold}>Mana:</p>
+            <p className={Fonts.Headings.Title.Book}>{player.mana}</p>
+          </div>
+          <div className="flex items-center gap-1">
+            <p className={Fonts.Headings.Title.Bold}>Rolls:</p>
+            <p className={Fonts.Headings.Title.Book}>{player.rolls}</p>
+          </div>
+        </div>
+      </div>
     </>
   );
 }
