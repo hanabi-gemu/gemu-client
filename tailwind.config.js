@@ -11,13 +11,21 @@ export default {
 				'fade-out': 'fadeOut 1s ease-in-out forwards', // Matches duration
 				'scale-up': 'scaleUp 1s ease-in-out',
 			},
+			fontWeight: {
+				450: "450",
+			},
 			boxShadow:
 				{ 'drop-shadow-dark': '0px -8px 47px 0px rgba(255, 255, 255, 0.25), 0px 8px 16px 0px rgba(0, 0, 0, 0.60)' },
 			colors: {
 				'shadow': 'rgba(113, 113, 113, 0.2)',
-				'low-contrast': '#6F6F6F',
+				'shadow2': 'rgba(113, 113, 113, 0.4)',
+				'low-contrast': 'rgba(111, 111, 111, 1)',
+				'low-contrast2': 'rgba(150, 150, 150, 1)',
 				'hight-contrast': '#1D1D1D',
 				'light-box': 'rgba(255, 255, 255, 0.6)',
+			},
+			letterSpacing: {
+				'-tight-custom': '-0.72px',
 			},
 			keyframes: {
 				fadeOut: {
