@@ -35,7 +35,7 @@ function Player() {
           <div className="flex flex-col">
             <div className="flex flex-col">
               {Object.entries(player.stats).map(([key, value]) => (
-                <StatBox stat={key} value={value} />
+                <StatBox stat={key} value={value} key={key} />
               ))}
             </div>
           </div>

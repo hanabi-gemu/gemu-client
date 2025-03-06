@@ -1,4 +1,4 @@
-function StatBox({ stat, value }: { stat: string; value: number }) {
+function StatBox({ stat, value }: { stat: string; value: string }) {
   return (
     <div className="flex flex-col items-center w-[75px]">
       <div className="w-[35px] h-[35px] relative my-3">

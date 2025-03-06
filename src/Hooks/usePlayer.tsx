@@ -1,73 +1,45 @@
 import { playerStruct } from "@/smartContractInterface";
 import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
-import { MoveStruct, SuiParsedData } from "@mysten/sui/client";
+import { SuiObjectData, SuiParsedData } from "@mysten/sui/client";
 import { useQuery } from "@tanstack/react-query";
 
 type MoveObject = Extract<SuiParsedData, { dataType: "moveObject" }>;
 
-function isPlayerObject(obj: unknown): obj is PlayerObject {
-  return typeof obj === "object" && obj !== null && "level" in obj;
-}
 function isMoveObject(
   data: SuiParsedData | null | undefined
 ): data is MoveObject {
   return data?.dataType === "moveObject";
 }
 
-function createPlayerStateFromData(value: MoveStruct): PlayerState | null {
-  if (isPlayerObject(value)) {
-    return {
-      id: value.id.id as string,
-      xp: parseInt(value.xp),
-      level: parseInt(value.level),
-      max_mana: parseInt(value.max_mana),
-      mana: parseInt(value.mana),
-      last_energy_update: parseInt(value.last_energy_update),
-      energy: parseInt(value.energy),
-      max_energy: parseInt(value.max_energy),
-      rolls: parseInt(value.rolls),
-      materials: new Map<1232, 1>(), // to do
-      stats: {
-        sweetness: parseInt(value.stats.fields.sweetness),
-        sourness: parseInt(value.stats.fields.sourness),
-        saltiness: parseInt(value.stats.fields.saltiness),
-        bitterness: parseInt(value.stats.fields.bitterness),
-        umami: parseInt(value.stats.fields.umami),
-      },
+type Materials = {
+  type: string;
+  fields: {
+    id: {
+      id: string;
     };
-  }
+    size: string;
+  };
+};
 
-  if (!Array.isArray(value) && value.fields && isPlayerObject(value.fields)) {
-    return {
-      id: value.fields.id.id as string,
-      xp: parseInt(value.fields.xp),
-      level: parseInt(value.fields.level),
-      max_mana: parseInt(value.fields.max_mana),
-      mana: parseInt(value.fields.mana),
-      last_energy_update: parseInt(value.fields.last_energy_update),
-      energy: parseInt(value.fields.energy),
-      max_energy: parseInt(value.fields.max_energy),
-      rolls: parseInt(value.fields.rolls),
-      materials: new Map(
-        value.fields.materials.fields.map(
-          (entry: { key: string; value: string }) => [
-            parseInt(entry.key),
-            parseInt(entry.value),
-          ]
-        )
-      ),
-      stats: {
-        sweetness: parseInt(value.fields.stats.fields.sweetness),
-        sourness: parseInt(value.fields.stats.fields.sourness),
-        saltiness: parseInt(value.fields.stats.fields.saltiness),
-        bitterness: parseInt(value.fields.stats.fields.bitterness),
-        umami: parseInt(value.fields.stats.fields.umami),
-      },
-    };
-  }
+type Stats = {
+  bitterness: string;
+  saltiness: string;
+  sourness: string;
+  sweetness: string;
+  umami: string;
+};
 
-  return null;
-}
+type Player = {
+  id: string;
+  energy: string;
+  last_energy_update: string;
+  mana: string;
+  materials: Materials;
+  max_energy: string;
+  max_mana: string;
+  rolls: string;
+  stats: Stats;
+};
 
 function usePlayer() {
   const client = useSuiClient();
@@ -92,19 +64,62 @@ function usePlayer() {
       });
 
       // Ensure we have at least one object and that it's a MoveObject
-      if (resp.data.length > 0 && isMoveObject(resp.data[0].data?.content)) {
-        const moveStruct = resp.data[0].data.content.fields as MoveStruct;
-
-        return createPlayerStateFromData(moveStruct);
+      if (resp.data.length < 0 || !isMoveObject(resp.data[0].data?.content)) {
+        return null;
       }
 
-      return null;
+      const moveStruct = resp.data[0].data as SuiObjectData;
+
+      const playerDyanmicDataId = moveStruct.objectId;
+      const playerDData = await client.getDynamicFields({
+        parentId: playerDyanmicDataId,
+      });
+
+      const playerData = await client.getDynamicFieldObject({
+        parentId: playerDyanmicDataId,
+        name: playerDData.data[0].name,
+      });
+
+      const objectId = playerData?.data?.objectId;
+
+      if (!isMoveObject(playerData?.data?.content)) {
+        console.error(
+          "Content is not a move object",
+          playerData?.data?.content
+        );
+        return null;
+      }
+
+      const moveContent = playerData?.data?.content as MoveObject;
+      const fields = moveContent.fields as {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        value?: { fields?: { resources?: { fields?: any } } };
+      };
+      const stats = moveContent.fields as {
+        // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        value?: { fields?: { stats?: { fields?: any } } };
+      };
+
+      const resourcesFields = fields.value?.fields?.resources?.fields;
+      const statsFields = stats.value?.fields?.stats?.fields;
+
+      if (!resourcesFields) {
+        console.error("Resources fields not found", playerData);
+      }
+
+      const playerMap = {
+        id: objectId,
+        ...resourcesFields,
+        stats: statsFields,
+      };
+
+      console.log(playerMap);
+
+      return playerMap as Player;
     },
     staleTime: 5 * 60 * 1000, // todo: check cache revalidation
     gcTime: 10 * 60 * 1000,
   });
-
-  console.log(player);
 
   return { player, isLoading, refetch, isRefetching };
 }
