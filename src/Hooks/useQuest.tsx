@@ -33,8 +33,24 @@ function useQuest() {
           parentId: boardQuestId,
         });
 
-        console.log(dynamicField, "dynamicFielddynamicField");
+        const object = await client.getObject({
+          id: dynamicField.data[0].objectId,
+          options: {
+            showContent: true,
+          },
+        });
 
+        const AAAAAAAAAAAAAAAA = await client.getDynamicFields({
+          parentId:
+            "0x4b6277377c938956a1117ef6f7249804542a7b3cfa42458de954d18b583cf35e",
+        });
+        const AAAAAAAAAAAAAAAAtemate = await client.getDynamicFieldObject({
+          parentId:
+            "0x4b6277377c938956a1117ef6f7249804542a7b3cfa42458de954d18b583cf35e",
+          name: AAAAAAAAAAAAAAAA.data[0].name,
+        });
+
+        console.log(AAAAAAAAAAAAAAAAtemate, "AAAAAAAAAAAAAAAA");
         const quests = await Promise.all(
           dynamicField.data.map(async (field) => {
             const fieldObject = await client.getDynamicFieldObject({
