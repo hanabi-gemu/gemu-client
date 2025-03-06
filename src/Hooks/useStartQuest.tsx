@@ -14,21 +14,22 @@ function useStartQuest(questId: string) {
   const { mutateAsync: signTransaction } = useSignTransaction();
 
   const startBoardQuest = async () => {
+    console.log(SUI_CLOCK_OBJECT_ID);
     try {
       const tx = new Transaction();
       console.log("Initializing startBoardQuest transaction...");
       if (!player) return;
-
-      console.log(questManagerAddress, player.id, questId);
 
       tx.moveCall({
         target: startBoardQuestAddress,
         arguments: [
           tx.object(questManagerAddress), // manager: &Manager
           tx.object(player.id), // player: &mut Player
-          tx.pure.u64(questId), // quest_id: u64
+          tx.pure.u64(0), // quest_id: u64
           tx.object(goldManagerAddress), // gold_manager: &mut GOLDManager
-          tx.object(tx.object.random()), // random: &Random
+          tx.object(
+            "0x0000000000000000000000000000000000000000000000000000000000000008"
+          ), // random: &Random
           tx.object(SUI_CLOCK_OBJECT_ID), // clock: &Clock
           // The TxContext (ctx) is automatically handled by the Move runtime.
         ],
