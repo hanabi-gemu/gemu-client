@@ -1,9 +1,27 @@
+import useStartQuest from "@/Hooks/useStartQuest";
+import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
+import { truncateAddress } from "@/Utils/format";
 
-function QuestDetails({ onClose }: { onClose: VoidFunction }) {
+function QuestDetails({
+  onClose,
+  quest,
+}: {
+  onClose: VoidFunction;
+  quest: string;
+}) {
+  const { startBoardQuest } = useStartQuest(quest);
+
+  console.log(quest);
+
   return (
     <div className="" onClick={onClose}>
       <h1 className={Fonts.Headings.Heading.Medium}>Quest Name</h1>
+      {quest && (
+        <h1 className={Fonts.Text.Paragraph.Medium}>
+          {truncateAddress(quest)}
+        </h1>
+      )}
       <div className="w-full bg-shadow h-[180px] rounded-2xl mt-3"></div>
       <div className="my-3">
         <h2 className={Fonts.Headings.Subtitle.Bold}>Quest Type</h2>
@@ -26,6 +44,13 @@ function QuestDetails({ onClose }: { onClose: VoidFunction }) {
           <p className="pl-2">• mana</p>
           <p className="pl-2">• energy</p>
         </div>
+      </div>
+
+      <div
+        className={Events.Hover + "p-3 border rounded-lg"}
+        onClick={startBoardQuest}
+      >
+        Start Quest
       </div>
     </div>
   );

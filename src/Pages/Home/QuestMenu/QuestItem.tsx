@@ -1,7 +1,14 @@
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
+import { truncateAddress } from "@/Utils/format";
 
-function QuestItem({ onClick }: { onClick?: VoidFunction }) {
+function QuestItem({
+  onClick,
+  questId,
+}: {
+  onClick?: VoidFunction;
+  questId?: string;
+}) {
   return (
     <div className="flex flex-col gap-y-3">
       <div
@@ -11,6 +18,11 @@ function QuestItem({ onClick }: { onClick?: VoidFunction }) {
         onClick={onClick}
       ></div>
       <p className={Fonts.Headings.Subtitle.Bold}>Quest Name</p>
+      {questId && (
+        <p className={Fonts.Text.Paragraph.Medium + "text-wrap w-[100px]"}>
+          {truncateAddress(questId)}
+        </p>
+      )}
       <p className={Fonts.Text.Paragraph.Medium}>Reward</p>
     </div>
   );

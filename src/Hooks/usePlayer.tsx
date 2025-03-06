@@ -71,6 +71,7 @@ function usePlayer() {
       const moveStruct = resp.data[0].data as SuiObjectData;
 
       const playerDyanmicDataId = moveStruct.objectId;
+
       const playerDData = await client.getDynamicFields({
         parentId: playerDyanmicDataId,
       });
