@@ -1,27 +1,35 @@
 import useStartQuest from "@/Hooks/useStartQuest";
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
-import { truncateAddress } from "@/Utils/format";
 
 function QuestDetails({
   onClose,
   quest,
+  slot,
 }: {
   onClose: VoidFunction;
   quest: string;
+  slot: number;
 }) {
-  const { startBoardQuest } = useStartQuest(quest);
+  const { startBoardQuest } = useStartQuest(quest, slot);
 
-  console.log(quest);
+  // Function to add the quest to session storage
+  const addQuestToSessionStorage = (quest: string) => {
+    if (typeof window !== "undefined") {
+      sessionStorage.setItem(`quest_slot_${slot}`, quest);
+    }
+  };
+
+  // Handler that saves the quest then starts the quest
+  const handleStartQuest = () => {
+    addQuestToSessionStorage(quest);
+    startBoardQuest();
+  };
 
   return (
     <div className="" onClick={onClose}>
       <h1 className={Fonts.Headings.Heading.Medium}>Quest Name</h1>
-      {quest && (
-        <h1 className={Fonts.Text.Paragraph.Medium}>
-          {truncateAddress(quest)}
-        </h1>
-      )}
+      {quest && <h1 className={Fonts.Text.Paragraph.Medium}>{quest}</h1>}
       <div className="w-full bg-shadow h-[180px] rounded-2xl mt-3"></div>
       <div className="my-3">
         <h2 className={Fonts.Headings.Subtitle.Bold}>Quest Type</h2>
@@ -48,7 +56,7 @@ function QuestDetails({
 
       <div
         className={Events.Hover + "p-3 border rounded-lg"}
-        onClick={startBoardQuest}
+        onClick={handleStartQuest}
       >
         Start Quest
       </div>

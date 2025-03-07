@@ -1,31 +1,29 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  startBoardQuestAddress,
   goldManagerAddress,
-  questManagerAddress,
+  claimReceiptStruct,
 } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 
-function useStartQuest(questId: string, slot: number) {
+function useClaimReceipt(receiptId: string, slot: number) {
   const client = useSuiClient();
   const { player } = usePlayer();
   const { mutateAsync: signTransaction } = useSignTransaction();
 
-  const startBoardQuest = async () => {
+  const claimReceipt = async () => {
     try {
       const tx = new Transaction();
-      console.log("Initializing startBoardQuest transaction...");
+      console.log("Initializing claimReceipt transaction...");
       console.log(goldManagerAddress);
       if (!player) return;
 
       tx.moveCall({
-        target: startBoardQuestAddress,
+        target: claimReceiptStruct,
         arguments: [
-          tx.object(questManagerAddress), // manager: &Manager
+          tx.object(receiptId), // quest_id: u64
           tx.object(player.id), // player: &mut Player
-          tx.pure.u64(questId), // quest_id: u64
           tx.object(goldManagerAddress), // gold_manager: &mut GOLDManager
           tx.object(
             "0x0000000000000000000000000000000000000000000000000000000000000008"
@@ -46,25 +44,24 @@ function useStartQuest(questId: string, slot: number) {
       const executeResult = await client.executeTransactionBlock({
         transactionBlock: bytes,
         signature,
-        options: { showRawEffects: true, showEffects: true },
+        options: { showRawEffects: true },
       });
 
       console.log("Execution result:", executeResult);
       if (executeResult && executeResult.effects?.created) {
-        const receiptId = executeResult.effects?.created[0].reference.objectId;
         if (typeof window !== "undefined") {
-          sessionStorage.setItem(`quest_slot_${slot}_receipt_id`, receiptId);
+          sessionStorage.removeItem(`quest_slot_${slot}_receipt_id`);
         }
       }
 
       // Report transaction effects to the wallet and refresh any local state if needed.
       reportTransactionEffects(executeResult.rawEffects!.toString());
     } catch (err) {
-      console.error("Error during startBoardQuest transaction:", err);
+      console.error("Error during claimReceipt transaction:", err);
     }
   };
 
-  return { startBoardQuest };
+  return { claimReceipt };
 }
 
-export default useStartQuest;
+export default useClaimReceipt;

@@ -2,11 +2,10 @@ import { Fonts } from "@/TwClassnames/Fonts";
 import QuestItem from "./QuestItem";
 import { useState } from "react";
 import QuestDetails from "./QuestDetails";
-import useQuest from "@/Hooks/useQuest";
+import { quests } from "@/Constants/Quests";
 
-function QuestMenu() {
+function QuestMenu({ slot }: { slot: number }) {
   const [openQuest, setOpenQuest] = useState(false);
-  const { data } = useQuest();
   const [selectedQuest, setSelectedQuest] = useState("");
 
   return (
@@ -18,6 +17,7 @@ function QuestMenu() {
             setSelectedQuest("");
           }}
           quest={selectedQuest}
+          slot={slot}
         />
       ) : (
         <div className="">
@@ -25,14 +25,14 @@ function QuestMenu() {
           <div className="my-3 overflow-x-scroll">
             <h2 className={Fonts.Headings.Title.Bold}>Available</h2>
             <div className="flex gap-2 mt-2">
-              {data?.map((quest) => (
+              {quests?.map((quest) => (
                 <QuestItem
-                  questId={quest}
-                  key={quest}
+                  questId={quest.details.fields.quest_id}
+                  key={quest.details.fields.quest_id}
                   onClick={() => {
                     setOpenQuest(true);
                     if (quest) {
-                      setSelectedQuest(quest);
+                      setSelectedQuest(quest.details.fields.quest_id);
                     }
                   }}
                 />

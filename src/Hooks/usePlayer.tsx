@@ -81,8 +81,6 @@ function usePlayer() {
         name: playerDData.data[0].name,
       });
 
-      const objectId = playerData?.data?.objectId;
-
       if (!isMoveObject(playerData?.data?.content)) {
         console.error(
           "Content is not a move object",
@@ -108,8 +106,10 @@ function usePlayer() {
         console.error("Resources fields not found", playerData);
       }
 
+      console.log(resp, "resp");
+
       const playerMap = {
-        id: objectId,
+        id: resp.data[0].data.objectId,
         ...resourcesFields,
         stats: statsFields,
       };

@@ -1,6 +1,5 @@
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
-import { truncateAddress } from "@/Utils/format";
 
 function QuestItem({
   onClick,
@@ -20,7 +19,7 @@ function QuestItem({
       <p className={Fonts.Headings.Subtitle.Bold}>Quest Name</p>
       {questId && (
         <p className={Fonts.Text.Paragraph.Medium + "text-wrap w-[100px]"}>
-          {truncateAddress(questId)}
+          {questId}
         </p>
       )}
       <p className={Fonts.Text.Paragraph.Medium}>Reward</p>

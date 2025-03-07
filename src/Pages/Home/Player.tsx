@@ -4,6 +4,7 @@ import useXP from "@/Hooks/useXP";
 import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
+import useReceipt from "@/Hooks/useReceipt";
 
 // function percentageOfMinutesElapsed(milliseconds: number): number {
 //   if (milliseconds === 0) {
@@ -21,6 +22,7 @@ function Player() {
     isRefetching: isRefetchingPlayer,
   } = usePlayer();
   const { isLoading: isLoadingXp } = useXP();
+  useReceipt();
 
   if (isLoadingPlayer || isLoadingXp || isRefetchingPlayer) {
     return <Spinner />;
