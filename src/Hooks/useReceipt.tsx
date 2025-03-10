@@ -3,6 +3,15 @@ import { receiptStruct } from "@/smartContractInterface";
 import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
 import { useQuery } from "@tanstack/react-query";
 
+export type Receipt = {
+  duration: any;
+  id: any;
+  player_id: any;
+  requirements: any;
+  rewards: any;
+  timestamp: any;
+};
+
 function useReceipt() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
@@ -13,7 +22,7 @@ function useReceipt() {
     refetch,
     isRefetching,
   } = useQuery({
-    queryKey: ["receipt", account.address],
+    queryKey: ["receipt"],
     queryFn: async () => {
       const resp = await client.getOwnedObjects({
         owner: account.address,
@@ -47,8 +56,6 @@ function useReceipt() {
         }
       });
     },
-    staleTime: 5 * 60 * 1000, // todo: check cache revalidation
-    gcTime: 10 * 60 * 1000,
   });
 
   return { receipts, isLoading, refetch, isRefetching };

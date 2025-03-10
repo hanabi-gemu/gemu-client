@@ -16,7 +16,7 @@ function useClaimReceipt(receiptId: string, slot: number) {
     try {
       const tx = new Transaction();
       console.log("Initializing claimReceipt transaction...");
-      console.log(goldManagerAddress);
+      console.log(receiptId);
       if (!player) return;
 
       tx.moveCall({
@@ -44,11 +44,11 @@ function useClaimReceipt(receiptId: string, slot: number) {
       const executeResult = await client.executeTransactionBlock({
         transactionBlock: bytes,
         signature,
-        options: { showRawEffects: true },
+        options: { showRawEffects: true, showEffects: true },
       });
 
       console.log("Execution result:", executeResult);
-      if (executeResult && executeResult.effects?.created) {
+      if (executeResult && executeResult.effects?.deleted) {
         if (typeof window !== "undefined") {
           sessionStorage.removeItem(`quest_slot_${slot}_receipt_id`);
         }

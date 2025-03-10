@@ -7,11 +7,14 @@ import {
 } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
+import { useQueryClient } from "@tanstack/react-query";
 
 function useStartQuest(questId: string, slot: number) {
   const client = useSuiClient();
   const { player } = usePlayer();
   const { mutateAsync: signTransaction } = useSignTransaction();
+
+  const queryClient = useQueryClient();
 
   const startBoardQuest = async () => {
     try {
@@ -19,6 +22,8 @@ function useStartQuest(questId: string, slot: number) {
       console.log("Initializing startBoardQuest transaction...");
       console.log(goldManagerAddress);
       if (!player) return;
+
+      queryClient.invalidateQueries({ queryKey: ["receipt"] });
 
       tx.moveCall({
         target: startBoardQuestAddress,

@@ -1,4 +1,3 @@
-import useStartQuest from "@/Hooks/useStartQuest";
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
 
@@ -11,7 +10,7 @@ function QuestDetails({
   quest: string;
   slot: number;
 }) {
-  const { startBoardQuest } = useStartQuest(quest, slot);
+  // const { startBoardQuest } = useStartQuest(quest, slot);
 
   // Function to add the quest to session storage
   const addQuestToSessionStorage = (quest: string) => {
@@ -21,9 +20,8 @@ function QuestDetails({
   };
 
   // Handler that saves the quest then starts the quest
-  const handleStartQuest = () => {
+  const addToSlot = () => {
     addQuestToSessionStorage(quest);
-    startBoardQuest();
   };
 
   return (
@@ -55,10 +53,10 @@ function QuestDetails({
       </div>
 
       <div
-        className={Events.Hover + "p-3 border rounded-lg"}
-        onClick={handleStartQuest}
+        className={Events.Hover + "p-3 border rounded-lg my-3"}
+        onClick={addToSlot}
       >
-        Start Quest
+        <p>Add to quest slot</p>
       </div>
     </div>
   );

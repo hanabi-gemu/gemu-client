@@ -106,15 +106,11 @@ function usePlayer() {
         console.error("Resources fields not found", playerData);
       }
 
-      console.log(resp, "resp");
-
       const playerMap = {
         id: resp.data[0].data.objectId,
         ...resourcesFields,
         stats: statsFields,
       };
-
-      console.log(playerMap);
 
       return playerMap as Player;
     },
