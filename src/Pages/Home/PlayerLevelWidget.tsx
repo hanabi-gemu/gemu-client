@@ -1,8 +1,9 @@
+import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import { truncateAddress } from "@/Utils/format";
 
 function PlayerLevelWidget() {
-  const { player } = usePlayer();
+  const { player, isRefetching } = usePlayer();
 
   if (!player) return false;
 
@@ -17,7 +18,11 @@ function PlayerLevelWidget() {
           <div className="h-[10px] flex items-center w-[150px] relative">
             <div className="rounded-md bg-low-contrast h-[10px] w-[56%]"></div>
             <div className="h-[10px] bg-light-box w-[44%] rounded-r-md"></div>
-            <p className="absolute top-[10px] text-sm">EXP: {player.xp}</p>
+            {isRefetching ? (
+              <Spinner />
+            ) : (
+              <p className="absolute top-[10px] text-sm">EXP: {player.xp}</p>
+            )}
           </div>
         </div>
       </div>

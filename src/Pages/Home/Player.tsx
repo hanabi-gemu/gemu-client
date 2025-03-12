@@ -1,6 +1,5 @@
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
-import useXP from "@/Hooks/useXP";
 import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
@@ -16,15 +15,10 @@ import useReceipt from "@/Hooks/useReceipt";
 // }
 
 function Player() {
-  const {
-    player,
-    isLoading: isLoadingPlayer,
-    isRefetching: isRefetchingPlayer,
-  } = usePlayer();
-  const { isLoading: isLoadingXp } = useXP();
+  const { player, isLoading: isLoadingPlayer } = usePlayer();
   useReceipt();
 
-  if (isLoadingPlayer || isLoadingXp || isRefetchingPlayer) {
+  if (isLoadingPlayer) {
     return <Spinner />;
   }
 

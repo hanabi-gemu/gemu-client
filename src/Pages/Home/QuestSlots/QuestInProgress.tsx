@@ -43,7 +43,7 @@ const QuestInProgress = ({
         <div className="border border-low-contrast w-[240px] h-[120px] backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center gap-y-2">
           <p className={Fonts.Headings.Title.Bold}>Quest Slot</p>
           <div
-            className={`rounded-2xl p-3 px-6 flex justify-center items-center w-[180px] bg-shadow hover:bg-shadow2 ${Events.Hover}`}
+            className={`rounded-2xl p-3 px-6 flex justify-center items-center w-[180px] bg-shadow2`}
           >
             <p className={Fonts.Headings.Subtitle.Book}>Quest in Progress</p>
           </div>
