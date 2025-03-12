@@ -5,7 +5,7 @@ import { Link } from "react-router-dom";
 
 function NavBar({ routes }: { routes: Route[] }) {
   return (
-    <div className="fixed bottom-0 left-0 right-0">
+    <div className="fixed bottom-0 left-0 right-0 bg-white">
       <div className="flex justify-between">
         {routes.map((route, index) => (
           <Link

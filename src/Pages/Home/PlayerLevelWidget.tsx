@@ -1,4 +1,4 @@
-import Spinner from "@/Components/Spinner";
+import SpinnerSmall from "@/Components/SpinnerSmall";
 import usePlayer from "@/Hooks/usePlayer";
 import { truncateAddress } from "@/Utils/format";
 
@@ -8,7 +8,7 @@ function PlayerLevelWidget() {
   if (!player) return false;
 
   return (
-    <div className="bg-shadow p-6 flex rounded-3xl items-center gap-[16px] w-[350px]">
+    <div className="bg-shadow p-6 py-0 flex rounded-3xl items-center gap-[16px] w-[350px] h-[100px]">
       <div className="bg-[rgba(111,_111,_111,_1)] rounded-full w-[45px] h-[45px]"></div>
       <div className="flex flex-col">
         <div className="title-bold">{truncateAddress(player.id)}</div>
@@ -19,7 +19,9 @@ function PlayerLevelWidget() {
             <div className="rounded-md bg-low-contrast h-[10px] w-[56%]"></div>
             <div className="h-[10px] bg-light-box w-[44%] rounded-r-md"></div>
             {isRefetching ? (
-              <Spinner />
+              <div className="w-[10px] h-[10px] absolute top-[10px]">
+                <SpinnerSmall />
+              </div>
             ) : (
               <p className="absolute top-[10px] text-sm">EXP: {player.xp}</p>
             )}

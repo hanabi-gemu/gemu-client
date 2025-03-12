@@ -1,38 +1,127 @@
-import { fetchPlayers } from "@/Actions/Player";
-import Spinner from "@/Components/Spinner";
+import { Fonts } from "@/TwClassnames/Fonts";
 import { truncateAddress } from "@/Utils/format";
-import { useQuery } from "@tanstack/react-query";
+import avatarImage from "../Home/bear.png";
 
 function Leaderboard() {
-  const { data, isLoading, isError } = useQuery({
-    queryKey: ["players"],
-    queryFn: fetchPlayers,
-  });
+  // const { data, isLoading, isError } = useQuery({
+  //   queryKey: ["players"],
+  //   queryFn: fetchPlayers,
+  // });
+  const data = [1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1];
 
   return (
     <>
-      <h1 className="text-4xl font-bold text-center mb-4">LEADERBOARD</h1>
-      {isError && <h1 className="text-red-600">ERROR FETCHING DATA</h1>}
-      {isLoading ? (
-        <Spinner />
-      ) : (
-        data?.map(({ level, player_id, xp }) => (
-          <div className="flex flex-col border p-3 mb-3 rounded-md">
-            <div className="flex gap-4">
-              <div className="font-bold">id</div>
-              <div>{truncateAddress(player_id)}</div>
+      <div className="flex max-h-[65vh]">
+        <div className="w-1/2">
+          <div className="flex flex-col">
+            <div className="mx-auto">
+              <img
+                src={avatarImage}
+                width={163}
+                height={188}
+                className="object-cover rotate-[28deg]"
+              />
+              <div className="flex gap-2 mt-3">
+                <div className="rounded-full bg-shadow w-[35px] h-[35px] text-center flex items-center justify-center">
+                  <p className={Fonts.Display.Display3.Light}>1</p>
+                </div>
+                <div className="flex flex-col gap-y-1">
+                  <p className={Fonts.Text.Paragraph.Medium}>
+                    {truncateAddress(
+                      "0x3facd6eb8fe07a293c9315485ec1c77c38d7d28112cfec394b9b23da0599ce52"
+                    )}
+                  </p>
+                  <p
+                    className={`${Fonts.Text.Paragraph.Medium} text-low-contrast`}
+                  >
+                    1000 XP
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex gap-4">
-              <div className="font-bold">level</div>
-              <div>{level}</div>
+            <div className="">
+              <img
+                src={avatarImage}
+                width={163}
+                height={188}
+                className="object-cover rotate-[-13deg]"
+              />
+              <div className="flex gap-2 mt-3">
+                <div className="rounded-full bg-shadow w-[35px] h-[35px] text-center flex items-center justify-center">
+                  <p className={Fonts.Display.Display3.Light}>1</p>
+                </div>
+                <div className="flex flex-col gap-y-1">
+                  <p className={Fonts.Text.Paragraph.Medium}>
+                    {truncateAddress(
+                      "0x3facd6eb8fe07a293c9315485ec1c77c38d7d28112cfec394b9b23da0599ce52"
+                    )}
+                  </p>
+                  <p
+                    className={`${Fonts.Text.Paragraph.Medium} text-low-contrast`}
+                  >
+                    1000 XP
+                  </p>
+                </div>
+              </div>
             </div>
-            <div className="flex mb-5 gap-4">
-              <div className="font-bold">xp</div>
-              <div>{xp}</div>
+            <div className="relative">
+              <div className="h-[180px]">
+                <div className="absolute right-[15%] top-[-20%]">
+                  <img
+                    src={avatarImage}
+                    width={163}
+                    height={188}
+                    className=" object-cover  rotate-[28deg]"
+                  />
+                  <div className="flex gap-2 mt-3">
+                    <div className="rounded-full bg-shadow w-[35px] h-[35px] text-center flex items-center justify-center">
+                      <p className={Fonts.Display.Display3.Light}>1</p>
+                    </div>
+                    <div className="flex flex-col gap-y-1">
+                      <p className={Fonts.Text.Paragraph.Medium}>
+                        {truncateAddress(
+                          "0x3facd6eb8fe07a293c9315485ec1c77c38d7d28112cfec394b9b23da0599ce52"
+                        )}
+                      </p>
+                      <p
+                        className={`${Fonts.Text.Paragraph.Medium} text-low-contrast`}
+                      >
+                        1000 XP
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
           </div>
-        ))
-      )}
+        </div>
+        <div className="w-1/2">
+          <h1 className={Fonts.Headings.Subtitle.Book}>Players Leaderboard</h1>
+          <div className="overflow-y-scroll max-h-full pr-10">
+            {data?.map((_, index) => (
+              <div
+                className="flex p-3 mb-3 rounded-md justify-between items-center"
+                key={index}
+              >
+                <div className={Fonts.Text.Paragraph.Medium}> 1</div>
+                <div className="rounded-full w-[34px] h-[34px] bg-low-contrast"></div>
+                <div className={Fonts.Text.Paragraph.Medium}>
+                  {truncateAddress(
+                    "0x3facd6eb8fe07a293c9315485ec1c77c38d7d28112cfec394b9b23da0599ce52"
+                  )}
+                </div>
+                <div>
+                  <p
+                    className={`${Fonts.Text.Paragraph.Medium} text-low-contrast`}
+                  >
+                    {100} XP
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
     </>
   );
 }

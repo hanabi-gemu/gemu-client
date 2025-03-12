@@ -5,15 +5,6 @@ import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
 import useReceipt from "@/Hooks/useReceipt";
 
-// function percentageOfMinutesElapsed(milliseconds: number): number {
-//   if (milliseconds === 0) {
-//     return 100;
-//   }
-//   const totalMillisecondInAMinute = 60000;
-//   const percentage = (milliseconds / totalMillisecondInAMinute) * 100;
-//   return Math.min(100, parseFloat(percentage.toFixed(2))); // Round to 2 decimal places
-// }
-
 function Player() {
   const { player, isLoading: isLoadingPlayer } = usePlayer();
   useReceipt();

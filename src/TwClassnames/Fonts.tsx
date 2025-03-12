@@ -15,4 +15,9 @@ export const Fonts = {
     },
   },
   Text: { Paragraph: { Medium: tw`text-[12px] font-medium leading-[125%]` } },
+  Display: {
+    Display3: {
+      Light: tw`text-[24px] font-[450] leading-[48px] tracking-[-0.96px]`,
+    },
+  },
 };
