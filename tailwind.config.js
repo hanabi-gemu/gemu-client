@@ -22,6 +22,7 @@ export default {
 				'low-contrast': 'rgba(111, 111, 111, 1)',
 				'low-contrast2': 'rgba(150, 150, 150, 1)',
 				'hight-contrast': '#1D1D1D',
+				'hight-contrast2': '#292929',
 				'light-box': 'rgba(255, 255, 255, 0.6)',
 			},
 			letterSpacing: {

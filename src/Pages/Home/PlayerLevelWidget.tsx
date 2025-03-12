@@ -13,6 +13,7 @@ function PlayerLevelWidget() {
         <div className="title-bold">{truncateAddress(player.id)}</div>
         <div className="flex items-center gap-[16px]">
           <div className="subtitle-book">Level {player.level}</div>
+          {/* level progress bar */}
           <div className="h-[10px] flex items-center w-[150px] relative">
             <div className="rounded-md bg-low-contrast h-[10px] w-[56%]"></div>
             <div className="h-[10px] bg-light-box w-[44%] rounded-r-md"></div>

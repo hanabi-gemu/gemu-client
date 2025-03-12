@@ -39,6 +39,8 @@ type Player = {
   max_mana: string;
   rolls: string;
   stats: Stats;
+  xp: string;
+  level: string;
 };
 
 function usePlayer() {
@@ -99,8 +101,13 @@ function usePlayer() {
         value?: { fields?: { stats?: { fields?: any } } };
       };
 
+      const xplevel = moveContent.fields as {
+        value?: { fields?: { level: string; xp: string } };
+      };
+
       const resourcesFields = fields.value?.fields?.resources?.fields;
       const statsFields = stats.value?.fields?.stats?.fields;
+      const expLevelFields = xplevel.value?.fields;
 
       if (!resourcesFields) {
         console.error("Resources fields not found", playerData);
@@ -110,6 +117,8 @@ function usePlayer() {
         id: resp.data[0].data.objectId,
         ...resourcesFields,
         stats: statsFields,
+        xp: expLevelFields?.xp,
+        level: expLevelFields?.level,
       };
 
       return playerMap as Player;

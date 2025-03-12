@@ -9,14 +9,13 @@ import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 
 function useClaimReceipt(receiptId: string, slot: number) {
   const client = useSuiClient();
-  const { player } = usePlayer();
+  const { player, refetch } = usePlayer();
   const { mutateAsync: signTransaction } = useSignTransaction();
 
   const claimReceipt = async () => {
     try {
       const tx = new Transaction();
       console.log("Initializing claimReceipt transaction...");
-      console.log(receiptId);
       if (!player) return;
 
       tx.moveCall({
@@ -51,6 +50,7 @@ function useClaimReceipt(receiptId: string, slot: number) {
       if (executeResult && executeResult.effects?.deleted) {
         if (typeof window !== "undefined") {
           sessionStorage.removeItem(`quest_slot_${slot}_receipt_id`);
+          refetch();
         }
       }
 

@@ -41,14 +41,6 @@ function Player() {
               ))}
             </div>
           </div>
-          {/* <div>
-                <p className="font-semibold">Player energy:</p>{" "}
-                {Number.isNaN(player.last_energy_update)
-                  ? 0
-                  : percentageOfMinutesElapsed(
-                      Date.now() - player.last_energy_update
-                    )}
-              </div> */}
         </div>
         <div className="w-[379px] h-[438.5px]">
           <img

@@ -72,4 +72,37 @@ export const quests: Quest[] = [
       },
     },
   },
+  {
+    details: {
+      type: "0x64605be182e329ca4a55f84d33ffe3d82d66bc91552a11fe965a5c74b6bd6748::quest::Details",
+      fields: {
+        quest_id: "2",
+        quest_type: "0",
+      },
+    },
+    duration: "60000",
+    requirements: {
+      type: "0x64605be182e329ca4a55f84d33ffe3d82d66bc91552a11fe965a5c74b6bd6748::quest::Requirements",
+      fields: {
+        bitterness: "0",
+        energy: "0",
+        level: "0",
+        mana: "0",
+        saltiness: "0",
+        sourness: "0",
+        sweetness: "0",
+        umami: "0",
+      },
+    },
+    rewards: {
+      type: "0x64605be182e329ca4a55f84d33ffe3d82d66bc91552a11fe965a5c74b6bd6748::quest::Rewards",
+      fields: {
+        gold: "1",
+        material_amounts: [],
+        material_ids: [],
+        rolls: "1",
+        xp: "100",
+      },
+    },
+  },
 ];

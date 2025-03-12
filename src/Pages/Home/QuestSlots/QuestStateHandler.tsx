@@ -3,6 +3,7 @@ import ClaimQuestSlot from "./ClaimQuestSlot";
 import QuestInProgress from "./QuestInProgress";
 import SlotWithQuest from "./SlotWithQuest";
 import EmptyQuestSlot from "./EmptyQuestSlot";
+import Spinner from "@/Components/Spinner";
 
 function QuestStateHandler({
   isQuestCompleted,
@@ -15,15 +16,15 @@ function QuestStateHandler({
   receiptId?: string;
   questId?: string;
 }) {
-  console.log(isQuestCompleted, slot, receiptId, questId, "aaaaaaaaaaaaa");
-
-  const { receipts } = useReceipt();
-
-  console.log(receipts);
+  const { receipts, isLoading, refetch } = useReceipt();
 
   const questReceipt = receipts?.find(
     (receipt) => receipt?.id.id === receiptId
   );
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <>
@@ -33,14 +34,20 @@ function QuestStateHandler({
             <ClaimQuestSlot slot={slot} receiptId={receiptId} />
           ) : (
             questReceipt && (
-              <QuestInProgress
-                timestamp={questReceipt.timestamp}
-                duration={questReceipt.duration}
-              />
+              <>
+                <QuestInProgress
+                  timestamp={questReceipt.timestamp}
+                  duration={questReceipt.duration}
+                  slot={slot}
+                  receiptId={receiptId}
+                />
+              </>
             )
           )
         ) : (
-          questId && <SlotWithQuest slot={slot} quest={questId} />
+          questId && (
+            <SlotWithQuest slot={slot} quest={questId} refetch={refetch} />
+          )
         )
       ) : (
         <EmptyQuestSlot slot={slot} />

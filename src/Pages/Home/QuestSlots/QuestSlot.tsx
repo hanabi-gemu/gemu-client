@@ -52,7 +52,7 @@ function QuestSlot({ slot }: { slot: number }) {
   const currentTime = Date.now();
   const isQuestCompleted =
     questReceipt &&
-    questReceipt.timestamp + questReceipt.duration > currentTime;
+    currentTime >= questReceipt.timestamp + questReceipt.duration;
 
   return (
     <>
