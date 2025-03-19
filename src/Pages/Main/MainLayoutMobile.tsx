@@ -7,8 +7,8 @@ import NavBar from "./NavBar";
 const MainLayoutMobile: React.FC = () => {
   return (
     <Router>
-      <div className="h-screen relative">
-        <div className="flex flex-col h-screen p-4">
+      <div className="relative overflow-hidden">
+        <div className="flex flex-col p-4">
           <div className="flex-grow rounded-lg p-2 mx-auto">
             <div className="flex gap-2 mb-10">
               <PlayerLevelWidgetMobile />
@@ -20,7 +20,7 @@ const MainLayoutMobile: React.FC = () => {
               ))}
             </Routes>
             {/* Bottom Navbar */}
-            <div className="h-24 w-full"></div>s
+            <div className="h-24 w-full"></div>
           </div>
         </div>
         <NavBar routes={routes} />

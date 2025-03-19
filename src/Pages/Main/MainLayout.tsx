@@ -19,9 +19,9 @@ const MainLayout: React.FC = () => {
             ))}
           </Routes>
           {/* Bottom Navbar */}
+          <NavBar routes={routes} />
         </Router>
       </div>
-      <NavBar routes={routes} />
     </div>
   );
 };
