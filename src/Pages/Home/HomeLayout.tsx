@@ -1,21 +1,21 @@
 import Player from "./Player";
+import PlayerMobile from "./PlayerMobile";
 import usePlayer from "@/Hooks/usePlayer";
 import RegisterPlayer from "./Register";
 import QuestSlots from "./QuestSlots/QuestSlots";
+import QuestSlotsMobile from "./QuestSlots/QuestSlotsMobile";
+import useWindowWidth from "@/Hooks/useWindowWidth";
 
 const Layout = () => {
-  const {
-    player,
-    // isLoading: isLoadingPlayer,
-    // isRefetching: isRefetchingPlayer,
-  } = usePlayer();
+  const { player } = usePlayer();
+  const isMobile = useWindowWidth();
 
   return (
     <>
       {player ? (
         <>
-          <Player />
-          <QuestSlots />
+          {isMobile ? <PlayerMobile /> : <Player />}
+          {isMobile ? <QuestSlotsMobile /> : <QuestSlots />}
         </>
       ) : (
         <RegisterPlayer />
@@ -23,4 +23,5 @@ const Layout = () => {
     </>
   );
 };
+
 export default Layout;

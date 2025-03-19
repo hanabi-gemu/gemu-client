@@ -2,12 +2,21 @@ import React from "react";
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import MainLayout from "./Pages/Main/MainLayout";
 import Login from "./Pages/Login";
+import useWindowWidth from "./Hooks/useWindowWidth";
+import MainLayoutMobile from "./Pages/Main/MainLayoutMobile";
 
 const App: React.FC = () => {
   const account = useCurrentAccount();
+  const isMobile = useWindowWidth();
   return (
-    <div className="relative min-h-screen bg-gray-100">
-      <div className="flex-grow">{account ? <MainLayout /> : <Login />}</div>
+    <div className="">
+      {isMobile ? (
+        <div className="flex-grow">
+          {account ? <MainLayoutMobile /> : <Login />}
+        </div>
+      ) : (
+        <div className="flex-grow">{account ? <MainLayout /> : <Login />}</div>
+      )}
     </div>
   );
 };

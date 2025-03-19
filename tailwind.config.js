@@ -11,6 +11,9 @@ export default {
 				'fade-out': 'fadeOut 1s ease-in-out forwards', // Matches duration
 				'scale-up': 'scaleUp 1s ease-in-out',
 			},
+			fontFamily: {
+				circular: ['Circular', 'sans-serif']
+			},
 			fontWeight: {
 				450: "450",
 			},
@@ -21,8 +24,11 @@ export default {
 				'shadow2': 'rgba(113, 113, 113, 0.4)',
 				'low-contrast': 'rgba(111, 111, 111, 1)',
 				'low-contrast2': 'rgba(150, 150, 150, 1)',
-				'hight-contrast': '#1D1D1D',
-				'hight-contrast2': '#292929',
+				'med-contrast': 'rgba(204, 204, 204, 1)',
+				'contrast': 'rgba(87, 145, 128, 1)',
+				'high-contrast': '#1D1D1D',
+				'high': 'rgba(255, 255, 255, 1)',
+				'high-contrast2': '#292929',
 				'light-box': 'rgba(255, 255, 255, 0.6)',
 			},
 			letterSpacing: {

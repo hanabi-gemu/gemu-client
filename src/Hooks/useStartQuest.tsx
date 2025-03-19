@@ -20,6 +20,8 @@ function useStartQuest(questId: string, slot: number) {
       const tx = new Transaction();
       console.log("Initializing startBoardQuest transaction...");
       if (!player) return;
+      console.log(questId, "asdasd");
+      console.log(player.id, "player.id");
 
       tx.moveCall({
         target: startBoardQuestAddress,
@@ -39,7 +41,7 @@ function useStartQuest(questId: string, slot: number) {
       const { bytes, signature, reportTransactionEffects } =
         await signTransaction({
           transaction: tx,
-          chain: "sui:devnet",
+          chain: "sui:testnet",
         });
 
       console.log("Transaction signed:", { bytes, signature });

@@ -2,50 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --Med-Contrast: #3e3e3e;
-  --High-Contrast: #1d1d1d;
-}
 
 @font-face {
-  font-family: "FontDisplay";
+  font-family: "Circular";
   src: url("fonts/circular-std-medium-500.ttf") format("truetype");
-  font-weight: normal;
-  font-style: normal;
-}
-
-.subtitle-book {
-  @apply text-[16px] leading-[125%] tracking-[-0.28px];
-  color: var(--Med-Contrast);
-  font-family: "FontDisplay", sans-serif;
-  font-style: normal;
-  font-weight: 450;
-}
-
-.title-bold {
-  color: var(--High-Contrast);
-  font-family: "FontDisplay", sans-serif;
-  font-size: 16px;
-  font-style: normal;
   font-weight: 500;
-  line-height: 120%; /* 38.4px */
-}
-
-.title-book {
-  color: var(--High-Contrast);
-  font-family: "FontDisplay", sans-serif;
-  font-size: 16px;
   font-style: normal;
-  font-weight: 450;
-  line-height: 120%; /* 38.4px */
-}
-
-.subtitle-bold {
-  color: var(--High-Contrast);
-  font-family: "FontDisplay", sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 500;
-  line-height: 150%; /* 42px */
-  letter-spacing: -0.28px;
 }

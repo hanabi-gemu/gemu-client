@@ -1,5 +1,4 @@
 import { useState, useEffect } from "react";
-import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
 import ClaimQuestSlot from "./ClaimQuestSlot";
 

@@ -1,11 +1,10 @@
+import { Fonts } from "@/TwClassnames/Fonts";
+
 function StatBox({ stat, value }: { stat: string; value: string }) {
   return (
-    <div className="flex flex-col items-center w-[75px]">
-      <div className="w-[35px] h-[35px] relative my-3">
-        <p className="title-book absolute left-[14px] top-[10px]">{value}</p>
-        <div className="border border-black absolute w-[35px] h-[35px] top-0 rotate-45"></div>
-      </div>
-      <p className="subtitle-bold">{stat}</p>
+    <div className="flex flex-col items-center w-[78px] h-[56px] border-[2px] border-low-contrast  p-2">
+      <p className={`${Fonts.Headings.Subtitle.Bold}`}>{value}</p>
+      <p className={Fonts.Text.Medium}>{stat}</p>
     </div>
   );
 }

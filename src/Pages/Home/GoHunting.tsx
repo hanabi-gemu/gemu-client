@@ -52,7 +52,7 @@ function GoHunting() {
                 const { bytes, signature, reportTransactionEffects } =
                   await signTransaction({
                     transaction: tx,
-                    chain: "sui:devnet",
+                    chain: "sui:testnet",
                   });
 
                 console.log("Transaction signed:", { bytes, signature });
