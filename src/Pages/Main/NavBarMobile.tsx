@@ -1,21 +1,14 @@
 import { Route } from "@/Constants/NavBar";
-import { Fonts } from "@/TwClassnames/Fonts";
 import { Link } from "react-router-dom";
 
-function NavBar({ routes }: { routes: Route[] }) {
+function NavBarMobile({ routes }: { routes: Route[] }) {
   return (
     <div className="fixed bottom-0 left-0 right-0 bg-white">
       <div className="flex justify-around min-w-0 overflow-x-auto px-5">
         {routes.map((route, index) => (
           <Link to={route.route} className="text-center py-2" key={index}>
             <div className="flex flex-col items-center group">
-              <div className="w-[48px] h-[48px]">{route.icon}</div>
-
-              <div
-                className={`flex items-center justify-center gap-1 ${Fonts.Headings.Title.Bold} group-hover:text-blue-600 group`}
-              >
-                <div className="whitespace-nowrap mt-6">{route.label}</div>
-              </div>
+              <div className="w-[22px] h-[24px]">{route.icon}</div>
             </div>
           </Link>
         ))}
@@ -24,4 +17,4 @@ function NavBar({ routes }: { routes: Route[] }) {
   );
 }
 
-export default NavBar;
+export default NavBarMobile;

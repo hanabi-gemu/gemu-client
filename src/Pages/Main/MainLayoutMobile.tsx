@@ -2,7 +2,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { routes } from "@/Constants/NavBar";
 import PlayerLevelWidgetMobile from "../Home/PlayerLevelWidgetMobile";
 import GoldWidgetMobile from "../Home/GoldWidgetMobile";
-import NavBar from "./NavBar";
+import NavBarMobile from "./NavBarMobile";
 
 const MainLayoutMobile: React.FC = () => {
   return (
@@ -23,7 +23,7 @@ const MainLayoutMobile: React.FC = () => {
             <div className="h-24 w-full"></div>
           </div>
         </div>
-        <NavBar routes={routes} />
+        <NavBarMobile routes={routes} />
       </div>
     </Router>
   );

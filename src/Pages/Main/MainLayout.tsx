@@ -7,7 +7,7 @@ import GoldWidget from "../Home/GoldWidget";
 const MainLayout: React.FC = () => {
   return (
     <div className="flex flex-col p-4">
-      <div className="flex-grow bg-white rounded-lg shadow-md p-6 w-max-[1980px] mx-auto md:min-w-[800px]">
+      <div className="flex-grow rounded-lg p-6 w-max-[1980px] mx-auto md:min-w-[800px]">
         <div className="flex justify-between mb-10">
           <PlayerLevelWidget />
           <GoldWidget />
