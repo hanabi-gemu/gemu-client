@@ -20,12 +20,16 @@ export default {
 			boxShadow:
 				{ 'drop-shadow-dark': '0px -8px 47px 0px rgba(255, 255, 255, 0.25), 0px 8px 16px 0px rgba(0, 0, 0, 0.60)' },
 			colors: {
+				'bg-med': 'rgba(229, 229, 229, 1)',
+				'bg-high': 'rgba(29, 29, 29, 1)',
+				'bg-button': 'rgba(204, 204, 204, 1)',
 				'shadow': 'rgba(113, 113, 113, 0.2)',
 				'shadow2': 'rgba(113, 113, 113, 0.4)',
 				'low-contrast': 'rgba(111, 111, 111, 1)',
 				'low-contrast2': 'rgba(150, 150, 150, 1)',
-				'med-contrast': 'rgba(204, 204, 204, 1)',
+				'med-contrast': 'rgba(62, 62, 62, 1)',
 				'contrast': 'rgba(87, 145, 128, 1)',
+				'contrast2': 'rgba(107, 175, 153, 1)',
 				'high-contrast': '#1D1D1D',
 				'high': 'rgba(255, 255, 255, 1)',
 				'high-contrast2': '#292929',

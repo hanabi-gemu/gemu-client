@@ -21,7 +21,7 @@ type Materials = {
   };
 };
 
-type Stats = {
+export type Stats = {
   bitterness: string;
   saltiness: string;
   sourness: string;
@@ -29,7 +29,7 @@ type Stats = {
   umami: string;
 };
 
-type Player = {
+export type Player = {
   id: string;
   energy: string;
   last_energy_update: string;

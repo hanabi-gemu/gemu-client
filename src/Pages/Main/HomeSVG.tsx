@@ -1,6 +1,6 @@
 import useWindowWidth from "@/Hooks/useWindowWidth";
 
-function ReferralSVG() {
+function HomeSVG() {
   const isMobile = useWindowWidth();
   return (
     <>
@@ -35,4 +35,4 @@ function ReferralSVG() {
   );
 }
 
-export default ReferralSVG;
+export default HomeSVG;

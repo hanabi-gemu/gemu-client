@@ -37,9 +37,6 @@ function QuestMenu({ slot }: { slot: number }) {
                   }}
                 />
               ))}
-              <QuestItem onClick={() => setOpenQuest(true)} />
-              <QuestItem onClick={() => setOpenQuest(true)} />
-              <QuestItem onClick={() => setOpenQuest(true)} />
             </div>
           </div>
           <div className="mt-5">

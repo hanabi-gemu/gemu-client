@@ -4,10 +4,10 @@ import Wallet from "@/Pages/Wallet";
 import { ReactNode } from "react";
 import LeaderboardSVG from "@/Pages/Main/LeaderboardSVG";
 import ReferralSVG from "@/Pages/Main/ReferralSVG";
-import HomeSVG from "@/Pages/Main/HomeSvg";
 import WeeklyChallengeSVG from "@/Pages/Main/WeeklyChallengeSVG";
 import EarnSVG from "@/Pages/Main/EarnSVG";
 import LeaderboardLayout from "@/Pages/Leaderboard/LeaderboardLayout";
+import HomeSVG from "@/Pages/Main/HomeSVG";
 
 export type Route = {
   icon: ReactNode | null;
