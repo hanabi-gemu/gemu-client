@@ -41,10 +41,6 @@ function QuestSlot({ slot }: { slot: number }) {
     return () => clearInterval(interval);
   }, [questSlotKey, questSlotReceiptKey]); // Removed storedQuest and storedReceiptId to avoid stale state issues
 
-  // const savedQuest = quests.find(
-  //   (quest) => quest.details.fields.quest_id === storedQuest
-  // );
-
   const questReceipt = receipts?.find(
     (receipt) => receipt?.id.id === storedReceiptId
   );

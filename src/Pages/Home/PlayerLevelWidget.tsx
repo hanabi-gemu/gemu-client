@@ -31,6 +31,23 @@ function PlayerLevelWidget() {
 
   console.log(player?.xp);
 
+  function calculateLevelUps(
+    playerXP: number,
+    currentLevel: number
+  ): { levels: number; remainingXP: number } {
+    let levelsGained = 0;
+    let xpRemaining = playerXP;
+
+    // Loop until the player doesn't have enough XP for the next level.
+    while (xpRemaining >= xpToLevelUp(currentLevel + levelsGained, 1)) {
+      const xpNeeded = xpToLevelUp(currentLevel + levelsGained, 1);
+      xpRemaining -= xpNeeded;
+      levelsGained++;
+    }
+
+    return { levels: levelsGained, remainingXP: xpRemaining };
+  }
+
   useEffect(() => {
     if (!player) return;
     if (Number(player.xp) >= xpToLevelUp(Number(player.level), 1)) {
@@ -48,6 +65,7 @@ function PlayerLevelWidget() {
   );
   // Optionally, calculate the remaining XP needed.
   // const remainingXp = xpForNextLevel - Number(player.xp);
+  const { levels } = calculateLevelUps(Number(player.xp), Number(player.level));
 
   return (
     <>
@@ -79,7 +97,11 @@ function PlayerLevelWidget() {
         closeModal={() => setOpenModal(false)}
         wrapperStyle={tw`bg-white p-8 rounded-3xl mt-16 w-fit h-fit`}
       >
-        <LevelUpLayout player={player} onSuccess={() => setOpenModal(false)} />
+        <LevelUpLayout
+          player={player}
+          onSuccess={() => setOpenModal(false)}
+          levels={levels}
+        />
       </Modal>
     </>
   );

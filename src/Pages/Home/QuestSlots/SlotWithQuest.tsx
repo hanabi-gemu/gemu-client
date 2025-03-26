@@ -5,6 +5,8 @@ import { Fonts } from "@/TwClassnames/Fonts";
 import { tw } from "@/Utils/tailwindIntel";
 import { useState } from "react";
 import QuestMenu from "../QuestMenu/QuestMenu";
+import { quests } from "@/Constants/Quests";
+import AnimationModal from "./AnimationModal";
 
 const SlotWithQuest = ({
   slot,
@@ -17,10 +19,17 @@ const SlotWithQuest = ({
   refetch: any;
 }) => {
   const [openModal, setOpenModal] = useState(false);
+  const [openAnimationModal, setOpenAnimationModal] = useState(false);
   const { startBoardQuest } = useStartQuest(quest, slot);
 
+  const questItem = quests.find((q) => q.details.fields.quest_id === quest);
+
   const startQuestHandler = async () => {
-    await startBoardQuest();
+    if (questItem?.quest_type === "instant") {
+      await startBoardQuest(() => setOpenAnimationModal(true), true);
+    } else {
+      await startBoardQuest();
+    }
     await refetch();
   };
 
@@ -54,6 +63,13 @@ const SlotWithQuest = ({
         wrapperStyle={tw`bg-white p-5 rounded-3xl mt-16 w-[414px] h-fit`}
       >
         <QuestMenu slot={slot} />
+      </Modal>
+      <Modal
+        isOpen={openAnimationModal}
+        closeModal={() => setOpenAnimationModal(false)}
+        wrapperStyle={tw`bg-white p-5 rounded-3xl mt-16 w-[414px] h-fit`}
+      >
+        {openAnimationModal && <AnimationModal questItem={questItem} />}
       </Modal>
     </>
   );

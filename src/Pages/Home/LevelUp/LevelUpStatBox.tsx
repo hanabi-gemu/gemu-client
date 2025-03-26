@@ -9,9 +9,11 @@ function LevelUpStatBox({
   allocatedPoints,
   setAllocatedPoints,
   statState,
+  pointsToAllocate,
 }: {
   stat: "saltiness" | "sweetness" | "sourness" | "umami";
   value: string;
+  pointsToAllocate: number;
   allocatedPoints: number;
   setAllocatedPoints: React.Dispatch<React.SetStateAction<number>>;
   statState: {
@@ -35,7 +37,7 @@ function LevelUpStatBox({
   const [points, setPoints] = useState(initialValue);
 
   const handleAddPoint = () => {
-    if (allocatedPoints < 4) {
+    if (allocatedPoints < pointsToAllocate) {
       const newPoints = points + 1;
       setPoints(newPoints);
       setStats((current) => ({ ...current, [stat]: String(newPoints) }));
@@ -70,7 +72,9 @@ function LevelUpStatBox({
       </div>
       <div
         className={`rounded-full bg-bg-button p-2 w-[39px] h-[38px] flex justify-center ${
-          allocatedPoints === 4 ? "opacity-50 cursor-not-allowed" : Events.Hover
+          allocatedPoints === pointsToAllocate
+            ? "opacity-50 cursor-not-allowed"
+            : Events.Hover
         }`}
         onClick={handleAddPoint}
       >

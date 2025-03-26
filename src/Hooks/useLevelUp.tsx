@@ -57,7 +57,7 @@ function useLevelUp() {
 
       // Report transaction effects to the wallet and refresh any local state if needed.
       reportTransactionEffects(executeResult.rawEffects!.toString());
-      refetch();
+      await refetch();
     } catch (err) {
       console.error("Error during startBoardQuest transaction:", err);
     }

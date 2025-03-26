@@ -15,7 +15,10 @@ function useStartQuest(questId: string, slot: number) {
   const { mutateAsync: signTransaction } = useSignTransaction();
   const { refetch } = useReceipt();
 
-  const startBoardQuest = async () => {
+  const startBoardQuest = async (
+    openAnimation?: VoidFunction,
+    isInstant?: boolean
+  ) => {
     try {
       const tx = new Transaction();
       console.log("Initializing startBoardQuest transaction...");
@@ -53,12 +56,17 @@ function useStartQuest(questId: string, slot: number) {
       });
 
       console.log("Execution result:", executeResult);
-      if (executeResult && executeResult.effects?.created) {
+      if (executeResult && executeResult.effects?.created && !isInstant) {
         const receiptId = executeResult.effects?.created[0].reference.objectId;
         if (typeof window !== "undefined") {
           sessionStorage.setItem(`quest_slot_${slot}_receipt_id`, receiptId);
-          refetch();
+          await refetch();
         }
+      }
+
+      if (isInstant && openAnimation) {
+        openAnimation();
+        await refetch();
       }
 
       // Report transaction effects to the wallet and refresh any local state if needed.

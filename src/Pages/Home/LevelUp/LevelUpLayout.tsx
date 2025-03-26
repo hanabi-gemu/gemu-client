@@ -7,13 +7,16 @@ import useLevelUp from "@/Hooks/useLevelUp";
 
 function LevelUpLayout({
   player,
+  levels,
   onSuccess,
 }: {
+  levels: number;
   player: Player;
   onSuccess: VoidFunction;
 }) {
   const [openAllocateStats, setOpenAllocateStats] = useState(false);
   const [allocatedPoints, setAllocatedPoints] = useState(0);
+  const pointsToAllocate = levels * 5;
 
   const { levelUp } = useLevelUp();
 
@@ -36,7 +39,7 @@ function LevelUpLayout({
         Number(stats.saltiness) - Number(initialStats.saltiness)
       ),
       sourness: Math.abs(
-        Number(stats.sourness) - Number(initialStats.sourness) + 1
+        Number(stats.sourness) - Number(initialStats.sourness)
       ),
       sweetness: Math.abs(
         Number(stats.sweetness) - Number(initialStats.sweetness)
@@ -52,7 +55,7 @@ function LevelUpLayout({
         sweetness: pointsAdded.sweetness.toString(),
         umami: pointsAdded.umami.toString(),
       },
-      1
+      levels
     );
     onSuccess();
   };
@@ -64,7 +67,7 @@ function LevelUpLayout({
           Allocate your points
         </div>
         <div className={`${Fonts.Headings.Title.Book} text-med-contrast`}>
-          {allocatedPoints} /4 allocated
+          {allocatedPoints} /{pointsToAllocate} allocated
         </div>
         <div className="flex gap-8">
           {Object.entries(player.stats).map(([key, value]) => (
@@ -76,6 +79,7 @@ function LevelUpLayout({
               key={key}
               setStats={setStats}
               allocatedPoints={allocatedPoints}
+              pointsToAllocate={pointsToAllocate}
             />
           ))}
         </div>
@@ -83,9 +87,13 @@ function LevelUpLayout({
           className={`${
             Fonts.Text.Medium
           } text-bg-med p-3  rounded-[48px] bg-contrast  ${
-            allocatedPoints === 4 ? `${Events.Hover} ` : `${Events.NotAllowed}`
+            allocatedPoints === pointsToAllocate
+              ? `${Events.Hover} `
+              : `${Events.NotAllowed}`
           }`}
-          onClick={() => allocatedPoints === 4 && handleConfirm()}
+          onClick={() =>
+            allocatedPoints === pointsToAllocate && handleConfirm()
+          }
         >
           Confirm
         </button>
@@ -98,12 +106,13 @@ function LevelUpLayout({
         LEVEL UP!!
       </div>
       <div className={`${Fonts.Text.Paragraph.Medium}`}>
-        You can now level up to Level {Number(player.level) + 1}
+        You can now level up to Level {Number(player.level) + levels}
       </div>
       <div className="flex gap-4 items-center">
         <InfoSVG />
         <div className={`${Fonts.Text.Book} text-med-contrast`}>
-          When you level up, you get 5 points to allocate to your stats!
+          When you level up, you get 5 points per level to allocate to your
+          stats!
         </div>
       </div>
       <div
