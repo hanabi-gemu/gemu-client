@@ -85,12 +85,14 @@ function PlayerLevelWidget() {
             </div>
           </div>
         </div>
-        <div
-          className={`${Fonts.Text.Medium} text-bg-med bg-contrast rounded-[48px] p-2 ${Events.Hover} hover:bg-contrast2`}
-          onClick={() => setOpenModal(true)}
-        >
-          Level Up
-        </div>
+        {Number(player.xp) >= xpToLevelUp(Number(player.level), 1) && (
+          <div
+            className={`${Fonts.Text.Medium} text-bg-med bg-contrast rounded-[48px] p-2 ${Events.Hover} hover:bg-contrast2`}
+            onClick={() => setOpenModal(true)}
+          >
+            Level Up
+          </div>
+        )}
       </div>
       <Modal
         isOpen={openModal}
