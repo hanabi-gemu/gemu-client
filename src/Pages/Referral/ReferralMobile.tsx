@@ -32,13 +32,13 @@ function ReferralMobile() {
         <div className="flex flex-col">
           <div className="bg-light-box p-3 shadow-[0px_16px_48px_0px_rgba(113,113,113,0.20)] backdrop-blur-[12px] rounded-2xl">
             <p className={Fonts.Text.Paragraph.Bold}>Your referral link</p>
-            <div className="bg-med-contrast p-4 w-full rounded-lg flex justify-between">
+            <div className="bg-bg-bottom  p-4 w-full rounded-lg flex justify-between">
               <p className="font-">XM76T3R1</p>
               <div className="flex gap-2">
-                <div className="bg-med-contrast p-1 flex justify-center items-center border border-contrast rounded-lg">
+                <div className="bg-bg-bottom  p-1 flex justify-center items-center border border-contrast rounded-lg">
                   <CopyClipboardIcon />
                 </div>
-                <div className="bg-med-contrast p-1 flex justify-center items-center border border-contrast rounded-lg gap-2">
+                <div className="bg-bg-bottom  p-1 flex justify-center items-center border border-contrast rounded-lg gap-2">
                   <p className={`${Fonts.Text.Paragraph.Small}`}>Share</p>
                   <ShareIcon />
                 </div>

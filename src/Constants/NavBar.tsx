@@ -1,6 +1,5 @@
 import HomeLayout from "@/Pages/Home/HomeLayout";
 import ReferralLayout from "@/Pages/Referral/ReferralLayout";
-import Wallet from "@/Pages/Wallet";
 import { ReactNode } from "react";
 import LeaderboardSVG from "@/Pages/Main/LeaderboardSVG";
 import ReferralSVG from "@/Pages/Main/ReferralSVG";
@@ -8,6 +7,7 @@ import WeeklyChallengeSVG from "@/Pages/Main/WeeklyChallengeSVG";
 import EarnSVG from "@/Pages/Main/EarnSVG";
 import LeaderboardLayout from "@/Pages/Leaderboard/LeaderboardLayout";
 import HomeSVG from "@/Pages/Main/HomeSVG";
+import EarnLayout from "@/Pages/Earn/EarnLayout";
 
 export type Route = {
   icon: ReactNode | null;
@@ -39,7 +39,7 @@ export const routes = [
     icon: <EarnSVG />,
     label: "Earn",
     route: "/earn",
-    element: <Wallet />,
+    element: <EarnLayout />,
   },
   {
     icon: <ReferralSVG />,

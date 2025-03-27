@@ -57,7 +57,7 @@ function LevelUpStatBox({
   return (
     <div className="flex">
       <div
-        className={`rounded-full bg-bg-button p-2 w-[39px] h-[38px] flex justify-center ${
+        className={`rounded-full bg-bg-bottom p-2 w-[39px] h-[38px] flex justify-center ${
           allocatedPoints === 0 || Number(statState[stat]) <= initialValue
             ? "opacity-50 cursor-not-allowed"
             : Events.Hover
@@ -71,7 +71,7 @@ function LevelUpStatBox({
         <p className={Fonts.Text.Medium}>{stat}</p>
       </div>
       <div
-        className={`rounded-full bg-bg-button p-2 w-[39px] h-[38px] flex justify-center ${
+        className={`rounded-full bg-bg-bottom p-2 w-[39px] h-[38px] flex justify-center ${
           allocatedPoints === pointsToAllocate
             ? "opacity-50 cursor-not-allowed"
             : Events.Hover

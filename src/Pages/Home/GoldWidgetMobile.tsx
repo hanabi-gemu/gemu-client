@@ -11,8 +11,6 @@ function GoldWidgetMobile() {
 
   if (!player) return false;
 
-  console.log(gold, "gold");
-
   return (
     <div className="bg-shadow p-2 flex rounded-3xl items-center gap-2 w-[146px] justify-between h-[49px]">
       <div className="bg-low-contrast rounded-full w-[24px] h-[24px]"></div>
@@ -24,7 +22,7 @@ function GoldWidgetMobile() {
             </div>
           ) : (
             <div className="">
-              <div className={Fonts.Text.Small}>$GOLD: {123}</div>
+              <div className={Fonts.Text.Small}>$GOLD: {gold}</div>
               <div className={Fonts.Text.Small}>
                 {truncateAddress(player.id)}
               </div>

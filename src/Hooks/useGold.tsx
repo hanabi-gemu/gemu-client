@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { goldStruct } from "@/smartContractInterface";
 import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
 import { useQuery } from "@tanstack/react-query";
@@ -24,9 +25,16 @@ function useGold() {
         },
       });
 
-      console.log(resp);
+      function sumBalances(dataArray: any) {
+        return dataArray.reduce((total: any, item: any) => {
+          // Convert the balance to a number and add it to the running total
+          return total + Number(item.data.content.fields.balance);
+        }, 0);
+      }
 
-      return resp;
+      const totalGold = sumBalances(resp.data);
+
+      return totalGold;
     },
   });
 

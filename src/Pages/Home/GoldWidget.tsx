@@ -23,7 +23,7 @@ function GoldWidget() {
             </div>
           ) : (
             <div className="">
-              <div className={Fonts.Text.Paragraph.Bold}>$GOLD: {123}</div>
+              <div className={Fonts.Text.Paragraph.Bold}>$GOLD: {gold}</div>
               <div className={`${Fonts.Text.Book} text-low-contrast`}>
                 {truncateAddress(player.id)}
               </div>
