@@ -1,49 +1,21 @@
-import { Transaction } from "@mysten/sui/transactions";
-import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import {
-  playerObjectAddress,
-  registerPlayerAddress,
-} from "@/smartContractInterface";
+import { mintPlayer } from "@/Actions/MintPlayer";
 import usePlayer from "@/Hooks/usePlayer";
+import { useCurrentAccount } from "@mysten/dapp-kit";
 
 function RegisterPlayer() {
-  const client = useSuiClient();
   const { refetch } = usePlayer();
-  const { mutateAsync: signTransaction, error } = useSignTransaction();
+  const account = useCurrentAccount();
 
-  const mintPlayer = async () => {
+  const handleMintPlayer = async () => {
     try {
-      const tx = new Transaction();
-      console.log("Initializing transaction...");
+      if (!account) {
+        throw new Error("No wallet connected");
+      }
+      const player = await mintPlayer(account.address);
 
-      console.log(registerPlayerAddress);
+      console.log(player);
 
-      tx.moveCall({
-        target: registerPlayerAddress,
-        arguments: [tx.object(playerObjectAddress)],
-      });
-
-      const { bytes, signature, reportTransactionEffects } =
-        await signTransaction({
-          transaction: tx,
-          chain: "sui:testnet",
-        });
-
-      console.log("Transaction signed:", { bytes, signature });
-
-      const executeResult = await client.executeTransactionBlock({
-        transactionBlock: bytes,
-        signature,
-        options: {
-          showRawEffects: true,
-        },
-      });
-
-      console.log("Execution result:", executeResult);
-
-      // Always report transaction effects to the wallet after execution
-      reportTransactionEffects(executeResult.rawEffects!.toString());
-      refetch();
+      refetch(); // Refresh player data after minting
     } catch (err) {
       console.error("Error during transaction:", err);
     }
@@ -51,14 +23,11 @@ function RegisterPlayer() {
 
   return (
     <div style={{ padding: 20 }}>
-      <>
-        <div>
-          <button className="border p-2 rounded" onClick={() => mintPlayer()}>
-            Mint Player
-          </button>
-        </div>
-        {error && <div>ERROR: {error.message}</div>}
-      </>
+      <div>
+        <button className="border p-2 rounded" onClick={handleMintPlayer}>
+          Mint Player
+        </button>
+      </div>
     </div>
   );
 }
