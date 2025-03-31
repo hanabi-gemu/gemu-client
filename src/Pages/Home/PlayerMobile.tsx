@@ -3,19 +3,27 @@ import usePlayer from "@/Hooks/usePlayer";
 import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
-import useReceipt from "@/Hooks/useReceipt";
 import FlameSVG from "./FlameSVG";
 import { Events } from "@/TwClassnames/Events";
+import useClaimDailyReward from "@/Hooks/useClaimDailyReward";
+import useGetClaims from "@/Hooks/useGetClaims";
 
 function PlayerMobile() {
   const { player, isLoading: isLoadingPlayer } = usePlayer();
-  useReceipt();
+  const { claimDailyReward } = useClaimDailyReward();
+  const { claims } = useGetClaims();
+
+  console.log(claims);
 
   if (isLoadingPlayer) {
     return <Spinner />;
   }
 
   if (!player) return false;
+
+  const handleClaimDailyReward = async () => {
+    await claimDailyReward();
+  };
 
   return (
     <>
@@ -37,6 +45,7 @@ function PlayerMobile() {
           <div className="p-5">
             <div
               className={`w-[73px] h-[73px] bg-shadow relative rounded-full hover:bg-shadow2 ${Events.Hover}`}
+              onClick={handleClaimDailyReward}
             >
               <div className="absolute right-[-15%] top-[-20%]">
                 <FlameSVG />

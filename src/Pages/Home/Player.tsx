@@ -3,11 +3,9 @@ import usePlayer from "@/Hooks/usePlayer";
 import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
-import useReceipt from "@/Hooks/useReceipt";
 
 function Player() {
   const { player, isLoading: isLoadingPlayer } = usePlayer();
-  useReceipt();
 
   if (isLoadingPlayer) {
     return <Spinner />;
