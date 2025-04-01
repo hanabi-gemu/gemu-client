@@ -8,12 +8,14 @@ import {
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 import useGold from "./useGold";
+import useGetClaims from "./useGetClaims";
 
 function useClaimDailyReward() {
   const client = useSuiClient();
   const { player, refetch } = usePlayer();
   const { refetch: refetchGold } = useGold();
   const { mutateAsync: signTransaction } = useSignTransaction();
+  const { refetch: refetchClaims } = useGetClaims();
 
   const claimDailyReward = async () => {
     try {
@@ -48,6 +50,7 @@ function useClaimDailyReward() {
 
       refetch();
       refetchGold();
+      refetchClaims();
 
       // Report transaction effects to the wallet and refresh any local state if needed.
       reportTransactionEffects(executeResult.rawEffects!.toString());

@@ -1,32 +1,40 @@
 import { mintPlayer } from "@/Actions/MintPlayer";
+import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
 import { useCurrentAccount } from "@mysten/dapp-kit";
+import { useState } from "react";
 
 function RegisterPlayer() {
   const { refetch } = usePlayer();
   const account = useCurrentAccount();
+  const [loading, setLoading] = useState(false);
 
   const handleMintPlayer = async () => {
+    setLoading(true);
     try {
       if (!account) {
         throw new Error("No wallet connected");
       }
-      const player = await mintPlayer(account.address);
+      await mintPlayer(account.address);
 
-      console.log(player);
-
-      refetch(); // Refresh player data after minting
+      await refetch(); // Refresh player data after minting
+      setLoading(false);
     } catch (err) {
       console.error("Error during transaction:", err);
+      setLoading(false);
     }
   };
 
   return (
     <div style={{ padding: 20 }}>
       <div>
-        <button className="border p-2 rounded" onClick={handleMintPlayer}>
-          Mint Player
-        </button>
+        {loading ? (
+          <Spinner />
+        ) : (
+          <button className="border p-2 rounded" onClick={handleMintPlayer}>
+            Mint Player
+          </button>
+        )}
       </div>
     </div>
   );
