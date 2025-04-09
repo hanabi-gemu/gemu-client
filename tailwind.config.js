@@ -20,6 +20,12 @@ export default {
 			boxShadow:
 				{ 'drop-shadow-dark': '0px -8px 47px 0px rgba(255, 255, 255, 0.25), 0px 8px 16px 0px rgba(0, 0, 0, 0.60)' },
 			colors: {
+				'pip-white': '#FFF',
+				'pip-yellow-base': '#FFE432',
+				'pip-yellow-dark': '#632B02',
+				'pip-blue-base': '#0075FF',
+				'pip-blue-dark': '#175CD3',
+				'pip-dark-400': '#6C7278',
 				'bg-med': 'rgba(229, 229, 229, 1)',
 				'bg-high': 'rgba(29, 29, 29, 1)',
 				'bg-bottom': 'rgba(204, 204, 204, 1)',

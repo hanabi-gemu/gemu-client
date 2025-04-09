@@ -5,22 +5,7 @@ import { tw } from "@/Utils/tailwindIntel";
 import { useState } from "react";
 import QuestMenu from "../QuestMenu/QuestMenu";
 import useWindowWidth from "@/Hooks/useWindowWidth";
-
-const PlusIcon = ({ onClick }: { onClick?: VoidFunction }) => (
-  <svg
-    width="24"
-    height="25"
-    viewBox="0 0 24 25"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-    onClick={onClick}
-  >
-    <path
-      d="M11 13.5701H5V11.5701H11V5.57007H13V11.5701H19V13.5701H13V19.5701H11V13.5701Z"
-      fill="#3E3E3E"
-    />
-  </svg>
-);
+import PlusIcon from "./Union.png";
 
 const EmptyQuestSlot = ({ slot }: { slot: number }) => {
   const [openModal, setOpenModal] = useState(false);
@@ -58,14 +43,19 @@ function DesktopSlot({
 }) {
   return (
     <>
-      <div className="border border-low-contrast w-[240px] h-[100px] backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center gap-y-2">
-        <p className={Fonts.Headings.Title.Bold}>Quest Slot</p>
+      <div
+        className="w-[152px] h-[172px]
+			border-[4px] border-pip-white bg-pip-dark-400 p-4
+			backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center gap-y-2"
+      >
         <div
           onClick={() => setOpenModal(true)}
-          className={`rounded-2xl p-3 px-6 flex justify-between items-center w-[170px] bg-shadow hover:bg-shadow2 ${Events.Hover}`}
+          className={`rounded-2xl p-3 px-6 flex flex-col gap-y-[10px] items-center w-[170px] ${Events.Hover}`}
         >
-          <PlusIcon />
-          <p className={Fonts.Headings.Subtitle.Book}>Add Quest</p>
+          <img src={PlusIcon} className="w-[40px] h-[40px]" />
+          <p className={`${Fonts.Headings.Subtitle.Book} text-pip-white`}>
+            Add Quest
+          </p>
         </div>
       </div>
       <Modal
@@ -78,6 +68,7 @@ function DesktopSlot({
     </>
   );
 }
+
 function MobileSlot({
   slot,
   setOpenModal,
@@ -98,7 +89,7 @@ function MobileSlot({
           onClick={() => setOpenModal(true)}
           className={`rounded-2xl flex justify-center bg-high items-center w-[27px] h-[27px]`}
         >
-          <PlusIcon />
+          {/* <PlusIcon /> */}
         </div>
       </div>
       <Modal

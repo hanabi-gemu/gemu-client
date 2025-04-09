@@ -7,6 +7,9 @@ import { Fonts } from "@/TwClassnames/Fonts";
 import { Events } from "@/TwClassnames/Events";
 import useGetClaims from "@/Hooks/useGetClaims";
 import useClaimDailyReward from "@/Hooks/useClaimDailyReward";
+import FocusProgressBar from "./FocusProgressBar";
+import EnergyProgressBar from "./EnergyProgressBar";
+import rollIcon from "./roll-icon.png";
 
 function Player() {
   const { player, isLoading: isLoadingPlayer } = usePlayer();
@@ -68,6 +71,24 @@ function Player() {
 
   return (
     <>
+      <div className="flex justify-between items-center">
+        <FocusProgressBar />
+        <div className="flex flex-col items-center relative">
+          <img src={rollIcon} />
+          <p
+            className={`absolute text-[#111113] text-center text-[20px] font-normal leading-none tracking-[-0.48px] bottom-[-5px]`}
+            style={{
+              textShadow: "0px 1px 0px #000",
+              WebkitTextStrokeWidth: "3px",
+              WebkitTextStrokeColor: "#FFF",
+            }}
+          >
+            X {player.rolls}
+          </p>
+        </div>
+
+        <EnergyProgressBar />
+      </div>
       <div className="flex justify-between p-2 flex-col md:flex-row md:pt-10 md:mx-0">
         <div className="flex flex-col gap-y-2">
           <div className="flex flex-col">

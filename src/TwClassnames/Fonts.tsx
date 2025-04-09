@@ -1,6 +1,14 @@
 import { tw } from "@/Utils/tailwindIntel";
 
 export const Fonts = {
+  pip: {
+    h3: {
+      bold: tw`font-funnel-display text-[20px] not-italic font-bold leading-[24px] tracking-[-0.2px]`,
+    },
+    caption: {
+      medium: tw`font-[Funnel Display] text-[12px] font-medium leading-[16px] not-italic`,
+    },
+  },
   Headings: {
     Title: {
       Bold: tw`text-[16px] font-medium leading-[120%] text-high-contrast  font-circular`,

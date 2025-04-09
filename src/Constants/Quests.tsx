@@ -48,7 +48,7 @@ export const quests: Quest[] = [
         quest_type: "0",
       },
     },
-    duration: "0",
+    duration: "15000",
     quest_type: "timed",
     requirements: {
       type: "0x64605be182e329ca4a55f84d33ffe3d82d66bc91552a11fe965a5c74b6bd6748::quest::Requirements",
@@ -70,7 +70,7 @@ export const quests: Quest[] = [
         material_amounts: [],
         material_ids: [],
         rolls: "1",
-        xp: "100",
+        xp: "10000",
       },
     },
   },
