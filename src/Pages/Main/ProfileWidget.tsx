@@ -8,9 +8,9 @@ function ProfileWidget() {
   if (!player) return null;
 
   return (
-    <div className="bg-shadow p-1 flex rounded-3xl items-center bg-pip-blue-base border-pip-blue-dark w-[163px] gap-2 h-[48px] border-[2px]">
+    <div className="p-1 flex rounded-3xl items-center bg-pip-blue-base border-pip-blue-dark w-[163px] gap-2 h-[48px] border-[2px]">
       <div className="rounded-full bg-pip-white w-[36px] h-[36px]"></div>
-      <div className="flex flex-col justify-centerF">
+      <div className="flex flex-col justify-center">
         <div className={`${Fonts.Text.Paragraph.Bold} text-pip-white`}>
           Chris
         </div>

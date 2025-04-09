@@ -78,7 +78,7 @@ function WeeklyChallengeButton() {
               height="248"
               transform="rotate(30 83.2422 -70.8828)"
               fill="white"
-              fill-opacity="0.4"
+              fillOpacity="0.4"
             />
           </g>
         </svg>
