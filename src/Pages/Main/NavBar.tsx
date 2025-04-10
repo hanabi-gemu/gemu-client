@@ -6,14 +6,22 @@ import ProfileWidget from "./ProfileWidget";
 
 function NavBar({ routes }: { routes: Route[] }) {
   return (
-    <div className="fixed top-0 left-0 bg-white w-full h-[80px] flex justify-between pt-4 px-10">
-      <img
-        src={logo}
-        width={80}
-        height={80}
-        className="object-scale-down w-[94px] h-[101px]"
-      />
-      <div className="flex justify-center min-w-0 overflow-x-auto px-5 gap-8">
+    <div className="fixed top-0 left-0 bg-white w-full h-[80px] flex items-center px-10">
+      {/* Left: Logo and profile */}
+      <div className="flex gap-6 items-center">
+        <div className="mb-[-40px]">
+          <img
+            src={logo}
+            width={80}
+            height={80}
+            className="object-scale-down w-[94px] h-[101px]"
+          />
+        </div>
+        <ProfileWidget />
+      </div>
+
+      {/* Center: Routes nav - absolutely centered */}
+      <div className="absolute left-1/2 transform -translate-x-1/2 flex justify-center px-5 gap-8">
         {routes.map((route, index) => (
           <Link to={route.route} className="text-center" key={index}>
             {route.label === "Weekly Challenge" ? (
@@ -30,18 +38,16 @@ function NavBar({ routes }: { routes: Route[] }) {
           </Link>
         ))}
       </div>
-      <ProfileWidget />
     </div>
   );
 }
-
 export default NavBar;
 
 function WeeklyChallengeButton() {
   return (
-    <div className="p-3 w-[200px] h-[48px] bg-pip-yellow-base border-pip-yellow-dark border-[2px] rounded-xl">
+    <div className="p-3 w-[200px] h-[48px] bg-pip-yellow-base border-pip-yellow-dark border-[2px] rounded-xl relative">
       <div className={`${Fonts.pip.h3.bold}`}>Weekly Challenge</div>
-      <div className="absolute top-[18px]">
+      <div className="absolute top-[-1px] left-[-18%]">
         <svg
           width="106"
           height="45"
@@ -62,7 +68,7 @@ function WeeklyChallengeButton() {
           </g>
         </svg>
       </div>
-      <div className="absolute top-[18px]">
+      <div className="absolute top-[1px] left-[-19%]">
         <svg
           width="95"
           height="45"

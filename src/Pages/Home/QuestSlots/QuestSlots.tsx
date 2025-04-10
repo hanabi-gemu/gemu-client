@@ -2,7 +2,7 @@ import QuestSlot from "./QuestSlot";
 
 function QuestSlots() {
   return (
-    <div className="flex flex-col items-center">
+    <div className="flex flex-col items-center mt-12">
       <div className="flex items-center justify-center gap-2">
         <LeftCircles />
         <h1 className="">Take a quest</h1>

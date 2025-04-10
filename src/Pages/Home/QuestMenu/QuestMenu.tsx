@@ -21,25 +21,29 @@ function QuestMenu({ slot }: { slot: number }) {
         />
       ) : (
         <div className="">
-          <h1 className={Fonts.Headings.Heading.Medium}>Quests</h1>
+          <h1 className={`${Fonts.pip.super_cartoon.h2} text-center p-5`}>
+            Quests
+          </h1>
           <div className="my-3 overflow-x-scroll">
-            <h2 className={Fonts.Headings.Title.Bold}>Available</h2>
-            <div className="flex gap-2 mt-2">
+            <div className="bg-pip-gray-100 py-2 px-6">
+              <h2 className={`${Fonts.pip.h3.bold}`}>Available</h2>
+            </div>
+            <div className="flex gap-2 mt-2 p-5">
               {quests?.map((quest) => (
                 <QuestItem
-                  questId={quest.details.fields.quest_id}
-                  key={quest.details.fields.quest_id}
+                  questId={quest.quest_id}
+                  key={quest.quest_id}
                   onClick={() => {
                     setOpenQuest(true);
                     if (quest) {
-                      setSelectedQuest(quest.details.fields.quest_id);
+                      setSelectedQuest(quest.quest_id);
                     }
                   }}
                 />
               ))}
             </div>
           </div>
-          <div className="mt-5">
+          <div className="mt-5 p-5">
             <h2 className={Fonts.Headings.Title.Bold}>Unavailable</h2>
             <div className="flex gap-2 mt-2">
               <QuestItem />

@@ -1,6 +1,5 @@
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
-import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import { Fonts } from "@/TwClassnames/Fonts";
 import FlameSVG from "./FlameSVG";
@@ -35,12 +34,12 @@ function PlayerMobile() {
         </div>
         <div className="flex mt-5 ml-5">
           <div className="w-[200px] h-[238.5px]">
-            <img
+            {/* <img
               src={avatarImage}
               width={200}
               height={238.5}
               className="object-cover"
-            />
+            /> */}
           </div>
           <div className="p-5">
             <div

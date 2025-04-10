@@ -1,6 +1,6 @@
 import { Fonts } from "@/TwClassnames/Fonts";
 import { truncateAddress } from "@/Utils/format";
-import avatarImage from "../Home/bear.png";
+import avatarImage from "./bear.png";
 
 function Leaderboard() {
   // const { data, isLoading, isError } = useQuery({

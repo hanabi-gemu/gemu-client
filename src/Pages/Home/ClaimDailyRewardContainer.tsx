@@ -67,7 +67,7 @@ function ClaimDailyRewardContainer() {
 
   return (
     <div
-      className={`p-4 bg-gradient-to-b relativeF from-[#FFE326] to-[#FFFFFF] flex-col items-center w-[152px] h-[200px] border-[2px] border-pip-gray-200
+      className={`p-4 bg-gradient-to-b from-[#FFE326] to-[#FFFFFF] flex-col items-center w-[152px] h-[200px] border-[2px] border-pip-gray-200
 			${timeRemaining ? "" : `group ${Events.Hover}`}
 			rounded-2xl relative`}
     >
@@ -93,7 +93,7 @@ function ClaimDailyRewardContainer() {
           </g>
         </svg>
       </div>
-      <div className="absolute right-[-20%] top-[-20%] w-[81px] h-[81px]">
+      <div className="absolute right-[10px] top-[10px	] w-[81px] h-[81px]">
         {claims ? (
           <p className={`text-right ${Fonts.Headings.Title.Book}`}>
             x {claims.streak}
@@ -106,8 +106,8 @@ function ClaimDailyRewardContainer() {
         <img src={bigCoinIcon} />
       </div>
       <div
-        className="bg-pip-yellow-base rounded-lg mt-6 text-center group-hover:bg-[#E6E6E6]
-				h-[30px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center"
+        className="bg-pip-yellow-base rounded-lg mt-6 text-center group-hover:bg-[#E6E6E6] transition-all duration-300 ease-in-out
+				h-fit border-pip-yellow-dark border-[2px] relative flex items-center justify-center"
         onClick={handleClaimDailyReward}
       >
         {loadingClaim ? (

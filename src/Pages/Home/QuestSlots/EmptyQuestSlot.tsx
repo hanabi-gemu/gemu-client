@@ -61,7 +61,7 @@ function DesktopSlot({
       <Modal
         isOpen={openModal}
         closeModal={() => setOpenModal(false)}
-        wrapperStyle={tw`bg-white p-5 rounded-3xl mt-16 w-[414px] h-fit`}
+        wrapperStyle={tw`bg-pip-white rounded-3xl mt-16 w-[720px] h-[768px]`}
       >
         <QuestMenu slot={slot} />
       </Modal>

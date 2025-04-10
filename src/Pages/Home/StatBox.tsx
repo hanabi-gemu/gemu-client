@@ -24,11 +24,11 @@ function StatBox({ stat, value }: { stat: string; value: string }) {
 
   return (
     <div
-      className={`flex flex-col items-center rounded-lg w-[104px] h-[114px] border-[2px] border-pip-gray-200 p-1 relative ${
+      className={`flex flex-col items-center rounded-lg w-[104px] h-[114px] justify-center border-[2px] border-pip-gray-200 p-1 relative ${
         colors[stat as statType]
       }`}
     >
-      <img src={icons[stat as statType]} className="z-[2]" />
+      <img src={icons[stat as statType]} height={65} className="z-[2]" />
       <p className={`${Fonts.Headings.Subtitle.Bold} z-[2]`}>{value}</p>
       {/* <p className={Fonts.Text.Medium}>{stat}</p> */}
       <div className="absolute z-[1] top-[-3px] left-[-2px]">

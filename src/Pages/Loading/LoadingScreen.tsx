@@ -25,7 +25,7 @@ const LoadingScreen = ({ duration = 4000 }) => {
   return (
     <>
       <div
-        className={`fixed inset-0 flex items-center justify-center bg-slate-800 z-50 ${
+        className={`fixed inset-0 flex items-center justify-center bg-slate-800 z-30 ${
           fadeOut && "animate-fade-out"
         }`}
       >

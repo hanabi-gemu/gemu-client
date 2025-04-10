@@ -1,6 +1,5 @@
 import Spinner from "@/Components/Spinner";
 import usePlayer from "@/Hooks/usePlayer";
-import avatarImage from "./bear.png";
 import StatBox from "./StatBox";
 import FocusProgressBar from "./FocusProgressBar";
 import EnergyProgressBar from "./EnergyProgressBar";
@@ -19,28 +18,30 @@ function Player() {
 
   return (
     <>
-      <div className="flex items-center gap-16 justify-self-center">
-        <FocusProgressBar />
-        <div className="flex flex-col items-center relative">
-          <img src={rollIcon} />
-          <p
-            className={`absolute text-[#111113] text-center text-[20px] font-normal leading-none tracking-[-0.48px] bottom-[-5px]`}
-            style={{
-              textShadow: "0px 1px 0px #000",
-              WebkitTextStrokeWidth: "3px",
-              WebkitTextStrokeColor: "#FFF",
-            }}
-          >
-            X {player.rolls}
-          </p>
-        </div>
+      <div className="flex items-center justify-between relative">
+        <div className=""></div>
+        <div className="flex items-center gap-16 ml-28">
+          <FocusProgressBar />
+          <div className="flex flex-col items-center ">
+            <img src={rollIcon} />
+            <p
+              className={`absolute text-[#111113] text-center text-[20px] font-normal leading-none tracking-[-0.48px] bottom-[-5px]`}
+              style={{
+                textShadow: "0px 1px 0px #000",
+                WebkitTextStrokeWidth: "3px",
+                WebkitTextStrokeColor: "#FFF",
+              }}
+            >
+              X {player.rolls}
+            </p>
+          </div>
 
-        <EnergyProgressBar />
-        <div className="justify-self-end">
-          <GoldWidget />
+          <EnergyProgressBar />
         </div>
+        <GoldWidget />
       </div>
-      <div className="flex justify-between p-2 flex-col md:flex-row md:pt-10 md:mx-0">
+
+      <div className="flex justify-between p-2 flex-col md:flex-row md:pt-10 md:mx-0 relative bottom-0 ">
         <div className="flex flex-col gap-y-2">
           <div className="flex flex-col">
             <div className="flex flex-col gap-y-4">
@@ -50,14 +51,7 @@ function Player() {
             </div>
           </div>
         </div>
-        <div className="w-[379px] h-[438.5px]">
-          <img
-            src={avatarImage}
-            width={379}
-            height={438.5}
-            className="object-cover"
-          />
-        </div>
+
         <div className="flex flex-col gap-y-4">
           <ClaimDailyRewardContainer />
         </div>
