@@ -1,7 +1,7 @@
 function CloseModalButton() {
   return (
     <svg
-      className="group hover:cursor-pointer" // Make the SVG a group to use group-hover
+      className="group hover:cursor-pointer transition-all duration-200 hover:scale-110"
       width="40"
       height="40"
       viewBox="0 0 40 40"
@@ -14,8 +14,7 @@ function CloseModalButton() {
           d="M32.1881 0H7.81186C3.49749 0 0 3.49749 0 7.81186V32.1881C0 36.5025 3.49749 40 7.81186 40H32.1881C36.5025 40 40 36.5025 40 32.1881V7.81186C40 3.49749 36.5025 0 32.1881 0Z"
         />
         <path
-          // Use Tailwind's transition and group-hover to change fill color
-          className="fill-[#FF3542] transition-colors duration-300 ease-in-out group-hover:fill-[#FF6A75]"
+          className="fill-[#FF3542] transition-colors duration-300 ease-in-out group-hover:fill-[#FF8F96]"
           d="M32.1881 0H7.81186C3.49749 0 0 3.49749 0 7.81186V30.0286C0 34.343 3.49749 37.8405 7.81186 37.8405H32.1881C36.5025 37.8405 40 34.343 40 30.0286V7.81186C40 3.49749 36.5025 0 32.1881 0Z"
         />
         <path

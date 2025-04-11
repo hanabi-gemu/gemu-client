@@ -11,7 +11,10 @@ function GoldWidget() {
   if (!player) return null;
 
   return (
-    <div className="p-2 pl-4 flex rounded-[100px] items-center border-[1px] border-pip-gray-200 bg-pip-white w-[172px] justify-center">
+    <div
+      className="p-2 pl-4 flex rounded-[100px] items-center border-[1px]
+		 border-pip-gray-200 bg-pip-white w-[172px] justify-center h-[40px]"
+    >
       <div className="flex items-center gap-2">
         {isRefetching ? (
           <div className="w-[10px] h-[10px] absolute top-[10px]">

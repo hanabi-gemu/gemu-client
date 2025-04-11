@@ -31,7 +31,11 @@ function NavBar({ routes }: { routes: Route[] }) {
                 <div
                   className={`flex items-center justify-center gap-1 ${Fonts.Headings.Title.Bold} group-hover:text-blue-600 group`}
                 >
-                  <div className="whitespace-nowrap mt-6">{route.label}</div>
+                  <div
+                    className={`whitespace-nowrap mt-6 ${Fonts.pip.super_cartoon.h4}`}
+                  >
+                    {route.label}
+                  </div>
                 </div>
               </div>
             )}
@@ -45,8 +49,12 @@ export default NavBar;
 
 function WeeklyChallengeButton() {
   return (
-    <div className="p-3 w-[200px] h-[48px] bg-pip-yellow-base border-pip-yellow-dark border-[2px] rounded-xl relative">
-      <div className={`${Fonts.pip.h3.bold}`}>Weekly Challenge</div>
+    <div
+      className="p-3 w-[290px] h-[48px] bg-pip-yellow-base hover:bg-pip-yellow-tint
+		transition-all duration-300 ease-in-out
+		 border-pip-yellow-dark border-[2px] rounded-xl relative"
+    >
+      <div className={`${Fonts.pip.super_cartoon.h4}`}>Weekly Challenge</div>
       <div className="absolute top-[-1px] left-[-18%]">
         <svg
           width="106"

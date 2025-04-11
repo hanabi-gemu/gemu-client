@@ -6,6 +6,7 @@ import EnergyProgressBar from "./EnergyProgressBar";
 import rollIcon from "./roll-icon.png";
 import GoldWidget from "./GoldWidget";
 import ClaimDailyRewardContainer from "./ClaimDailyRewardContainer";
+import { Fonts } from "@/TwClassnames/Fonts";
 
 function Player() {
   const { player, isLoading: isLoadingPlayer } = usePlayer();
@@ -25,14 +26,14 @@ function Player() {
           <div className="flex flex-col items-center ">
             <img src={rollIcon} />
             <p
-              className={`absolute text-[#111113] text-center text-[20px] font-normal leading-none tracking-[-0.48px] bottom-[-5px]`}
+              className={`absolute ${Fonts.pip.super_cartoon.h4} top-[60%]`}
               style={{
                 textShadow: "0px 1px 0px #000",
-                WebkitTextStrokeWidth: "3px",
+                WebkitTextStrokeWidth: "2px",
                 WebkitTextStrokeColor: "#FFF",
               }}
             >
-              X {player.rolls}
+              X{player.rolls}
             </p>
           </div>
 

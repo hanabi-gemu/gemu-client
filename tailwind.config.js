@@ -12,7 +12,14 @@ export default {
 				'scale-up': 'scaleUp 1s ease-in-out',
 			},
 			fontFamily: {
-				circular: ['Circular', 'sans-serif']
+				'circular': ['Circular', 'sans-serif'],
+				'funnel-bold': ['FunnelDisplay-Bold', 'sans-serif'],
+				'funnel-extrabold': ['FunnelDisplay-ExtraBold', 'sans-serif'],
+				'funnel-light': ['FunnelDisplay-Light', 'sans-serif'],
+				'funnel-medium': ['FunnelDisplay-Medium', 'sans-serif'],
+				'funnel-regular': ['FunnelDisplay-Regular', 'sans-serif'],
+				'funnel-semibold': ['FunnelDisplay-SemiBold', 'sans-serif'],
+				'super-comic': ['Super_Comic', 'sans-serif']
 			},
 			fontWeight: {
 				450: "450",

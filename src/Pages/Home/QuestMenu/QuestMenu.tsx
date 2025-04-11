@@ -16,7 +16,7 @@ function QuestMenu({ slot }: { slot: number }) {
             setOpenQuest(false);
             setSelectedQuest("");
           }}
-          quest={selectedQuest}
+          questId={selectedQuest}
           slot={slot}
         />
       ) : (

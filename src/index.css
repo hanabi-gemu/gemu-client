@@ -2,10 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+  font-family: "Super_Comic";
+  src: url("fonts/super-comic.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
 
 @font-face {
   font-family: "Circular";
   src: url("fonts/circular-std-medium-500.ttf") format("truetype");
   font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-Bold";
+  src: url("fonts/FunnelDisplay-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-ExtraBold";
+  src: url("fonts/FunnelDisplay-ExtraBold.ttf") format("truetype");
+  font-weight: 800;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-Light";
+  src: url("fonts/FunnelDisplay-Light.ttf") format("truetype");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-Medium";
+  src: url("fonts/FunnelDisplay-Medium.ttf") format("truetype");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-Regular";
+  src: url("fonts/FunnelDisplay-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "FunnelDisplay-SemiBold";
+  src: url("fonts/FunnelDisplay-SemiBold.ttf") format("truetype");
+  font-weight: 600;
   font-style: normal;
 }
