@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Modal from "@/Components/Modal";
 import { Events } from "@/TwClassnames/Events";
 import { tw } from "@/Utils/tailwindIntel";
-import LevelUpLayout from "../Home/LevelUp/LevelUpLayoutMobile";
+import LevelUpLayout from "../Home/LevelUp/LevelUpLayout";
 
 // Helper function: calculates the sum of squares.
 function sumSquares(n: number) {
@@ -109,7 +109,7 @@ function ProfileWidget() {
       <Modal
         isOpen={openModal}
         closeModal={() => setOpenModal(false)}
-        wrapperStyle={tw`bg-white p-8 rounded-3xl mt-16 w-fit h-fit`}
+        wrapperStyle={tw`bg-white p-8 rounded-3xl w-[480px] h-fit`}
       >
         <LevelUpLayout
           player={player}

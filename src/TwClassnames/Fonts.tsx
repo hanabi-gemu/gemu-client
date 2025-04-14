@@ -3,11 +3,14 @@ import { tw } from "@/Utils/tailwindIntel";
 export const Fonts = {
   pip: {
     super_cartoon: {
+      h1: tw`font-super-comic text-[48px] font-normal leading-[48px]`,
       h2: tw`font-super-comic text-[34px] font-normal leading-[34px] tracking-[-1px]`,
       h4: tw`font-super-comic text-[20px] font-normal leading-[21px] tracking-[-0.5px]`,
     },
     body: {
+      regular: tw`font-funnel-regular text-[18px] font-normal leading-[24px]`,
       small: tw`font-bold text-[14px] leading-[20px]`,
+      emphasized: tw`font-semibold text-[12px] leading-normal tracking-[0.02px]`,
     },
     h3: {
       bold: tw`font-funnel-bold text-[20px] not-italic leading-[24px] tracking-[-0.2px]`,

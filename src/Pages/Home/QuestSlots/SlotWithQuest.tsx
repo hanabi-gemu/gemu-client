@@ -47,7 +47,7 @@ const SlotWithQuest = ({
       >
         <img src={chestIcon} width={40} height={42} className="mb-2" />
         <p className={`${Fonts.Headings.Title.Bold} text-center`}>
-          {quests[Number(quest) - 1].name}
+          {questItem && questItem.name}
         </p>
 
         <div
@@ -66,14 +66,14 @@ const SlotWithQuest = ({
       <Modal
         isOpen={openModal}
         closeModal={() => setOpenModal(false)}
-        wrapperStyle={tw`bg-white p-5 rounded-3xl mt-16 w-[414px] h-fit`}
+        wrapperStyle={tw`bg-pip-white rounded-3xl mt-16 w-[720px] h-[768px]`}
       >
         <QuestMenu slot={slot} />
       </Modal>
       <Modal
         isOpen={openAnimationModal}
         closeModal={() => setOpenAnimationModal(false)}
-        wrapperStyle={tw`bg-white p-5 rounded-3xl mt-16 w-[414px] h-fit`}
+        wrapperStyle={tw`bg-white rounded-3xl w-[480px] h-fit`}
       >
         {openAnimationModal && <AnimationModal questItem={questItem} />}
       </Modal>

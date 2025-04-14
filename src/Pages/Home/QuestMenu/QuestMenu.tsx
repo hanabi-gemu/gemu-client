@@ -45,11 +45,7 @@ function QuestMenu({ slot }: { slot: number }) {
           </div>
           <div className="mt-5 p-5">
             <h2 className={Fonts.Headings.Title.Bold}>Unavailable</h2>
-            <div className="flex gap-2 mt-2">
-              <QuestItem />
-              <QuestItem />
-              <QuestItem />
-            </div>
+            <div className="flex gap-2 mt-2"></div>
           </div>
         </div>
       )}

@@ -102,8 +102,14 @@ function LevelUpLayout({
 
   return (
     <div className="flex flex-col items-center gap-y-8">
-      <div className={`${Fonts.Text.Paragraph.Bold} text-center`}>
-        LEVEL UP!!
+      <div
+        className={`${Fonts.pip.super_cartoon.h1} text-center`}
+        style={{
+          WebkitTextStrokeWidth: "3px",
+          WebkitTextStrokeColor: "#FFF",
+        }}
+      >
+        Level up!
       </div>
       <div className={`${Fonts.Text.Paragraph.Medium}`}>
         You can now level up to Level {Number(player.level) + levels}

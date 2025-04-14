@@ -2,6 +2,16 @@ import { quests } from "@/Constants/Quests";
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
 import GoBackButton from "./GoBackButton";
+import goldIcon from "../../Home/big-coin.png";
+import xpIcon from "./flame.png";
+import diceIcon from "./dice.png";
+import { tw } from "@/Utils/tailwindIntel";
+
+const rewardsStyles = {
+  gold: { bg: tw`bg-pip-yellow-tint`, icon: goldIcon },
+  rolls: { bg: tw`bg-pip-white`, icon: diceIcon },
+  xp: { bg: "bg-pip-rose-tint", icon: xpIcon },
+};
 
 function QuestDetails({
   onClose,
@@ -26,6 +36,7 @@ function QuestDetails({
   // Handler that saves the quest then starts the quest
   const addToSlot = () => {
     addQuestToSessionStorage(questId);
+    onClose();
   };
 
   return (
@@ -50,7 +61,16 @@ function QuestDetails({
                 className="rounded-xl border-[2px] border-gray-200 bg-pip-white w-[138px] h-[175px] p-2"
                 key={index}
               >
-                <div className="h-[120px] rounded-lg bg-pip-rose-tint mb-2"></div>
+                <div
+                  className={`h-[120px] flex justify-center items-center rounded-lg bg-pip-rose-tint mb-2 ${
+                    rewardsStyles[key as keyof typeof rewardsStyles]?.bg
+                  }`}
+                >
+                  <img
+                    src={rewardsStyles[key as keyof typeof rewardsStyles]?.icon}
+                    alt="reward icon"
+                  />
+                </div>
                 <div
                   style={{
                     WebkitTextStrokeWidth: "2px",
@@ -70,28 +90,34 @@ function QuestDetails({
         <h2 className={Fonts.pip.h3.bold}>Requirements</h2>
         <div className="flex flex-wrap gap-3 mt-1">
           {quest &&
-            Object.entries(quest.rewards.fields).map(([key, value], index) => (
-              <div
-                className="rounded-xl border-[2px] border-gray-200 bg-pip-white w-[138px] h-[175px] p-2"
-                key={index}
-              >
-                <div className="h-[120px] rounded-lg bg-pip-rose-tint mb-2"></div>
-                <div
-                  style={{
-                    WebkitTextStrokeWidth: "2px",
-                    WebkitTextStrokeColor: "#FFF",
-                  }}
-                  className={`${Fonts.pip.super_cartoon.h4} [text-shadow:0px_3px_0px_#F06D0D] text-center flex items-center`}
-                >
-                  + {value}
-                  {key}
-                </div>
-              </div>
-            ))}
+            Object.entries(quest.requirements.fields).map(
+              ([key, value], index) => (
+                <>
+                  {Number(value) > 0 && (
+                    <div
+                      className="rounded-xl border-[2px] border-gray-200 bg-pip-white w-[138px] h-[175px] p-2"
+                      key={index}
+                    >
+                      <div className="h-[120px] rounded-lg bg-pip-rose-tint mb-2"></div>
+                      <div
+                        style={{
+                          WebkitTextStrokeWidth: "2px",
+                          WebkitTextStrokeColor: "#FFF",
+                        }}
+                        className={`${Fonts.pip.super_cartoon.h4} [text-shadow:0px_3px_0px_#F06D0D] text-center flex items-center`}
+                      >
+                        + {value}
+                        {key}
+                      </div>
+                    </div>
+                  )}
+                </>
+              )
+            )}
         </div>
       </div>
 
-      <div className="relative">
+      <div className="relative  self-end">
         <div
           className={`${Events.Hover} p-3 rounded-lg my-3 border-[2px] border-pip-yellow-dark
 					 hover:bg-pip-yellow-tint bg-pip-yellow-base`}
