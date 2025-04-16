@@ -2,7 +2,6 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { routes } from "@/Constants/NavBar";
 import NavBar from "./NavBar";
 import background from "./background.png";
-import avatar from "./bear.png";
 // import PlayerLevelWidget from "../Home/PlayerLevelWidget";
 // import GoldWidget from "../Home/GoldWidget";
 
@@ -14,13 +13,6 @@ const MainLayout: React.FC = () => {
           src={background}
           alt="Background"
           className="absolute top-0 left-0 w-full h-full object-cover -z-10"
-        />
-        <img
-          src={avatar}
-          alt="Background"
-          width={465}
-          height={648}
-          className="absolute top-[30%] left-[36%]"
         />
         <Router>
           <div className="h-[80px]">

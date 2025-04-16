@@ -8,6 +8,7 @@ import EarnSVG from "@/Pages/Main/EarnSVG";
 import LeaderboardLayout from "@/Pages/Leaderboard/LeaderboardLayout";
 import HomeSVG from "@/Pages/Main/HomeSVG";
 import EarnLayout from "@/Pages/Earn/EarnLayout";
+import TowerLayout from "@/Pages/Tower/TowerLayout";
 
 export type Route = {
   icon: ReactNode | null;
@@ -32,8 +33,8 @@ export const routes = [
   {
     icon: <WeeklyChallengeSVG />,
     label: "Weekly Challenge",
-    route: "/leaderboard",
-    element: <LeaderboardLayout />,
+    route: "/tower",
+    element: <TowerLayout />,
   },
   {
     icon: <EarnSVG />,

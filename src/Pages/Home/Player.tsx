@@ -5,6 +5,7 @@ import FocusProgressBar from "./FocusProgressBar";
 import EnergyProgressBar from "./EnergyProgressBar";
 import rollIcon from "./roll-icon.png";
 import GoldWidget from "./GoldWidget";
+import avatar from "./bear.png";
 import ClaimDailyRewardContainer from "./ClaimDailyRewardContainer";
 import { Fonts } from "@/TwClassnames/Fonts";
 
@@ -19,6 +20,13 @@ function Player() {
 
   return (
     <>
+      <img
+        src={avatar}
+        alt="bear"
+        width={465}
+        height={648}
+        className="absolute top-[30%] left-[36%]"
+      />
       <div className="flex items-center justify-between relative">
         <div className=""></div>
         <div className="flex items-center gap-16 ml-28">
