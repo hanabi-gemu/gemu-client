@@ -2,6 +2,9 @@ import tileLightImg from "./slot_light.png";
 import tileDarkImg from "./slot_dark.png";
 import boardBearImg from "./board_bear.png";
 import blockImg from "./block.png";
+import castleImg from "./castle.png";
+import lightPortalImg from "./light_portal.png";
+import darkPortalImg from "./dark_portal.png";
 import { Fonts } from "@/TwClassnames/Fonts";
 
 const TILE_WIDTH = 140;
@@ -20,14 +23,16 @@ const path: {
   { direction: "up", count: 5, type: "normal" },
   { direction: "right", count: 4, type: "normal" },
   { direction: "up", count: 3, type: "normal" },
-  { direction: "right", count: 5, type: "normal" },
+  { direction: "right", count: 4, type: "normal" },
+  { direction: "right", count: 1, type: "portal" },
   { direction: "up", count: 5, type: "normal" },
   { direction: "right", count: 5, type: "normal" },
   { direction: "up", count: 3, type: "normal" },
   { direction: "right", count: 2, type: "normal" },
   { direction: "up", count: 5, type: "normal" },
   { direction: "right", count: 4, type: "normal" },
-  { direction: "up", count: 4, type: "normal" },
+  { direction: "up", count: 3, type: "normal" },
+  { direction: "up", count: 1, type: "portal" },
   { direction: "right", count: 5, type: "normal" },
   { direction: "up", count: 5, type: "normal" },
   { direction: "right", count: 5, type: "normal" },
@@ -98,8 +103,13 @@ export default function Board({
         height,
       }}
     >
+      <img src={castleImg} className="absolute top-0 left-0 z-[125]" />
+
       {slots.map((slot, i) => {
         const tileSrc = i % 2 === 0 ? tileLightImg : tileDarkImg;
+        const isPortal = path[i]?.type === "portal";
+        const portalImg = i % 2 === 0 ? lightPortalImg : darkPortalImg;
+
         return (
           <div
             key={i}
@@ -111,31 +121,63 @@ export default function Board({
               height: TILE_HEIGHT,
             }}
           >
-            <img
-              src={tileSrc}
-              alt={`Tile ${slot.index}`}
-              style={{
-                width: TILE_WIDTH,
-                height: TILE_HEIGHT,
-                zIndex: 200 - i,
-                position: "absolute",
-                left: BOARD_OFFSET,
-                top: 0,
-              }}
-            />
-            <img
-              src={blockImg}
-              alt={`block ${slot.index}`}
-              className=""
-              style={{
-                width: 140,
-                height: 356,
-                zIndex: 200 - i,
-                position: "absolute",
-                left: BOARD_OFFSET,
-                top: "56%",
-              }}
-            />
+            {isPortal ? (
+              <>
+                <img
+                  src={portalImg}
+                  alt={`Portal ${slot.index}`}
+                  style={{
+                    width: TILE_WIDTH,
+                    height: TILE_HEIGHT,
+                    zIndex: 200 - i,
+                    position: "absolute",
+                    left: BOARD_OFFSET,
+                    top: 0,
+                  }}
+                />
+                <img
+                  src={blockImg}
+                  alt={`block ${slot.index}`}
+                  className=""
+                  style={{
+                    width: 140,
+                    height: 356,
+                    zIndex: 200 - i,
+                    position: "absolute",
+                    left: BOARD_OFFSET,
+                    top: "56%",
+                  }}
+                />
+              </>
+            ) : (
+              <>
+                <img
+                  src={tileSrc}
+                  alt={`Tile ${slot.index}`}
+                  style={{
+                    width: TILE_WIDTH,
+                    height: TILE_HEIGHT,
+                    zIndex: 200 - i,
+                    position: "absolute",
+                    left: BOARD_OFFSET,
+                    top: 0,
+                  }}
+                />
+                <img
+                  src={blockImg}
+                  alt={`block ${slot.index}`}
+                  className=""
+                  style={{
+                    width: 140,
+                    height: 356,
+                    zIndex: 200 - i,
+                    position: "absolute",
+                    left: BOARD_OFFSET,
+                    top: "56%",
+                  }}
+                />
+              </>
+            )}
             {/* Render the tile number overlay unless the board bear is on this tile */}
             {(!currentTile || currentTile.index !== slot.index) && (
               <div

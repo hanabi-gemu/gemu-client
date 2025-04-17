@@ -46,7 +46,7 @@ const SlotWithQuest = ({
 			backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center"
       >
         <img src={chestIcon} width={40} height={42} className="mb-2" />
-        <p className={`${Fonts.Headings.Title.Bold} text-center`}>
+        <p className={`${Fonts.pip.super_cartoon.h4} text-center text-sm`}>
           {questItem && questItem.name}
         </p>
 
@@ -55,8 +55,8 @@ const SlotWithQuest = ({
           className={`bg-pip-yellow-base mt-2 rounded-lg py-[5px] text-center hover:bg-[#E6E6E6] ${Events.Hover} transition-all duration-300 ease-in-out
 					w-[104px]	h-[30px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center`}
         >
-          <p className={`${Fonts.Headings.Subtitle.Book} text-pip-yellow-dark`}>
-            Start Quest!
+          <p className={`${Fonts.pip.body.small} text-pip-yellow-dark`}>
+            Start Quest
           </p>
         </div>
         <div className={`${Events.Hover} mt-2`} onClick={handleSwapQuest}>
