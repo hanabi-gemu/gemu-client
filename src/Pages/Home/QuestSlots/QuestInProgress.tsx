@@ -1,6 +1,8 @@
 import { useState, useEffect } from "react";
 import { Fonts } from "@/TwClassnames/Fonts";
 import ClaimQuestSlot from "./ClaimQuestSlot";
+import chestIcon from "./chest.png";
+import { Events } from "@/TwClassnames/Events";
 
 const QuestInProgress = ({
   timestamp,
@@ -39,20 +41,29 @@ const QuestInProgress = ({
       {progress >= 100 ? (
         <ClaimQuestSlot receiptId={receiptId} slot={slot} />
       ) : (
-        <div className="border border-low-contrast w-[240px] h-[120px] backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center gap-y-2">
-          <p className={Fonts.Headings.Title.Bold}>Quest Slot</p>
-          <div
-            className={`rounded-2xl p-3 px-6 flex justify-center items-center w-[180px] bg-shadow2`}
-          >
-            <p className={Fonts.Headings.Subtitle.Book}>Quest in Progress</p>
-          </div>
+        <div
+          className="w-[152px] h-[172px]
+			border-[4px] border-pip-gray-200 bg-pip-white p-4
+			backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center"
+        >
+          <img src={chestIcon} width={40} height={42} className="mb-2" />
 
-          {/* Progress Bar */}
-          <div className="w-[180px] h-2 bg-gray-300 rounded-full overflow-hidden mt-2">
-            <div
-              className="h-full bg-green-500 transition-all duration-1000"
-              style={{ width: `${progress}%` }}
-            ></div>
+          <div className={`${Events.Hover} mt-2 mx-3`}>
+            {/* Progress Bar */}
+            <div className="w-[136px] h-2 bg-pip-gray-100 rounded-full overflow-hidden mt-2">
+              <div
+                className="h-full bg-[#175CD3] transition-all duration-1000"
+                style={{ width: `${progress}%` }}
+              ></div>
+            </div>
+          </div>
+          <div
+            className={` mt-2 rounded-lg py-[5px] text-center bg-[#E6E6E6] ${Events.NotAllowed}
+					w-[104px]	h-[40px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center`}
+          >
+            <p className={`${Fonts.pip.body.small} text-pip-yellow-dark`}>
+              Quest in progress
+            </p>
           </div>
         </div>
       )}

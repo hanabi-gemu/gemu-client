@@ -10,7 +10,6 @@ function useLevelUp() {
 
   const levelUp = async (
     stats: {
-      bitterness: string;
       saltiness: string;
       sourness: string;
       sweetness: string;
@@ -24,14 +23,13 @@ function useLevelUp() {
       console.log(player?.id);
       if (!player) return;
 
-      console.log(stats);
+      console.log(levelCount, "levelCount");
 
       tx.moveCall({
         target: levelUpAddress,
         arguments: [
           tx.object(player.id),
           tx.pure.u64(levelCount),
-          tx.pure.u64(stats.bitterness),
           tx.pure.u64(stats.saltiness),
           tx.pure.u64(stats.sourness),
           tx.pure.u64(stats.sweetness),

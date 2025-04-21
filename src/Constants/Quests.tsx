@@ -31,7 +31,7 @@ export const quests: Quest[] = [
   {
     name: "Explore the temple",
     quest_id: "1",
-    duration: "15000",
+    duration: "15000000",
     quest_type: "timed",
     requirements: {
       fields: {

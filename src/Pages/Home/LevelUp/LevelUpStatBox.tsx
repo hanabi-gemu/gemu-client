@@ -1,6 +1,6 @@
 import { Events } from "@/TwClassnames/Events";
-import { Fonts } from "@/TwClassnames/Fonts";
 import { useState } from "react";
+import StatBox from "../StatBox";
 
 function LevelUpStatBox({
   stat,
@@ -17,7 +17,6 @@ function LevelUpStatBox({
   allocatedPoints: number;
   setAllocatedPoints: React.Dispatch<React.SetStateAction<number>>;
   statState: {
-    bitterness: string;
     saltiness: string;
     sourness: string;
     sweetness: string;
@@ -25,7 +24,6 @@ function LevelUpStatBox({
   };
   setStats: React.Dispatch<
     React.SetStateAction<{
-      bitterness: string;
       saltiness: string;
       sourness: string;
       sweetness: string;
@@ -55,27 +53,29 @@ function LevelUpStatBox({
   };
 
   return (
-    <div className="flex">
+    <div className="flex items-center gap-x-2">
       <div
-        className={`rounded-full bg-bg-bottom p-2 w-[39px] h-[38px] flex justify-center ${
-          allocatedPoints === 0 || Number(statState[stat]) <= initialValue
-            ? "opacity-50 cursor-not-allowed"
-            : Events.Hover
-        }`}
+        className={`rounded-full bg-[#FFF2F3]
+					 text-[#DF0F1B] p-2 w-[45px] h-[45px] flex justify-center
+					 text-2xl ${
+             allocatedPoints === 0 || Number(statState[stat]) <= initialValue
+               ? "opacity-50 cursor-not-allowed text-[#F3A5A9]"
+               : `${Events.Hover} hover:bg-[#FFE0E2]`
+           }
+           }`}
         onClick={handleSubtractPoint}
       >
         -
       </div>
-      <div className="flex flex-col items-center w-[78px] h-[56px] border-[2px] border-low-contrast p-2">
-        <p className={`${Fonts.Headings.Subtitle.Bold}`}>{points}</p>
-        <p className={Fonts.Text.Medium}>{stat}</p>
-      </div>
+      <StatBox stat={stat} value={points.toString()} />
       <div
-        className={`rounded-full bg-bg-bottom p-2 w-[39px] h-[38px] flex justify-center ${
-          allocatedPoints === pointsToAllocate
-            ? "opacity-50 cursor-not-allowed"
-            : Events.Hover
-        }`}
+        className={`rounded-full bg-[#ECFFEE] p-2 w-[45px] h-[45px]
+					 flex justify-center text-2xl
+					text-[#00AD11] items-center ${
+            allocatedPoints === pointsToAllocate
+              ? "opacity-50 cursor-not-allowed text-[#75A87B]"
+              : `${Events.Hover} hover:bg-[#D1F5D7]`
+          }`}
         onClick={handleAddPoint}
       >
         +

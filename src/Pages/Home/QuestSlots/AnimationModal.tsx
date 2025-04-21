@@ -81,6 +81,7 @@ function AnimationModal({ questItem }: { questItem?: Quest }) {
           </>
         ) : (
           <>
+            <ReactConfetti width={450} height={480} />
             <div className="">
               <img src={chestIcon} />
             </div>
@@ -160,7 +161,6 @@ function AnimationModal({ questItem }: { questItem?: Quest }) {
           </>
         )}
       </div>
-      <ReactConfetti width={450} height={480} />
     </>
   );
 }
