@@ -10,6 +10,7 @@ export type Receipt = {
   requirements: any;
   rewards: any;
   timestamp: any;
+  quest_id: any;
 };
 
 function useReceipt() {
@@ -48,11 +49,19 @@ function useReceipt() {
             requirements: any;
             rewards: any;
             timestamp: any;
+            quest_id: any;
           };
 
-          const { duration, id, player_id, requirements, rewards, timestamp } =
-            data;
-          return { duration, id, player_id, requirements, rewards, timestamp };
+          const receipt: Receipt = {
+            duration: data.duration,
+            id: data.id,
+            player_id: data.player_id,
+            requirements: data.requirements,
+            rewards: data.rewards,
+            timestamp: data.timestamp,
+            quest_id: data.quest_id,
+          };
+          return receipt;
         }
       });
     },

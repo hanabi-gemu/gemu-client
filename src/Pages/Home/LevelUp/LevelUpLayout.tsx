@@ -48,7 +48,7 @@ function LevelUpLayout({
     saltiness: player.stats.saltiness,
     sourness: player.stats.sourness,
     sweetness: player.stats.sweetness,
-    umami: player.stats.umami,
+    spicy: player.stats.spicy,
   });
 
   const [progressPercentage, setProgressPercentage] = useState(0);
@@ -84,7 +84,7 @@ function LevelUpLayout({
       sweetness: Math.abs(
         Number(stats.sweetness) - Number(initialStats.sweetness)
       ),
-      umami: Math.abs(Number(stats.umami) - Number(initialStats.umami)),
+      spicy: Math.abs(Number(stats.spicy) - Number(initialStats.spicy)),
     };
 
     levelUp(
@@ -92,7 +92,7 @@ function LevelUpLayout({
         saltiness: pointsAdded.saltiness.toString(),
         sourness: pointsAdded.sourness.toString(),
         sweetness: pointsAdded.sweetness.toString(),
-        umami: pointsAdded.umami.toString(),
+        spicy: pointsAdded.spicy.toString(),
       },
       levels
     );
@@ -118,7 +118,7 @@ function LevelUpLayout({
           {Object.entries(player.stats).map(([key, value]) => (
             <LevelUpStatBox
               setAllocatedPoints={setAllocatedPoints}
-              stat={key as "saltiness" | "sweetness" | "sourness" | "umami"}
+              stat={key as "saltiness" | "sweetness" | "sourness" | "spicy"}
               statState={stats}
               value={value}
               key={key}

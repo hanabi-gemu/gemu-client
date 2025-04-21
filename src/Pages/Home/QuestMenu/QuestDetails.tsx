@@ -22,7 +22,7 @@ function QuestDetails({
   questId: string;
   slot: number;
 }) {
-  // const { startBoardQuest } = useStartQuest(quest, slot);
+  // const { startQuest } = useStartQuest(quest, slot);
 
   // Function to add the quest to session storage
   const addQuestToSessionStorage = (id: string) => {

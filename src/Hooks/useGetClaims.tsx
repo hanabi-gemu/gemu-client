@@ -1,7 +1,7 @@
 import { useCurrentAccount, useSuiClient } from "@mysten/dapp-kit";
 import { useQuery } from "@tanstack/react-query";
 import usePlayer from "./usePlayer";
-import { claimsAddress } from "@/smartContractInterface";
+import { claimsId } from "@/smartContractInterface";
 
 interface ClaimFields {
   streak: string;
@@ -61,7 +61,7 @@ function useGetClaims() {
     queryFn: async () => {
       // Inside the queryFn:
       const resp = (await client.getObject({
-        id: claimsAddress,
+        id: claimsId,
         options: { showContent: true },
       })) as unknown as GetObjectResponse; // Type assertion
 

@@ -1,9 +1,9 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  goldManagerAddress,
+  goldManagerId,
   claimDailyRewardStruct,
-  claimsAddress,
+  claimsId,
 } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
@@ -26,9 +26,9 @@ function useClaimDailyReward() {
       tx.moveCall({
         target: claimDailyRewardStruct,
         arguments: [
-          tx.object(claimsAddress), // quest_id: u64
+          tx.object(claimsId), // quest_id: u64
           tx.object(player.id), // player: &mut Player
-          tx.object(goldManagerAddress), // gold_manager: &mut GOLDManager
+          tx.object(goldManagerId), // gold_manager: &mut GOLDManager
           tx.object(SUI_CLOCK_OBJECT_ID), // clock: &Clock
           // The TxContext (ctx) is automatically handled by the Move runtime.
         ],
