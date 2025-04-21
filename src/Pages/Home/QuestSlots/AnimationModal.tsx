@@ -103,18 +103,17 @@ function AnimationModal({ questItem }: { questItem?: Quest }) {
               <div className="p-2 border-[2px] border-pip-gray-200 rounded-[100px] flex items-center bg-pip-white">
                 <img src={lightningIcon} />
                 <div className="h-[23px] w-[410px] bg-pip-yellow-tint rounded-[100px]">
-                  {/* Filled portion based on progressPercentage */}
+                  {/* Filled portion based on progressPercentage */}{" "}
+                  <div
+                    className={`${Fonts.pip.body.emphasized} absolute flex items-center justify-center left-[42%]`}
+                  >
+                    {Number(player.xp)}/{xpToLevelUp(Number(player.level), 1)}{" "}
+                    XP
+                  </div>
                   <div
                     className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out delay-400"
                     style={{ width: `${progressPercentage}%` }}
-                  >
-                    <div
-                      className={`${Fonts.pip.body.emphasized} flex items-center justify-center`}
-                    >
-                      {Number(player.xp)}/{xpToLevelUp(Number(player.level), 1)}{" "}
-                      XP
-                    </div>
-                  </div>
+                  ></div>
                 </div>
               </div>
             </div>

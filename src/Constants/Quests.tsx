@@ -31,31 +31,7 @@ export const quests: Quest[] = [
   {
     name: "Bearly Escaped!",
     quest_id: "1",
-    duration: "15000",
-    quest_type: "timed",
-    requirements: {
-      fields: {
-        energy: "0",
-        level: "0",
-        focus: "0",
-        saltiness: "0",
-        sourness: "0",
-        sweetness: "0",
-        spicy: "0",
-      },
-    },
-    rewards: {
-      fields: {
-        gold: "1",
-        rolls: "1",
-        xp: "10000",
-      },
-    },
-  },
-  {
-    name: "Go instant quest!",
-    quest_id: "98",
-    duration: "15000",
+    duration: "0",
     quest_type: "instant",
     requirements: {
       fields: {
@@ -197,7 +173,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Trixie’s Curse",
+    name: "Trixie's Curse",
     quest_id: "7",
     duration: "0",
     quest_type: "instant",
@@ -245,7 +221,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Honey Dreams: A Bear’s Tale",
+    name: "Honey Dreams: A Bear's Tale",
     quest_id: "9",
     duration: "18000000",
     quest_type: "timed",
@@ -293,7 +269,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Trixie’s Secret",
+    name: "Trixie's Secret",
     quest_id: "11",
     duration: "0",
     quest_type: "instant",
