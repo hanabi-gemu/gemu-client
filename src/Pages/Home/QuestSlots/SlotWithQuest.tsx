@@ -21,15 +21,15 @@ const SlotWithQuest = ({
 }) => {
   const [openModal, setOpenModal] = useState(false);
   const [openAnimationModal, setOpenAnimationModal] = useState(false);
-  const { startBoardQuest } = useStartQuest(quest, slot);
+  const { startQuest } = useStartQuest(quest, slot);
 
   const questItem = quests.find((q) => q.quest_id === quest);
 
   const startQuestHandler = async () => {
     if (questItem?.quest_type === "instant") {
-      await startBoardQuest(() => setOpenAnimationModal(true), true);
+      await startQuest(() => setOpenAnimationModal(true), true);
     } else {
-      await startBoardQuest();
+      await startQuest();
     }
     await refetch();
   };

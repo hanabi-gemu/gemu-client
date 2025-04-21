@@ -2,24 +2,23 @@ import usePlayer from "@/Hooks/usePlayer";
 import { Fonts } from "@/TwClassnames/Fonts";
 import focusIcon from "./focus-icon.png";
 
-const MAX_MANA = 100; // Replace with dynamic max if needed
-
 function FocusProgressBar() {
   const { player } = usePlayer();
 
   if (!player) return null;
 
-  const mana = Number(player.mana);
-  const safeMana = isNaN(mana) ? 0 : mana;
-
-  const manaPercentage = Math.min((safeMana / MAX_MANA) * 100, 100);
+  const focus = Number(player.focus);
+  const max_focus = Number(player.max_focus);
+  const safeMaxFocus = isNaN(max_focus) ? 100 : max_focus;
+  const safeFocus = isNaN(focus) ? 0 : focus;
+  const focusPercentage = Math.min((safeFocus / safeMaxFocus) * 100, 100);
 
   return (
     <div className="w-[200px] h-[20px] border-[2px] border-pip-white relative rounded-[100px]">
       {/* Current Focus */}
       <div
         className="absolute left-0 top-0 h-full bg-[#C156E9] transition-all duration-300 ease-in-out rounded-[100px]"
-        style={{ width: `${manaPercentage}%` }}
+        style={{ width: `${focusPercentage}%` }}
       />
       {/* Empty background */}
       <div className="w-full h-full bg-[#F8E4FF] rounded-[100px]" />
@@ -60,7 +59,7 @@ function FocusProgressBar() {
         </svg>
         <div className="flex items-center absolute top-0 w-[70px] left-[90%]">
           <div className={`${Fonts.pip.caption.medium} text-[#470062]`}>
-            {manaPercentage} /
+            {focusPercentage} /
           </div>
           <div className={`${Fonts.pip.caption.medium} text-[#470062]`}>
             100

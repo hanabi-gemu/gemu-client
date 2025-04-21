@@ -1,9 +1,10 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  startBoardQuestAddress,
-  goldManagerAddress,
-  questManagerAddress,
+  startQuestId,
+  goldManagerId,
+  questManagerId,
+  SUI_RANDOM_OBJECT_ID,
 } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
@@ -15,26 +16,25 @@ function useStartQuest(questId: string, slot: number) {
   const { mutateAsync: signTransaction } = useSignTransaction();
   const { refetch } = useReceipt();
 
-  const startBoardQuest = async (
+  const startQuest = async (
     openAnimation?: VoidFunction,
     isInstant?: boolean
   ) => {
     try {
       const tx = new Transaction();
-      console.log("Initializing startBoardQuest transaction...");
+      console.log("Initializing startQuest transaction...");
       if (!player) return;
-      console.log(questId, "asdasd");
       console.log(player.id, "player.id");
 
       tx.moveCall({
-        target: startBoardQuestAddress,
+        target: startQuestId,
         arguments: [
-          tx.object(questManagerAddress), // manager: &Manager
+          tx.object(questManagerId), // manager: &Manager
           tx.object(player.id), // player: &mut Player
           tx.pure.u64(questId), // quest_id: u64
-          tx.object(goldManagerAddress), // gold_manager: &mut GOLDManager
+          tx.object(goldManagerId), // gold_manager: &mut GOLDManager
           tx.object(
-            "0x0000000000000000000000000000000000000000000000000000000000000008"
+            SUI_RANDOM_OBJECT_ID
           ), // random: &Random
           tx.object(SUI_CLOCK_OBJECT_ID), // clock: &Clock
           // The TxContext (ctx) is automatically handled by the Move runtime.
@@ -72,11 +72,11 @@ function useStartQuest(questId: string, slot: number) {
       // Report transaction effects to the wallet and refresh any local state if needed.
       reportTransactionEffects(executeResult.rawEffects!.toString());
     } catch (err) {
-      console.error("Error during startBoardQuest transaction:", err);
+      console.error("Error during startQuest transaction:", err);
     }
   };
 
-  return { startBoardQuest };
+  return { startQuest };
 }
 
 export default useStartQuest;

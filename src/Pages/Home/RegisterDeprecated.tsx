@@ -1,8 +1,8 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  playerObjectAddress,
-  registerPlayerAddress,
+  playerObjectId,
+  registerPlayerId,
 } from "@/smartContractInterface";
 import usePlayer from "@/Hooks/usePlayer";
 
@@ -16,11 +16,11 @@ function RegisterPlayer() {
       const tx = new Transaction();
       console.log("Initializing transaction...");
 
-      console.log(registerPlayerAddress);
+      console.log(registerPlayerId);
 
       tx.moveCall({
-        target: registerPlayerAddress,
-        arguments: [tx.object(playerObjectAddress)],
+        target: registerPlayerId,
+        arguments: [tx.object(playerObjectId)],
       });
 
       const { bytes, signature, reportTransactionEffects } =

@@ -6,19 +6,19 @@ import lemonIcon from "./lemon.png";
 import { tw } from "@/Utils/tailwindIntel";
 
 function StatBox({ stat, value }: { stat: string; value: string }) {
-  type statType = "saltiness" | "sourness" | "umami" | "sweetness";
+  type statType = "saltiness" | "sourness" | "spicy" | "sweetness";
 
   const icons = {
     saltiness: saltIcon,
     sourness: lemonIcon,
-    umami: chillyIcon,
+    spicy: chillyIcon,
     sweetness: sweetIcon,
   };
 
   const colors = {
     saltiness: tw`bg-pip-blue-light`,
     sourness: tw`bg-pip-yellow-pastel`,
-    umami: tw`bg-pip-red-tint`,
+    spicy: tw`bg-pip-red-tint`,
     sweetness: tw`bg-pip-rose-tint`,
   };
 

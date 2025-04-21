@@ -59,8 +59,8 @@ function PlayerMobile() {
             <p className={Fonts.Headings.Title.Book}>{player.energy}</p>
           </div>
           <div className="flex items-center gap-1">
-            <p className={Fonts.Headings.Title.Bold}>Mana:</p>
-            <p className={Fonts.Headings.Title.Book}>{player.mana}</p>
+            <p className={Fonts.Headings.Title.Bold}>Focus:</p>
+            <p className={Fonts.Headings.Title.Book}>{player.focus}</p>
           </div>
           <div className="flex items-center gap-1">
             <p className={Fonts.Headings.Title.Bold}>Rolls:</p>

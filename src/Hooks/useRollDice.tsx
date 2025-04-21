@@ -1,34 +1,35 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
 import {
-  goldManagerId,
-  claimReceiptStruct,
+  rollDicesId,
+  SUI_RANDOM_OBJECT_ID,
+  towerObjectId,
 } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 
-function useClaimReceipt(receiptId: string, slot: number) {
+function useRollDices() {
   const client = useSuiClient();
-  const { player, refetch } = usePlayer();
+  const { player } = usePlayer();
   const { mutateAsync: signTransaction } = useSignTransaction();
 
-  const claimReceipt = async () => {
+  const rollDices = async (amount: number) => {
     try {
       const tx = new Transaction();
-      console.log("Initializing claimReceipt transaction...");
+      console.log("Initializing rollDice transaction...");
       if (!player) return;
+      console.log(player.id, "player.id");
 
       tx.moveCall({
-        target: claimReceiptStruct,
+        target: rollDicesId,
         arguments: [
-          tx.object(receiptId), // quest_id: u64
+          tx.object(towerObjectId), // manager: &Manager
           tx.object(player.id), // player: &mut Player
-          tx.object(goldManagerId), // gold_manager: &mut GOLDManager
+          tx.pure.u64(amount), // amount: u64
           tx.object(
-            "0x0000000000000000000000000000000000000000000000000000000000000008"
+            SUI_RANDOM_OBJECT_ID
           ), // random: &Random
           tx.object(SUI_CLOCK_OBJECT_ID), // clock: &Clock
-          // The TxContext (ctx) is automatically handled by the Move runtime.
         ],
       });
 
@@ -47,21 +48,14 @@ function useClaimReceipt(receiptId: string, slot: number) {
       });
 
       console.log("Execution result:", executeResult);
-      if (executeResult && executeResult.effects?.deleted) {
-        if (typeof window !== "undefined") {
-          sessionStorage.removeItem(`quest_slot_${slot}_receipt_id`);
-          refetch();
-        }
-      }
-
       // Report transaction effects to the wallet and refresh any local state if needed.
       reportTransactionEffects(executeResult.rawEffects!.toString());
     } catch (err) {
-      console.error("Error during claimReceipt transaction:", err);
+      console.error("Error during startQuest transaction:", err);
     }
   };
 
-  return { claimReceipt };
+  return { rollDices };
 }
 
-export default useClaimReceipt;
+export default useRollDices;

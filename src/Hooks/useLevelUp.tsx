@@ -1,6 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import { levelUpAddress } from "@/smartContractInterface";
+import { levelUpId } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 
 function useLevelUp() {
@@ -10,11 +10,10 @@ function useLevelUp() {
 
   const levelUp = async (
     stats: {
-      bitterness: string;
       saltiness: string;
       sourness: string;
       sweetness: string;
-      umami: string;
+      spicy: string;
     },
     levelCount: number
   ) => {
@@ -27,15 +26,14 @@ function useLevelUp() {
       console.log(stats);
 
       tx.moveCall({
-        target: levelUpAddress,
+        target: levelUpId,
         arguments: [
           tx.object(player.id),
           tx.pure.u64(levelCount),
-          tx.pure.u64(stats.bitterness),
           tx.pure.u64(stats.saltiness),
           tx.pure.u64(stats.sourness),
           tx.pure.u64(stats.sweetness),
-          tx.pure.u64(stats.umami),
+          tx.pure.u64(stats.spicy),
         ],
       });
 
@@ -59,7 +57,7 @@ function useLevelUp() {
       reportTransactionEffects(executeResult.rawEffects!.toString());
       await refetch();
     } catch (err) {
-      console.error("Error during startBoardQuest transaction:", err);
+      console.error("Error during level up transaction:", err);
     }
   };
 

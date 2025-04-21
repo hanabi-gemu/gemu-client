@@ -11,25 +11,23 @@ function LevelUpStatBox({
   statState,
   pointsToAllocate,
 }: {
-  stat: "saltiness" | "sweetness" | "sourness" | "umami";
+  stat: "saltiness" | "sweetness" | "sourness" | "spicy";
   value: string;
   pointsToAllocate: number;
   allocatedPoints: number;
   setAllocatedPoints: React.Dispatch<React.SetStateAction<number>>;
   statState: {
-    bitterness: string;
     saltiness: string;
     sourness: string;
     sweetness: string;
-    umami: string;
+    spicy: string;
   };
   setStats: React.Dispatch<
     React.SetStateAction<{
-      bitterness: string;
       saltiness: string;
       sourness: string;
       sweetness: string;
-      umami: string;
+      spicy: string;
     }>
   >;
 }) {
