@@ -35,9 +35,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "21",
-        level: "2",
-        focus: "1",
+        energy: "20",
+        level: "1",
+        focus: "0",
         saltiness: "1",
         sourness: "1",
         sweetness: "1",
@@ -59,9 +59,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "2",
-        focus: "21",
+        energy: "0",
+        level: "1",
+        focus: "20",
         saltiness: "1",
         sourness: "1",
         sweetness: "1",
@@ -83,9 +83,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "3",
-        focus: "21",
+        energy: "0",
+        level: "2",
+        focus: "20",
         saltiness: "2",
         sourness: "1",
         sweetness: "1",
@@ -107,9 +107,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "31",
-        level: "3",
-        focus: "1",
+        energy: "30",
+        level: "2",
+        focus: "0",
         saltiness: "1",
         sourness: "1",
         sweetness: "1",
@@ -131,9 +131,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "4",
-        focus: "41",
+        energy: "0",
+        level: "3",
+        focus: "40",
         saltiness: "1",
         sourness: "2",
         sweetness: "1",
@@ -155,9 +155,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "41",
-        level: "5",
-        focus: "1",
+        energy: "40",
+        level: "4",
+        focus: "0",
         saltiness: "1",
         sourness: "1",
         sweetness: "3",
@@ -179,9 +179,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "51",
-        level: "6",
-        focus: "1",
+        energy: "50",
+        level: "5",
+        focus: "0",
         saltiness: "1",
         sourness: "3",
         sweetness: "1",
@@ -203,9 +203,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "6",
-        focus: "61",
+        energy: "0",
+        level: "5",
+        focus: "60",
         saltiness: "4",
         sourness: "1",
         sweetness: "1",
@@ -227,9 +227,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "7",
-        focus: "61",
+        energy: "0",
+        level: "6",
+        focus: "60",
         saltiness: "1",
         sourness: "1",
         sweetness: "4",
@@ -251,9 +251,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "8",
-        focus: "81",
+        energy: "0",
+        level: "7",
+        focus: "80",
         saltiness: "3",
         sourness: "1",
         sweetness: "4",
@@ -275,9 +275,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "61",
-        level: "8",
-        focus: "1",
+        energy: "60",
+        level: "7",
+        focus: "0",
         saltiness: "5",
         sourness: "1",
         sweetness: "1",
@@ -299,9 +299,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "1",
-        level: "9",
-        focus: "81",
+        energy: "0",
+        level: "8",
+        focus: "80",
         saltiness: "1",
         sourness: "1",
         sweetness: "5",
@@ -323,9 +323,9 @@ export const quests: Quest[] = [
     quest_type: "instant",
     requirements: {
       fields: {
-        energy: "61",
-        level: "9",
-        focus: "1",
+        energy: "60",
+        level: "8",
+        focus: "0",
         saltiness: "5",
         sourness: "1",
         sweetness: "1",
@@ -347,9 +347,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "81",
-        level: "10",
-        focus: "81",
+        energy: "0",
+        level: "9",
+        focus: "80",
         saltiness: "1",
         sourness: "5",
         sweetness: "1",
@@ -371,9 +371,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "101",
-        level: "10",
-        focus: "101",
+        energy: "0",
+        level: "9",
+        focus: "100",
         saltiness: "6",
         sourness: "1",
         sweetness: "6",
@@ -395,9 +395,9 @@ export const quests: Quest[] = [
     quest_type: "timed",
     requirements: {
       fields: {
-        energy: "101",
-        level: "11",
-        focus: "101",
+        energy: "0",
+        level: "10",
+        focus: "100",
         saltiness: "8",
         sourness: "7",
         sweetness: "1",
