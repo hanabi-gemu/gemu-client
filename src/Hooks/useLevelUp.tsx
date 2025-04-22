@@ -23,7 +23,7 @@ function useLevelUp() {
       console.log(player?.id);
       if (!player) return;
 
-      console.log(stats);
+      console.log(levelCount, "levelCount");
 
       tx.moveCall({
         target: levelUpId,

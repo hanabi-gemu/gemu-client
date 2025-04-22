@@ -48,7 +48,10 @@ const Modal = ({
         onClick={(e) => e.stopPropagation()} // Prevent click inside modal from closing it
       >
         {!disableClose && (
-          <div className="absolute top-[2%] right-[3%] " onClick={handleClose}>
+          <div
+            className="absolute top-[2%] right-[3%] z-10"
+            onClick={handleClose}
+          >
             <CloseModalButton />
           </div>
         )}

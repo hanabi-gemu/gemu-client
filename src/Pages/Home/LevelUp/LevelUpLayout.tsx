@@ -1,9 +1,31 @@
 import { Player } from "@/Hooks/usePlayer";
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import LevelUpStatBox from "./LevelUpStatBox";
+import bgSource from "./radial-yellow.png";
+import diamondSrc from "./diamond.png";
+import lightningIcon from "./lightning.png";
 import useLevelUp from "@/Hooks/useLevelUp";
+
+// Helper function: calculates the sum of squares.
+function sumSquares(n: number) {
+  return (n * (n + 1) * (2 * n + 1)) / 6;
+}
+
+// Constants for XP calculation.
+const BASE_REQUIRED_XP_TO_LVL_UP = 10000;
+const XP_MULTIPLIER = 500;
+
+// Calculates the XP needed to level up given a starting level and desired levels to gain.
+function xpToLevelUp(startLevel: number, levelsToGain: number) {
+  const sumStart = sumSquares(startLevel - 1);
+  const sumTarget = sumSquares(startLevel + levelsToGain - 1);
+  return (
+    levelsToGain * BASE_REQUIRED_XP_TO_LVL_UP +
+    XP_MULTIPLIER * (sumTarget - sumStart)
+  );
+}
 
 function LevelUpLayout({
   player,
@@ -28,6 +50,28 @@ function LevelUpLayout({
     sweetness: player.stats.sweetness,
     spicy: player.stats.spicy,
   });
+
+  const [progressPercentage, setProgressPercentage] = useState(0);
+
+  useEffect(() => {
+    const timer = setTimeout(async () => {
+      if (player) {
+        // Calculate target percentage first
+        const targetPercentage = Math.min(
+          (Number(player.xp) / xpToLevelUp(Number(player.level), 1)) * 100,
+          100
+        );
+
+        // Reset to 0 then animate to target
+        setProgressPercentage(0);
+        setTimeout(() => {
+          setProgressPercentage(targetPercentage);
+        }, 50); // Small delay to ensure DOM update
+      }
+    }, 5000);
+
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleConfirm = () => {
     const pointsAdded = {
@@ -57,14 +101,20 @@ function LevelUpLayout({
 
   if (openAllocateStats)
     return (
-      <div className="flex flex-col items-center gap-y-8">
-        <div className={`${Fonts.Headings.Heading.Bold}`}>
+      <div className="flex flex-col items-center gap-y-8 mt-6">
+        <div
+          className={`${Fonts.pip.super_cartoon.h2} text-center z-10`}
+          style={{
+            WebkitTextStrokeWidth: "2px",
+            WebkitTextStrokeColor: "#FFF",
+          }}
+        >
           Allocate your points
         </div>
         <div className={`${Fonts.Headings.Title.Book} text-med-contrast`}>
           {allocatedPoints} /{pointsToAllocate} allocated
         </div>
-        <div className="flex gap-8">
+        <div className="flex gap-8 flex-col">
           {Object.entries(player.stats).map(([key, value]) => (
             <LevelUpStatBox
               setAllocatedPoints={setAllocatedPoints}
@@ -78,27 +128,54 @@ function LevelUpLayout({
             />
           ))}
         </div>
-        <button
-          className={`${
-            Fonts.Text.Medium
-          } text-bg-med p-3  rounded-[48px] bg-contrast  ${
-            allocatedPoints === pointsToAllocate
-              ? `${Events.Hover} `
-              : `${Events.NotAllowed}`
-          }`}
+        <Button
+          disabled={allocatedPoints !== pointsToAllocate}
+          label="Allocate"
           onClick={() =>
             allocatedPoints === pointsToAllocate && handleConfirm()
           }
-        >
-          Confirm
-        </button>
+        />
       </div>
     );
 
   return (
-    <div className="flex flex-col items-center gap-y-8">
+    <div className="flex flex-col items-center gap-y-8 justify-center mt-10">
+      <img
+        src={bgSource}
+        alt="bg"
+        className="absolute top-[70px] left-0 w-full z-0"
+      />
+      <div className="relative">
+        <img
+          src={diamondSrc}
+          alt="diamond"
+          width={145}
+          height={140}
+          className="w-[145px] h-[145px] relative z-10"
+        />
+        <div className="absolute top-[40%] left-0 w-full flex flex-col h-[30px]">
+          <p
+            className={`font-super-comic text-center z-10 text-lg`}
+            style={{
+              WebkitTextStrokeWidth: "1px",
+              WebkitTextStrokeColor: "#FFF",
+            }}
+          >
+            Level
+          </p>
+          <p
+            className={`font-super-comic text-center z-10 text-xl`}
+            style={{
+              WebkitTextStrokeWidth: "1px",
+              WebkitTextStrokeColor: "#FFF",
+            }}
+          >
+            {Number(player.level) + levels}
+          </p>
+        </div>
+      </div>
       <div
-        className={`${Fonts.pip.super_cartoon.h1} text-center`}
+        className={`${Fonts.pip.super_cartoon.h1} text-center z-10`}
         style={{
           WebkitTextStrokeWidth: "3px",
           WebkitTextStrokeColor: "#FFF",
@@ -106,45 +183,108 @@ function LevelUpLayout({
       >
         Level up!
       </div>
-      <div className={`${Fonts.Text.Paragraph.Medium}`}>
+      <div className={`${Fonts.Text.Paragraph.Medium}  z-10`}>
         You can now level up to Level {Number(player.level) + levels}
       </div>
-      <div className="flex gap-4 items-center">
-        <InfoSVG />
-        <div className={`${Fonts.Text.Book} text-med-contrast`}>
+
+      {/* Level progress bar */}
+      <div className="p-2 border-[2px] border-pip-gray-200 rounded-[100px] flex items-center bg-pip-white z-10">
+        <img src={lightningIcon} />
+        <div className="h-[23px] w-[410px] bg-pip-yellow-tint rounded-[100px]">
+          {/* Filled portion based on progressPercentage */}
+          <div
+            className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out delay-400"
+            style={{ width: `${progressPercentage}%` }}
+          >
+            <div
+              className={`${Fonts.pip.body.emphasized} flex items-center justify-center`}
+            >
+              {Number(player.xp)}/{xpToLevelUp(Number(player.level), 1)} XP
+            </div>
+          </div>
+        </div>
+      </div>
+      <div className="flex gap-4 items-center justify-center px-10 z-10">
+        <div
+          className={`${Fonts.pip.caption.medium} text-center text-[#00AD11]`}
+        >
           When you level up, you get 5 points per level to allocate to your
           stats!
         </div>
       </div>
-      <div
-        className={`${Fonts.Text.Medium} p-3 bg-contrast rounded-[48px] ${Events.Hover}`}
-      >
-        <button
-          className={`${Fonts.Text.Medium} text-bg-med`}
-          onClick={() => setOpenAllocateStats(true)}
-        >
-          Level Up & Allocate Stats
-        </button>
-      </div>
+      <Button
+        onClick={() => setOpenAllocateStats(true)}
+        label="Allocate Stats"
+      />
     </div>
   );
 }
 
 export default LevelUpLayout;
 
-function InfoSVG() {
+function Button({
+  onClick,
+  label,
+  disabled = false,
+}: {
+  onClick: VoidFunction;
+  label: string;
+  disabled?: boolean;
+}) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      width="24"
-      height="24"
-      viewBox="0 0 24 24"
-      fill="none"
+    <div
+      className={`p-3 w-[290px] h-[48px] bg-pip-yellow-base
+		transition-all duration-300 ease-in-out rounded-xl relative  justify-center 
+		items-center flex ${
+      disabled
+        ? "opacity-50 cursor-not-allowed"
+        : `${Events.Hover} hover:bg-pip-yellow-tint`
+    }`}
+      onClick={() => !disabled && onClick()}
     >
-      <path
-        d="M11 17H13V11H11V17ZM12 9C12.2833 9 12.5208 8.90417 12.7125 8.7125C12.9042 8.52083 13 8.28333 13 8C13 7.71667 12.9042 7.47917 12.7125 7.2875C12.5208 7.09583 12.2833 7 12 7C11.7167 7 11.4792 7.09583 11.2875 7.2875C11.0958 7.47917 11 7.71667 11 8C11 8.28333 11.0958 8.52083 11.2875 8.7125C11.4792 8.90417 11.7167 9 12 9ZM12 22C10.6167 22 9.31667 21.7375 8.1 21.2125C6.88333 20.6875 5.825 19.975 4.925 19.075C4.025 18.175 3.3125 17.1167 2.7875 15.9C2.2625 14.6833 2 13.3833 2 12C2 10.6167 2.2625 9.31667 2.7875 8.1C3.3125 6.88333 4.025 5.825 4.925 4.925C5.825 4.025 6.88333 3.3125 8.1 2.7875C9.31667 2.2625 10.6167 2 12 2C13.3833 2 14.6833 2.2625 15.9 2.7875C17.1167 3.3125 18.175 4.025 19.075 4.925C19.975 5.825 20.6875 6.88333 21.2125 8.1C21.7375 9.31667 22 10.6167 22 12C22 13.3833 21.7375 14.6833 21.2125 15.9C20.6875 17.1167 19.975 18.175 19.075 19.075C18.175 19.975 17.1167 20.6875 15.9 21.2125C14.6833 21.7375 13.3833 22 12 22ZM12 20C14.2333 20 16.125 19.225 17.675 17.675C19.225 16.125 20 14.2333 20 12C20 9.76667 19.225 7.875 17.675 6.325C16.125 4.775 14.2333 4 12 4C9.76667 4 7.875 4.775 6.325 6.325C4.775 7.875 4 9.76667 4 12C4 14.2333 4.775 16.125 6.325 17.675C7.875 19.225 9.76667 20 12 20Z"
-        fill="#3E3E3E"
-      />
-    </svg>
+      <div className={`${Fonts.pip.h3.bold} text-pip-yellow-dark`}>{label}</div>
+      <div className="absolute top-[-1px] left-[-18%]">
+        <svg
+          width="106"
+          height="45"
+          viewBox="0 0 106 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g style={{ mixBlendMode: "hard-light" }}>
+            <rect
+              x="94.5"
+              y="-64.3828"
+              width="13"
+              height="248"
+              transform="rotate(30 94.5 -64.3828)"
+              fill="white"
+              fillOpacity="0.6"
+            />
+          </g>
+        </svg>
+      </div>
+      <div className="absolute top-[1px] left-[-19%]">
+        <svg
+          width="95"
+          height="45"
+          viewBox="0 0 95 48"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g style={{ mixBlendMode: "hard-light" }}>
+            <rect
+              x="83.2422"
+              y="-70.8828"
+              width="13"
+              height="248"
+              transform="rotate(30 83.2422 -70.8828)"
+              fill="white"
+              fillOpacity="0.4"
+            />
+          </g>
+        </svg>
+      </div>
+    </div>
   );
 }

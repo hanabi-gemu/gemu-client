@@ -173,7 +173,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Trixie’s Curse",
+    name: "Trixie's Curse",
     quest_id: "7",
     duration: "0",
     quest_type: "instant",
@@ -221,7 +221,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Honey Dreams: A Bear’s Tale",
+    name: "Honey Dreams: A Bear's Tale",
     quest_id: "9",
     duration: "18000000",
     quest_type: "timed",
@@ -269,7 +269,7 @@ export const quests: Quest[] = [
     },
   },
   {
-    name: "Trixie’s Secret",
+    name: "Trixie's Secret",
     quest_id: "11",
     duration: "0",
     quest_type: "instant",

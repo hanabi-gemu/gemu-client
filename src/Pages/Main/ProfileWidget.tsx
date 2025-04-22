@@ -29,8 +29,6 @@ function ProfileWidget() {
   const { player } = usePlayer();
   const [openModal, setOpenModal] = useState(false);
 
-  console.log(player?.xp);
-
   function calculateLevelUps(
     playerXP: number,
     currentLevel: number
@@ -109,7 +107,7 @@ function ProfileWidget() {
       <Modal
         isOpen={openModal}
         closeModal={() => setOpenModal(false)}
-        wrapperStyle={tw`bg-white p-8 rounded-3xl w-[480px] h-fit`}
+        wrapperStyle={tw`bg-white p-8 rounded-3xl w-[488px] h-fit`}
       >
         <LevelUpLayout
           player={player}

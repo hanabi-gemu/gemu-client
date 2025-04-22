@@ -1,4 +1,5 @@
 import useClaimReceipt from "@/Hooks/useClaimReceipt";
+import chestIcon from "./chest.png";
 import { Events } from "@/TwClassnames/Events";
 import { Fonts } from "@/TwClassnames/Fonts";
 
@@ -13,13 +14,21 @@ const ClaimQuestSlot = ({
 
   return (
     <>
-      <div className="border border-low-contrast w-[240px] h-[100px] backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center gap-y-2">
-        <p className={Fonts.Headings.Title.Bold}>Quest Slot</p>
+      <div
+        className="w-[152px] h-[172px]
+			border-[4px] border-pip-gray-200 bg-pip-white p-4
+			backdrop-blur-lg rounded-2xl flex flex-col justify-center items-center"
+      >
+        <img src={chestIcon} width={40} height={42} className="mb-2" />
+
         <div
           onClick={claimReceipt}
-          className={`rounded-2xl p-3 px-6 flex justify-center items-center w-[180px] bg-shadow hover:bg-shadow2 ${Events.Hover}`}
+          className={`bg-pip-yellow-base mt-2 rounded-lg py-[5px] text-center hover:bg-[#E6E6E6] ${Events.Hover} transition-all duration-300 ease-in-out
+					w-[104px]	h-[30px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center`}
         >
-          <p className={Fonts.Headings.Subtitle.Book}>Claim reward!</p>
+          <p className={`${Fonts.pip.body.small} text-pip-yellow-dark`}>
+            Claim Reward
+          </p>
         </div>
       </div>
     </>

@@ -24,13 +24,19 @@ function StatBox({ stat, value }: { stat: string; value: string }) {
 
   return (
     <div
-      className={`flex flex-col items-center rounded-lg w-[104px] h-[114px] justify-center border-[2px] border-pip-gray-200 p-1 relative ${
-        colors[stat as statType]
-      }`}
+      className={`flex flex-col items-center rounded-lg w-[104px] h-[114px] justify-center 
+				border-[2px] border-pip-gray-200 p-1 relative ${colors[stat as statType]}`}
     >
       <img src={icons[stat as statType]} height={65} className="z-[2]" />
-      <p className={`${Fonts.Headings.Subtitle.Bold} z-[2]`}>{value}</p>
-      {/* <p className={Fonts.Text.Medium}>{stat}</p> */}
+      <p
+        className={`${Fonts.pip.super_cartoon.h4} mt-2 z-[2]`}
+        style={{
+          WebkitTextStrokeWidth: "1px",
+          WebkitTextStrokeColor: "#FFF",
+        }}
+      >
+        {value}
+      </p>
       <div className="absolute z-[1] top-[-3px] left-[-2px]">
         <svg
           width="104"
