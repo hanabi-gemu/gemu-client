@@ -162,7 +162,7 @@ function LevelUpLayout({
         <div className="h-[23px] w-[410px] bg-pip-yellow-tint rounded-[100px]">
           {/* Filled portion based on progressPercentage */}
           <div
-            className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out delay-100"
+            className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out"
             style={{ width: `${progressPercentage}%` }}
           >
             <div

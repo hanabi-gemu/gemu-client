@@ -48,7 +48,7 @@ function TowerLayout() {
       </div>
       <div
         ref={boardContainerRef}
-        className="h-[70vh] rounded-2xl border-[4px] border-white overflow-y-hidden overflow-x-hidden"
+        className="h-[70vh] rounded-2xl border-[4px] border-white overflow-y-hidden overflow-x-hidden ml-3"
       >
         <Board
           setTileRef={(el, index) => (tileRefs.current[index] = el)}
