@@ -1,69 +1,23 @@
 import { Fonts } from "@/TwClassnames/Fonts";
 import usePlayer from "@/Hooks/usePlayer";
+import useXp from "@/Hooks/useXp";
 import { useState, useEffect } from "react";
 import Modal from "@/Components/Modal";
 import { Events } from "@/TwClassnames/Events";
 import { tw } from "@/Utils/tailwindIntel";
 import LevelUpLayout from "../Home/LevelUp/LevelUpLayout";
 
-// Helper function: calculates the sum of squares.
-function sumSquares(n: number) {
-  return (n * (n + 1) * (2 * n + 1)) / 6;
-}
-
-// Constants for XP calculation.
-const BASE_REQUIRED_XP_TO_LVL_UP = 10000;
-const XP_MULTIPLIER = 500;
-
-// Calculates the XP needed to level up given a starting level and desired levels to gain.
-function xpToLevelUp(startLevel: number, levelsToGain: number) {
-  const sumStart = sumSquares(startLevel - 1);
-  const sumTarget = sumSquares(startLevel + levelsToGain - 1);
-  return (
-    levelsToGain * BASE_REQUIRED_XP_TO_LVL_UP +
-    XP_MULTIPLIER * (sumTarget - sumStart)
-  );
-}
-
 function ProfileWidget() {
   const { player } = usePlayer();
   const [openModal, setOpenModal] = useState(false);
+  if (!player) return;
 
-  function calculateLevelUps(
-    playerXP: number,
-    currentLevel: number
-  ): { levels: number; remainingXP: number } {
-    let levelsGained = 0;
-    let xpRemaining = playerXP;
-
-    // Loop until the player doesn't have enough XP for the next level.
-    while (xpRemaining >= xpToLevelUp(currentLevel + levelsGained, 1)) {
-      const xpNeeded = xpToLevelUp(currentLevel + levelsGained, 1);
-      xpRemaining -= xpNeeded;
-      levelsGained++;
-    }
-
-    return { levels: levelsGained, remainingXP: xpRemaining };
-  }
-
+  const {percentage, levels} = useXp(player.level, player.xp);
   useEffect(() => {
-    if (!player) return;
-    if (Number(player.xp) >= xpToLevelUp(Number(player.level), 1)) {
+    if (levels >= 1) {
       setOpenModal(true);
     }
   }, [player]);
-
-  if (!player) return null;
-  // Calculate the XP required to go from the current level to the next.
-  const xpForNextLevel = xpToLevelUp(Number(player.level), 1);
-  // Calculate progress percentage: current XP relative to xpForNextLevel.
-  const progressPercentage = Math.min(
-    (Number(player.xp) / xpForNextLevel) * 100,
-    100
-  );
-  // Optionally, calculate the remaining XP needed.
-  // const remainingXp = xpForNextLevel - Number(player.xp);
-  const { levels } = calculateLevelUps(Number(player.xp), Number(player.level));
 
   return (
     <>
@@ -76,9 +30,9 @@ function ProfileWidget() {
             >
               Chris
             </div>
-            {Number(player.xp) >= xpToLevelUp(Number(player.level), 1) && (
+            {levels >= 1 && (
               <div
-                className={`${Fonts.Text.Medium} text-bg-med bg-red-600 w-[12px] h-[12px] rounded-full 
+                className={`${Fonts.Text.Medium} text-bg-med bg-red-600 w-[12px] h-[12px] rounded-full
 								p-2 ${Events.Hover} hover:bg-red-400 flex items-center justify-center`}
                 onClick={() => setOpenModal(true)}
               >
@@ -96,7 +50,7 @@ function ProfileWidget() {
                 {/* Filled portion based on progressPercentage */}
                 <div
                   className="h-[10px] bg-pip-yellow-base rounded-md"
-                  style={{ width: `${progressPercentage}%` }}
+                  style={{ width: `${percentage}%` }}
                 ></div>
               </div>
             </div>
@@ -113,6 +67,7 @@ function ProfileWidget() {
           player={player}
           onSuccess={() => setOpenModal(false)}
           levels={levels}
+          percentage={percentage}
         />
       </Modal>
     </>

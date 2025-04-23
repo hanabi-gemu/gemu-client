@@ -10,10 +10,23 @@ type PlayerObject = {
   type: string;
   fields: {
     stats: {
-      fields: Stats;
+      fields: {
+        sweetness: string;
+        sourness: string;
+        saltiness: string;
+        spicy: string;
+      };
     };
     resources: {
-      fields: Resources;
+      fields: {
+        energy: string;
+        last_energy_update: string;
+        focus: string;
+        max_energy: string;
+        max_focus: string;
+        rolls: string;
+        quest_slots: string;
+      };
     };
     xp: string;
     level: string;
@@ -22,28 +35,28 @@ type PlayerObject = {
 };
 
 export type Stats = {
-  sweetness: string;
-  sourness: string;
-  saltiness: string;
-  spicy: string;
+  sweetness: number;
+  sourness: number;
+  saltiness: number;
+  spicy: number;
 };
 
 export type Resources = {
-  energy: string;
+  energy: number;
   last_energy_update: string;
-  focus: string;
-  max_energy: string;
-  max_focus: string;
-  rolls: string;
-  quest_slots: string;
+  focus: number;
+  max_energy: number;
+  max_focus: number;
+  rolls: number;
+  quest_slots: number;
 };
 
 export type Player = {
   id: string;
   stats: Stats;
   resources: Resources;
-  xp: string;
-  level: string;
+  xp: number;
+  level: number;
 };
 
 function isMoveObject(
@@ -52,7 +65,7 @@ function isMoveObject(
   return data?.dataType === "moveObject";
 }
 
-function usePlayer() {
+function useFetchPlayer() {
   const client = useSuiClient();
   const account = useCurrentAccount()!;
 
@@ -94,10 +107,23 @@ function usePlayer() {
 
       const player = {
         id: moveStruct.objectId,
-        stats: playerObject.fields.stats.fields,
-        resources: playerObject.fields.resources.fields,
-        xp: playerObject.fields.xp,
-        level: playerObject.fields.level,
+        stats: {
+          sweetness: Number(playerObject.fields.stats.fields.sweetness),
+          sourness: Number(playerObject.fields.stats.fields.sourness),
+          saltiness: Number(playerObject.fields.stats.fields.saltiness),
+          spicy: Number(playerObject.fields.stats.fields.spicy),
+        } as Stats,
+        resources: {
+          energy: Number(playerObject.fields.resources.fields.energy),
+          last_energy_update: playerObject.fields.resources.fields.last_energy_update,
+          focus: Number(playerObject.fields.resources.fields.focus),
+          max_energy: Number(playerObject.fields.resources.fields.max_energy),
+          max_focus: Number(playerObject.fields.resources.fields.max_focus),
+          rolls: Number(playerObject.fields.resources.fields.rolls),
+          quest_slots: Number(playerObject.fields.resources.fields.quest_slots),
+        } as Resources,
+        xp: Number(playerObject.fields.xp),
+        level: Number(playerObject.fields.level),
       } as Player;
       player.id = moveStruct.objectId;
 
@@ -111,4 +137,4 @@ function usePlayer() {
   return { player, isLoading, refetch, isRefetching };
 }
 
-export default usePlayer;
+export default useFetchPlayer;

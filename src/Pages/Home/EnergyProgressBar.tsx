@@ -9,7 +9,7 @@ function EnergyProgressBar() {
 
   if (!player) return null;
 
-  const energy = Number(player.energy);
+  const energy = player.resources.energy;
   const safeEnergy = isNaN(energy) ? 0 : energy;
 
   const energyPercentage = Math.min((safeEnergy / MAX_ENERGY) * 100, 100);
