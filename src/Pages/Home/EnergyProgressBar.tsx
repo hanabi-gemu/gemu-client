@@ -7,9 +7,7 @@ const MAX_ENERGY = 100; // Replace with dynamic max if needed
 function EnergyProgressBar() {
   const { player } = usePlayer();
 
-  if (!player) return null;
-
-  const energy = Number(player.energy);
+  const energy = player.resources.energy;
   const safeEnergy = isNaN(energy) ? 0 : energy;
 
   const energyPercentage = Math.min((safeEnergy / MAX_ENERGY) * 100, 100);

@@ -5,13 +5,9 @@ import focusIcon from "./focus-icon.png";
 function FocusProgressBar() {
   const { player } = usePlayer();
 
-  if (!player) return null;
-
-  const focus = Number(player.focus);
-  const max_focus = Number(player.max_focus);
-  const safeMaxFocus = isNaN(max_focus) ? 100 : max_focus;
-  const safeFocus = isNaN(focus) ? 0 : focus;
-  const focusPercentage = Math.min((safeFocus / safeMaxFocus) * 100, 100);
+  const focus = player.resources.focus;
+  const max_focus = player.resources.max_focus;
+  const focusPercentage = Math.min((focus / max_focus) * 100, 100);
 
   return (
     <div className="w-[200px] h-[20px] border-[2px] border-pip-white relative rounded-[100px]">

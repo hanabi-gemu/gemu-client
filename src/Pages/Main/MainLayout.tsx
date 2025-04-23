@@ -4,8 +4,12 @@ import NavBar from "./NavBar";
 import background from "./background.png";
 // import PlayerLevelWidget from "../Home/PlayerLevelWidget";
 // import GoldWidget from "../Home/GoldWidget";
+import useFetchPlayer from "@/Hooks/useFetchPlayer";
+import { PlayerProvider } from "@/Contexts/PlayerContext";
+import RegisterPlayer from "../Home/Register";
 
 const MainLayout: React.FC = () => {
+  const { player } = useFetchPlayer();
   return (
     <div className="flex flex-col p-4">
       <div className="flex-grow rounded-lg p-6 w-max-[1980px]">
@@ -14,21 +18,26 @@ const MainLayout: React.FC = () => {
           alt="Background"
           className="absolute top-0 left-0 w-full h-full object-cover -z-10"
         />
-        <Router>
-          <div className="h-[80px]">
-            <NavBar routes={routes} />
-          </div>
-          {/* <div className="flex justify-between mb-10">
-            <PlayerLevelWidget />
-            <GoldWidget />
-          </div> */}
-          <Routes>
-            {routes.map(({ route, element }) => (
-              <Route key={route} path={route} element={element} />
-            ))}
-          </Routes>
+        {player && (
+          <PlayerProvider>
+            <Router>
+              <div className="h-[80px]">
+                <NavBar routes={routes} />
+              </div>
+              {/* <div className="flex justify-between mb-10">
+                <PlayerLevelWidget />
+                <GoldWidget />
+              </div> */}
+              <Routes>
+                {routes.map(({ route, element }) => (
+                  <Route key={route} path={route} element={element} />
+                ))}
+              </Routes>
           {/* Bottom Navbar */}
-        </Router>
+            </Router>
+        </PlayerProvider>
+        )}
+        {!player && <RegisterPlayer />}
       </div>
     </div>
   );

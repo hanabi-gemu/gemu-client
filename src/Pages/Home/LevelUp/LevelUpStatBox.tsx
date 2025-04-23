@@ -1,6 +1,7 @@
 import { Events } from "@/TwClassnames/Events";
 import { useState } from "react";
 import StatBox from "../StatBox";
+import { Stats } from "@/Hooks/usePlayer";
 
 function LevelUpStatBox({
   stat,
@@ -12,26 +13,16 @@ function LevelUpStatBox({
   pointsToAllocate,
 }: {
   stat: "saltiness" | "sweetness" | "sourness" | "spicy";
-  value: string;
+  value: number;
   pointsToAllocate: number;
   allocatedPoints: number;
   setAllocatedPoints: React.Dispatch<React.SetStateAction<number>>;
-  statState: {
-    saltiness: string;
-    sourness: string;
-    sweetness: string;
-    spicy: string;
-  };
+  statState: Stats;
   setStats: React.Dispatch<
-    React.SetStateAction<{
-      saltiness: string;
-      sourness: string;
-      sweetness: string;
-      spicy: string;
-    }>
+    React.SetStateAction<Stats>
   >;
 }) {
-  const initialValue = Number(value); // Ensure it's treated as a number
+  const initialValue = value; // Ensure it's treated as a number
   const [points, setPoints] = useState(initialValue);
 
   const handleAddPoint = () => {

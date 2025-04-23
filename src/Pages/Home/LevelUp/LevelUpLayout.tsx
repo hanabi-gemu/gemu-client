@@ -7,38 +7,21 @@ import bgSource from "./radial-yellow.png";
 import diamondSrc from "./diamond.png";
 import lightningIcon from "./lightning.png";
 import useLevelUp from "@/Hooks/useLevelUp";
-
-// Helper function: calculates the sum of squares.
-function sumSquares(n: number) {
-  return (n * (n + 1) * (2 * n + 1)) / 6;
-}
-
-// Constants for XP calculation.
-const BASE_REQUIRED_XP_TO_LVL_UP = 10000;
-const XP_MULTIPLIER = 500;
-
-// Calculates the XP needed to level up given a starting level and desired levels to gain.
-function xpToLevelUp(startLevel: number, levelsToGain: number) {
-  const sumStart = sumSquares(startLevel - 1);
-  const sumTarget = sumSquares(startLevel + levelsToGain - 1);
-  return (
-    levelsToGain * BASE_REQUIRED_XP_TO_LVL_UP +
-    XP_MULTIPLIER * (sumTarget - sumStart)
-  );
-}
-
+import {xpToLevelUp} from "@/Hooks/useXp";
 function LevelUpLayout({
   player,
   levels,
+  percentage,
   onSuccess,
 }: {
   levels: number;
   player: Player;
+  percentage: number;
   onSuccess: VoidFunction;
 }) {
   const [openAllocateStats, setOpenAllocateStats] = useState(false);
   const [allocatedPoints, setAllocatedPoints] = useState(0);
-  const pointsToAllocate = levels * 5;
+  const pointsToAllocate = levels * 4;
 
   const { levelUp } = useLevelUp();
 
@@ -55,36 +38,28 @@ function LevelUpLayout({
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-      if (player) {
-        // Calculate target percentage first
-        const targetPercentage = Math.min(
-          (Number(player.xp) / xpToLevelUp(Number(player.level), 1)) * 100,
-          100
-        );
-
         // Reset to 0 then animate to target
         setProgressPercentage(0);
         setTimeout(() => {
-          setProgressPercentage(targetPercentage);
+          setProgressPercentage(percentage);
         }, 50); // Small delay to ensure DOM update
-      }
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, []);
+  }, [percentage]);
 
   const handleConfirm = () => {
     const pointsAdded = {
       saltiness: Math.abs(
-        Number(stats.saltiness) - Number(initialStats.saltiness)
+        stats.saltiness - initialStats.saltiness
       ),
       sourness: Math.abs(
-        Number(stats.sourness) - Number(initialStats.sourness)
+        stats.sourness - initialStats.sourness
       ),
       sweetness: Math.abs(
-        Number(stats.sweetness) - Number(initialStats.sweetness)
+        stats.sweetness - initialStats.sweetness
       ),
-      spicy: Math.abs(Number(stats.spicy) - Number(initialStats.spicy)),
+      spicy: Math.abs(stats.spicy - initialStats.spicy),
     };
 
     levelUp(
@@ -184,7 +159,7 @@ function LevelUpLayout({
         Level up!
       </div>
       <div className={`${Fonts.Text.Paragraph.Medium}  z-10`}>
-        You can now level up to Level {Number(player.level) + levels}
+        You can now level up to Level {player.level + levels}
       </div>
 
       {/* Level progress bar */}
@@ -199,7 +174,7 @@ function LevelUpLayout({
             <div
               className={`${Fonts.pip.body.emphasized} flex items-center justify-center`}
             >
-              {Number(player.xp)}/{xpToLevelUp(Number(player.level), 1)} XP
+              {player.xp}/{xpToLevelUp(player.level, 1)} XP
             </div>
           </div>
         </div>
@@ -234,7 +209,7 @@ function Button({
   return (
     <div
       className={`p-3 w-[290px] h-[48px] bg-pip-yellow-base
-		transition-all duration-300 ease-in-out rounded-xl relative  justify-center 
+		transition-all duration-300 ease-in-out rounded-xl relative  justify-center
 		items-center flex ${
       disabled
         ? "opacity-50 cursor-not-allowed"

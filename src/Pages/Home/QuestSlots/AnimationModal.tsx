@@ -11,6 +11,7 @@ import lightningIcon from "./lightning.png";
 import blue_background from "./blue-background.png";
 import { tw } from "@/Utils/tailwindIntel";
 import ReactConfetti from "react-confetti";
+import useXp, {xpToLevelUp} from "@/Hooks/useXp";
 
 const rewardsStyles = {
   gold: { bg: tw`bg-pip-yellow-tint`, icon: goldIcon },
@@ -18,56 +19,26 @@ const rewardsStyles = {
   xp: { bg: tw`bg-pip-rose-tint`, icon: xpIcon },
 };
 
-// Helper function: calculates the sum of squares.
-function sumSquares(n: number) {
-  return (n * (n + 1) * (2 * n + 1)) / 6;
-}
-
-// Constants for XP calculation.
-const BASE_REQUIRED_XP_TO_LVL_UP = 10000;
-const XP_MULTIPLIER = 500;
-
-// Calculates the XP needed to level up given a starting level and desired levels to gain.
-function xpToLevelUp(startLevel: number, levelsToGain: number) {
-  const sumStart = sumSquares(startLevel - 1);
-  const sumTarget = sumSquares(startLevel + levelsToGain - 1);
-  return (
-    levelsToGain * BASE_REQUIRED_XP_TO_LVL_UP +
-    XP_MULTIPLIER * (sumTarget - sumStart)
-  );
-}
-
 function AnimationModal({ questItem }: { questItem?: Quest }) {
   const [showSpinner, setShowSpinner] = useState(true);
-
   const [progressPercentage, setProgressPercentage] = useState(0);
-
   const { player, refetch } = usePlayer();
+  const {percentage} = useXp(player.level, player.xp);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
       setShowSpinner(false);
       await refetch(); // Wait for player data to update
 
-      if (player) {
-        // Calculate target percentage first
-        const targetPercentage = Math.min(
-          (Number(player.xp) / xpToLevelUp(Number(player.level), 1)) * 100,
-          100
-        );
-
         // Reset to 0 then animate to target
         setProgressPercentage(0);
         setTimeout(() => {
-          setProgressPercentage(targetPercentage);
+          setProgressPercentage(percentage);
         }, 50); // Small delay to ensure DOM update
-      }
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  if (!player) return false;
+  }, [refetch, percentage]);
 
   return (
     <>
@@ -107,7 +78,7 @@ function AnimationModal({ questItem }: { questItem?: Quest }) {
                   <div
                     className={`${Fonts.pip.body.emphasized} absolute flex items-center justify-center left-[42%]`}
                   >
-                    {Number(player.xp)}/{xpToLevelUp(Number(player.level), 1)}{" "}
+                    {player.xp}/{xpToLevelUp(player.level, 1)}{" "}
                     XP
                   </div>
                   <div

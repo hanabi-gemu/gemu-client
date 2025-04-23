@@ -1,11 +1,11 @@
 import { mintPlayer } from "@/Actions/MintPlayer";
 import Spinner from "@/Components/Spinner";
-import usePlayer from "@/Hooks/usePlayer";
+import useFetchPlayer from "@/Hooks/useFetchPlayer";
 import { useCurrentAccount } from "@mysten/dapp-kit";
 import { useState } from "react";
 
 function RegisterPlayer() {
-  const { refetch } = usePlayer();
+  const { refetch } = useFetchPlayer();
   const account = useCurrentAccount();
   const [loading, setLoading] = useState(false);
 

@@ -68,8 +68,8 @@ function LevelUpLayout({
           {Object.entries(player.stats).map(([key, value]) => (
             <LevelUpStatBox
               setAllocatedPoints={setAllocatedPoints}
-              stat={key as "saltiness" | "sweetness" | "sourness" | "spicy"}
-              statState={stats}
+              stats={key as "saltiness" | "sweetness" | "sourness" | "spicy"}
+              statsState={stats}
               value={value}
               key={key}
               setStats={setStats}
