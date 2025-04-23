@@ -57,14 +57,12 @@ const QuestInProgress = ({
               ></div>
             </div>
           </div>
-          <div
-            className={` mt-2 rounded-lg py-[5px] text-center bg-[#E6E6E6] ${Events.NotAllowed}
-					w-[104px]	h-[40px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center`}
+
+          <p
+            className={`${Fonts.pip.body.small} text-pip-yellow-dark text-center whitespace-nowrap mt-5`}
           >
-            <p className={`${Fonts.pip.body.small} text-pip-yellow-dark`}>
-              Quest in progress
-            </p>
-          </div>
+            Quest in progress
+          </p>
         </div>
       )}
     </>
