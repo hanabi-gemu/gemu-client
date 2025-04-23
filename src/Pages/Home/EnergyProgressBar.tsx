@@ -7,8 +7,6 @@ const MAX_ENERGY = 100; // Replace with dynamic max if needed
 function EnergyProgressBar() {
   const { player } = usePlayer();
 
-  if (!player) return null;
-
   const energy = player.resources.energy;
   const safeEnergy = isNaN(energy) ? 0 : energy;
 

@@ -11,16 +11,13 @@ function PlayerLevelWidget() {
   const { player } = usePlayer();
   const [openModal, setOpenModal] = useState(false);
 
-  if (!player) return;
-
   const {percentage, levels} = useXp(player.level, player.xp);
 
   useEffect(() => {
-    if (!player) return;
     if (levels >= 1) {
       setOpenModal(true);
     }
-  }, [player]);
+  }, [player, levels]);
 
   return (
     <>

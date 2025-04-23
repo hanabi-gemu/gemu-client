@@ -21,13 +21,9 @@ const rewardsStyles = {
 
 function AnimationModal({ questItem }: { questItem?: Quest }) {
   const [showSpinner, setShowSpinner] = useState(true);
-
   const [progressPercentage, setProgressPercentage] = useState(0);
-
   const { player, refetch } = usePlayer();
-
-  if (!player) return;
-  const {percentage} = useXp(player?.level, player?.xp);
+  const {percentage} = useXp(player.level, player.xp);
 
   useEffect(() => {
     const timer = setTimeout(async () => {
@@ -42,9 +38,7 @@ function AnimationModal({ questItem }: { questItem?: Quest }) {
     }, 5000);
 
     return () => clearTimeout(timer);
-  }, []);
-
-  if (!player) return false;
+  }, [refetch, percentage]);
 
   return (
     <>

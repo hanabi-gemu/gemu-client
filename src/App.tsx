@@ -8,14 +8,21 @@ import MainLayoutMobile from "./Pages/Main/MainLayoutMobile";
 const App: React.FC = () => {
   const account = useCurrentAccount();
   const isMobile = useWindowWidth();
+
+  if (!account) {
+    return <div className="flex-grow"><Login /></div>;
+  }
+
   return (
     <div className="">
       {isMobile ? (
         <div className="flex-grow">
-          {account ? <MainLayoutMobile /> : <Login />}
+          <MainLayoutMobile />
         </div>
       ) : (
-        <div className="flex-grow">{account ? <MainLayout /> : <Login />}</div>
+        <div className="flex-grow">
+          <MainLayout />
+        </div>
       )}
     </div>
   );

@@ -5,8 +5,6 @@ import focusIcon from "./focus-icon.png";
 function FocusProgressBar() {
   const { player } = usePlayer();
 
-  if (!player) return null;
-
   const focus = player.resources.focus;
   const max_focus = player.resources.max_focus;
   const focusPercentage = Math.min((focus / max_focus) * 100, 100);
