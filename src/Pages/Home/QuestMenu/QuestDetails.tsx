@@ -46,9 +46,11 @@ function QuestDetails({
           <GoBackButton />
         </div>
         {quest && (
-          <h1 className={`${Fonts.pip.super_cartoon.h2} text-center`}>
-            {quest.name}
-          </h1>
+          <div className="justify-center w-full flex">
+            <h1 className={`${Fonts.pip.super_cartoon.h2} text-center`}>
+              {quest.name}
+            </h1>
+          </div>
         )}
       </div>
       <div className="w-full bg-shadow h-[180px] rounded-2xl mt-3"></div>
@@ -93,9 +95,9 @@ function QuestDetails({
             Object.entries(quest.requirements.fields).map(
               ([key, value], index) => (
                 <>
-                  {Number(value) > 0 && (
+                  {Number(value) > 1 && (
                     <div
-                      className="rounded-xl border-[2px] border-gray-200 bg-pip-white w-[138px] h-[175px] p-2"
+                      className="rounded-xl border-[2px] border-gray-200 bg-pip-white w-[148px] h-[175px] p-2"
                       key={index}
                     >
                       <div className="h-[120px] rounded-lg bg-pip-rose-tint mb-2"></div>
@@ -104,7 +106,8 @@ function QuestDetails({
                           WebkitTextStrokeWidth: "2px",
                           WebkitTextStrokeColor: "#FFF",
                         }}
-                        className={`${Fonts.pip.super_cartoon.h4} [text-shadow:0px_3px_0px_#F06D0D] text-center flex items-center`}
+                        className={`${Fonts.pip.super_cartoon.h4} text-lg justify-center
+												 [text-shadow:0px_3px_0px_#F06D0D] text-center flex items-center`}
                       >
                         + {value}
                         {key}

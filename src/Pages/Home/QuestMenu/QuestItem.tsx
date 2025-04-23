@@ -5,9 +5,11 @@ import { Fonts } from "@/TwClassnames/Fonts";
 function QuestItem({
   onClick,
   questId,
+  disabled = false,
 }: {
   onClick?: VoidFunction;
   questId?: string;
+  disabled?: boolean;
 }) {
   const quest = quests.find((q) => q.quest_id === questId);
   return (
@@ -19,8 +21,14 @@ function QuestItem({
         {quest?.name}
       </p>
       <div
-        onClick={onClick}
-        className={`bg-pip-yellow-base mt-2 rounded-lg text-center hover:bg-[#E6E6E6] ${Events.Hover} transition-all duration-300 ease-in-out
+        onClick={disabled ? undefined : onClick}
+        className={`bg-pip-yellow-base mt-2 rounded-lg text-center
+					${
+            disabled
+              ? "bg-pip-gray-200 cursor-not-allowed"
+              : `hover:bg-[#E6E6E6] ${Events.Hover}`
+          }
+					  transition-all duration-300 ease-in-out
 					w-full h-[34px] border-pip-yellow-dark border-[2px] relative flex items-center justify-center`}
       >
         <p

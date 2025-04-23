@@ -35,7 +35,7 @@ const Modal = ({
   // The modal content
   const modalContent = (
     <div
-      className={`fixed inset-0 z-[100] flex items-center justify-center ${
+      className={`fixed inset-0 z-[100000] flex items-center justify-center ${
         showModal ? "opacity-100" : "opacity-0 pointer-events-none"
       } transition-opacity duration-500`}
       style={{ backgroundColor: "rgba(0,0,0,0.5)" }}

@@ -6,17 +6,29 @@ import Modal from "@/Components/Modal";
 import { Events } from "@/TwClassnames/Events";
 import { tw } from "@/Utils/tailwindIntel";
 import LevelUpLayout from "../Home/LevelUp/LevelUpLayout";
+import { useLocation, useNavigate } from "react-router-dom";
 
 function ProfileWidget() {
   const { player } = usePlayer();
   const [openModal, setOpenModal] = useState(false);
+  const navigate = useNavigate();
+  const location = useLocation();
 
-  const {percentage, levels} = useXp(player.level, player.xp);
+  const { percentage, levels } = useXp(player.level, player.xp);
   useEffect(() => {
-    if (levels >= 1) {
+    if (levels >= 1 && location.pathname === "/") {
       setOpenModal(true);
     }
-  }, [player, levels]);
+  }, [player, levels, location.pathname]);
+
+  const handleIconClick = () => {
+    if (levels >= 1 && location.pathname === "/") {
+      setOpenModal(true);
+    }
+    if (location.pathname === "/tower") {
+      navigate("/");
+    }
+  };
 
   return (
     <>
@@ -33,7 +45,7 @@ function ProfileWidget() {
               <div
                 className={`${Fonts.Text.Medium} text-bg-med bg-red-600 w-[12px] h-[12px] rounded-full
 								p-2 ${Events.Hover} hover:bg-red-400 flex items-center justify-center`}
-                onClick={() => setOpenModal(true)}
+                onClick={handleIconClick}
               >
                 !
               </div>

@@ -13,6 +13,7 @@ function ClaimDailyRewardContainer() {
   const { claims } = useGetClaims();
   const [loadingClaim, setLoadingClaim] = useState(false);
   const [timeRemaining, setTimeRemaining] = useState("");
+  const [disabled, setDisabled] = useState(false);
 
   useEffect(() => {
     if (!claims?.timestamp) return;
@@ -47,6 +48,14 @@ function ClaimDailyRewardContainer() {
     // Clear interval on cleanup.
     return () => clearInterval(intervalId);
   }, [claims]);
+
+  useEffect(() => {
+    if (timeRemaining) {
+      setDisabled(true);
+    } else {
+      setDisabled(false);
+    }
+  }, [timeRemaining]);
 
   if (isLoadingPlayer) {
     return <Spinner />;
@@ -106,9 +115,13 @@ function ClaimDailyRewardContainer() {
         <img src={bigCoinIcon} />
       </div>
       <div
-        className="bg-pip-yellow-base rounded-lg mt-6 text-center group-hover:bg-[#E6E6E6] transition-all duration-300 ease-in-out
-				h-fit border-pip-yellow-dark border-[2px] relative flex items-center justify-center"
-        onClick={handleClaimDailyReward}
+        className={`${
+          disabled
+            ? "bg-pip-gray-100 hover:cursor-not-allowed"
+            : "bg-pip-yellow-base group-hover:bg-[#E6E6E6] border-pip-yellow-dark"
+        } rounded-lg  mt-6 text-center  transition-all duration-300 ease-in-out
+				h-fit  border-[2px] relative flex items-center justify-center`}
+        onClick={disabled ? undefined : handleClaimDailyReward}
       >
         {loadingClaim ? (
           <Spinner />

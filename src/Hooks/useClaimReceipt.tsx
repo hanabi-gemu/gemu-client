@@ -1,9 +1,6 @@
 import { Transaction } from "@mysten/sui/transactions";
 import { useSignTransaction, useSuiClient } from "@mysten/dapp-kit";
-import {
-  goldManagerId,
-  claimReceiptStruct,
-} from "@/smartContractInterface";
+import { goldManagerId, claimReceiptStruct } from "@/smartContractInterface";
 import usePlayer from "./usePlayer";
 import { SUI_CLOCK_OBJECT_ID } from "@mysten/sui/utils";
 
@@ -24,9 +21,6 @@ function useClaimReceipt(receiptId: string, slot: number) {
           tx.object(receiptId), // quest_id: u64
           tx.object(player.id), // player: &mut Player
           tx.object(goldManagerId), // gold_manager: &mut GOLDManager
-          tx.object(
-            "0x0000000000000000000000000000000000000000000000000000000000000008"
-          ), // random: &Random
           tx.object(SUI_CLOCK_OBJECT_ID), // clock: &Clock
           // The TxContext (ctx) is automatically handled by the Move runtime.
         ],

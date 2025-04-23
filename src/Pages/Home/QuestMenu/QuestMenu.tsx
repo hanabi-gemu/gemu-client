@@ -87,11 +87,12 @@ function QuestMenu({ slot }: { slot: number }) {
               ))}
             </div>
           </div>
-          <div className="mt-5 p-5">
+          <div className="mt-5 p-5 overflow-y-scroll h-[300px]">
             <h2 className={Fonts.Headings.Title.Bold}>Unavailable</h2>
-            <div className="flex gap-2 mt-2 overflow-x-scroll">
+            <div className="grid grid-cols-3 gap-2 mt-2">
               {unavailableQuests.map((quest) => (
                 <QuestItem
+                  disabled={true}
                   questId={quest.quest_id}
                   key={quest.quest_id}
                   onClick={() => {

@@ -7,7 +7,7 @@ import bgSource from "./radial-yellow.png";
 import diamondSrc from "./diamond.png";
 import lightningIcon from "./lightning.png";
 import useLevelUp from "@/Hooks/useLevelUp";
-import {xpToLevelUp} from "@/Hooks/useXp";
+import { xpToLevelUp } from "@/Hooks/useXp";
 function LevelUpLayout({
   player,
   levels,
@@ -38,11 +38,11 @@ function LevelUpLayout({
 
   useEffect(() => {
     const timer = setTimeout(async () => {
-        // Reset to 0 then animate to target
-        setProgressPercentage(0);
-        setTimeout(() => {
-          setProgressPercentage(percentage);
-        }, 50); // Small delay to ensure DOM update
+      // Reset to 0 then animate to target
+      setProgressPercentage(0);
+      setTimeout(() => {
+        setProgressPercentage(percentage);
+      }, 50); // Small delay to ensure DOM update
     }, 5000);
 
     return () => clearTimeout(timer);
@@ -50,15 +50,9 @@ function LevelUpLayout({
 
   const handleConfirm = () => {
     const pointsAdded = {
-      saltiness: Math.abs(
-        stats.saltiness - initialStats.saltiness
-      ),
-      sourness: Math.abs(
-        stats.sourness - initialStats.sourness
-      ),
-      sweetness: Math.abs(
-        stats.sweetness - initialStats.sweetness
-      ),
+      saltiness: Math.abs(stats.saltiness - initialStats.saltiness),
+      sourness: Math.abs(stats.sourness - initialStats.sourness),
+      sweetness: Math.abs(stats.sweetness - initialStats.sweetness),
       spicy: Math.abs(stats.spicy - initialStats.spicy),
     };
 
@@ -168,7 +162,7 @@ function LevelUpLayout({
         <div className="h-[23px] w-[410px] bg-pip-yellow-tint rounded-[100px]">
           {/* Filled portion based on progressPercentage */}
           <div
-            className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out delay-400"
+            className="h-[23px] bg-pip-yellow-base rounded-[100px] transition-all duration-500 ease-in-out delay-100"
             style={{ width: `${progressPercentage}%` }}
           >
             <div
